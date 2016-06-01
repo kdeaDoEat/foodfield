@@ -11,6 +11,16 @@
         <put-attribute name="main_body" value="/WEB-INF/tiles/mainbody.jsp" />
         <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
     </definition>
+    
+    <definition name="freeBoardTemplate" template="/WEB-INF/tiles/freeboard/freeBoardTemplete.jsp">
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <!-- <put-attribute name="main_slider" value="/WEB-INF/tiles/slider.jsp" />
+        <put-attribute name="main_body" value="/WEB-INF/tiles/mainbody.jsp" /> -->
+        <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
+    </definition>
+    
+    
+    
    
 </tiles-definitions>
 <!-- 아래처럼 다수개의 definition을 정의하면서 extends속성을 이용하여 기본 정의를
