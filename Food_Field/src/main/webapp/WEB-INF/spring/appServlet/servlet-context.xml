@@ -12,7 +12,16 @@
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	<context:annotation-config/>
-    
+	
+	<context:component-scan base-package="org.kdea.main" />
+	<context:component-scan base-package="org.kdea.freeboard" />
+	<context:component-scan base-package="org.kdea.noticeboard" />
+	<context:component-scan base-package="org.kdea.reviewboard" />
+	<context:component-scan base-package="org.kdea.qnaboard" />
+	<context:component-scan base-package="org.kdea.login" />
+	<context:component-scan base-package="org.kdea.join" />
+	<context:component-scan base-package="org.kdea.vo" />
+	
     <!-- Enables the Spring MVC @Controller programming model -->
     <mvc:annotation-driven />
     
@@ -27,6 +36,7 @@
         <beans:property name="order" value="0"/>
 	</beans:bean>
 	
+
 	<context:component-scan base-package="org.kdea.main" />
 	<context:component-scan base-package="org.kdea.freeboard" />
 	<context:component-scan base-package="org.kdea.noticeboard" />
@@ -37,13 +47,16 @@
 	<context:component-scan base-package="org.kdea.vo" />
 	
 	 <beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	 
 		<beans:property name="mapperLocations" value="classpath:org/kdea/**/*.xml" />
 		<beans:property name="dataSource" ref="dataSource" />
 	</beans:bean>
 
 	<beans:bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg index="0" ref="sqlSessionFactory" />
+
 	</beans:bean> 
+
 	
 	<!-- 타일즈 뷰 리졸버 선언 -->
 	<beans:bean id="viewResolver"

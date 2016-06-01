@@ -21,14 +21,16 @@ public class FreeBoardController {
 	@Autowired
 	private FreeBoradService fbService;
 
-	@RequestMapping(value="/free", method = RequestMethod.GET)
+
+	@RequestMapping(value="free", method = RequestMethod.GET)
+
 	public String free(Model model,HttpServletRequest request){
 		System.out.println("FREE board controller");
 		String spage= request.getParameter("page");
-		System.out.println("현재페이지: "+spage );
+		System.out.println("�쁽�옱�럹�씠吏�: "+spage );
 		int page=Integer.parseInt(spage);
 		List<FreeboardVO> list= fbService.getFreebdList(page);
-		System.out.println("리스트 크기: "+list.size());
+		System.out.println("由ъ뒪�듃 �겕湲�: "+list.size());
 		SearchVO svo= new SearchVO();
 		svo.setBsearch(false);
 		model.addAttribute("isSearch", svo);
@@ -42,7 +44,7 @@ public class FreeBoardController {
 		return "write";
 	}
 	
-	//글 db에 등록
+
 	@RequestMapping(value="/winput",method=RequestMethod.POST)
 	public String Write(@ModelAttribute("input")  FreeboardVO  fbVO, 
 			Model model,HttpServletRequest request){
@@ -62,8 +64,12 @@ public class FreeBoardController {
 		if(request.getParameter("id")!=null){
 		String id=request.getParameter("id");
 		FreeboardVO fb= fbService.getDetail(id);
+
 		System.out.println("상세내용 가져왔냐 "+fb.getContent());
 		System.out.println("상세내용)글번호 :"+fb.getNum() );
+
+		System.out.println("占쌜뱄옙호 :"+fb.getNum() );
+
 		model.addAttribute("wvalue", fb);
 		return "detail";
 		}
@@ -80,12 +86,14 @@ public class FreeBoardController {
 	@RequestMapping(value="comment", method=RequestMethod.POST)
 	public String commentContent(@ModelAttribute("input") FreeboardVO fb,
 			 Model model){
-		System.out.println("컨트롤러)글번호1: "+fb.getRef());
+		System.out.println("而⑦듃濡ㅻ윭)湲�踰덊샇1: "+fb.getRef());
 		boolean commentSuccess=fbService.wcomment(fb);
 	
 		if(commentSuccess){
+
 			System.out.println("컨트롤러)글번호2: "+fb.getRef());
 		return "redirect:detail?num="+fb.getRef();
+
 		}else
 			
 			return "";
@@ -133,7 +141,7 @@ public class FreeBoardController {
 	@ResponseBody
 	public String BeforeCommentmodi(@RequestParam("number") int num
 			){
-		System.out.println("수정내용 불러오기 위한 글번호:  "+num);
+		System.out.println("�닔�젙�궡�슜 遺덈윭�삤湲� �쐞�븳 湲�踰덊샇:  "+num);
 		String jobjStr=fbService.getCommentDetail(num);
 		
 		return jobjStr;
@@ -152,7 +160,7 @@ public class FreeBoardController {
 			,produces="application/text; charset=utf8")
 	@ResponseBody
 	public String CommentDel(@RequestParam("num") int num){
-		System.out.println("삭제할 코멘트 번호: "+num);
+		System.out.println("�궘�젣�븷 肄붾찘�듃 踰덊샇: "+num);
 		
 		String jobjStr=fbService.CoDelSuceess(num);
 		
@@ -162,7 +170,7 @@ public class FreeBoardController {
 	@RequestMapping(value="delete", method=RequestMethod.GET)
 	public String delte(@RequestParam("num") int num,
 			Model model){
-		System.out.println("delete할 번호: "+num);
+		System.out.println("delete�븷 踰덊샇: "+num);
 		boolean deleteSuccess=fbService.delete(num);
 		if(deleteSuccess){
 		return "redirect:free?page=1";
@@ -172,15 +180,17 @@ public class FreeBoardController {
 	@RequestMapping(value="replyForm", method=RequestMethod.GET)
 	public String Reply(@RequestParam("num") int num,
 			Model model){
+
 		System.out.println("답글달 상위 번호: "+num);
 		return "redirect:write?num="+num;
+
 	}
 	
 	@RequestMapping(value="search", method=RequestMethod.GET)
 	public String Search(@ModelAttribute("search") SearchVO svo,
 			Model model){
 		
-		System.out.println("값들이 제대로 넘어왔는가? "+svo.getSearchCategory()+", "+svo.getSearchContent()+", "+svo.getPage());
+		System.out.println("媛믩뱾�씠 �젣��濡� �꽆�뼱�솕�뒗媛�? "+svo.getSearchCategory()+", "+svo.getSearchContent()+", "+svo.getPage());
 		List<FreeboardVO> searchList= fbService.getSearchList(svo);
 		svo.setBsearch(true);
 		model.addAttribute("fbList",searchList);
