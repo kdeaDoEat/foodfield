@@ -381,4 +381,12 @@ public class NoticeBoardController {
 						
 	}
 	
+	@RequestMapping(value="/showViewFormat",method=RequestMethod.GET)
+	public ModelAndView goViewFormat(@ModelAttribute("board") BoardVO board, Model model){
+		
+		ModelAndView dest = new ModelAndView("noticeboard/boardViewFormat");
+		return dest;
+						
+	}
+	
 }
