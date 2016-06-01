@@ -1,7 +1,6 @@
 // Fonts
 
-$font-monsterrat: 'Montserrat', arial, sans-serif;
-$font-JejuGothic: 'Jeju Gothic', serif;
+$font-monsterrat: 'Montserrat','Jeju Gothic', arial, sans-serif;
 $font-roboto: 'Roboto', arial, sans-serif;
 
 // Overrides
@@ -146,7 +145,7 @@ h1, h2, h3, h4, h5, h6 {
 				text-transform: uppercase;
 				color: $brand-black;
 				font-weight: normal;
-				font-family: $font-monsterrat, $font-JejuGothic;
+				font-family: $font-monsterrat;
 				
 				> span {
 					
