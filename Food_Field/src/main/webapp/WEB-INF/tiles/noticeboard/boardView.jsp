@@ -111,7 +111,7 @@ th {
 </head>
 <body>
 
-	<table id="view" class="table">
+	<table id="view" class="table" style="margin-top:150px;">
 		<tr>
 			<th>글 번호</th>
 			<th>글 제목</th>

@@ -74,7 +74,7 @@ a {
 
 
     <div style="margin-left: auto;
-	margin-right: auto; width:70%">
+	margin-right: auto; width:70%; margin-top:150px;">
 	<table class="table table-hover">
 		<output id="pageoutput">${page.currpage}/${page.totalpage}</output>
 		<tr>
