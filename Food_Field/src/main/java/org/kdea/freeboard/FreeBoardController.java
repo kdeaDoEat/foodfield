@@ -21,9 +21,7 @@ public class FreeBoardController {
 	@Autowired
 	private FreeBoradService fbService;
 
-
 	@RequestMapping(value="free", method = RequestMethod.GET)
-
 	public String free(Model model,HttpServletRequest request){
 		System.out.println("FREE board controller");
 		String spage= request.getParameter("page");
