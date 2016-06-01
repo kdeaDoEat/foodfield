@@ -12,7 +12,16 @@
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	<context:annotation-config/>
-    
+	
+	<context:component-scan base-package="org.kdea.main" />
+	<context:component-scan base-package="org.kdea.freeboard" />
+	<context:component-scan base-package="org.kdea.noticeboard" />
+	<context:component-scan base-package="org.kdea.reviewboard" />
+	<context:component-scan base-package="org.kdea.qnaboard" />
+	<context:component-scan base-package="org.kdea.login" />
+	<context:component-scan base-package="org.kdea.join" />
+	<context:component-scan base-package="org.kdea.vo" />
+	
     <!-- Enables the Spring MVC @Controller programming model -->
     <mvc:annotation-driven />
     
@@ -26,15 +35,6 @@
 		<beans:property name="contentType" value="text/html; charset=UTF-8"/>
         <beans:property name="order" value="0"/>
 	</beans:bean>
-	
-	<context:component-scan base-package="org.kdea.main" />
-	<context:component-scan base-package="org.kdea.freeboard" />
-	<context:component-scan base-package="org.kdea.noticeboard" />
-	<context:component-scan base-package="org.kdea.reviewboard" />
-	<context:component-scan base-package="org.kdea.qnaboard" />
-	<context:component-scan base-package="org.kdea.login" />
-	<context:component-scan base-package="org.kdea.join" />
-	<context:component-scan base-package="org.kdea.vo" />
 	
 	<!-- <beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<beans:property name="mapperLocations" value="classpath:org/kdea/mybatis/*.xml" />
