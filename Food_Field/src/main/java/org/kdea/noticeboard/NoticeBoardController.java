@@ -64,7 +64,7 @@ public class NoticeBoardController {
 	@RequestMapping(value="/write",method=RequestMethod.GET)
 	public String goWriteForm(){
 				
-		return "noticeboard/writeForm";
+		return "noticeboard/writeFormTemp";
 		
 	}
 	
@@ -263,7 +263,7 @@ public class NoticeBoardController {
 	@RequestMapping(value="/modform",method=RequestMethod.GET)
 	public ModelAndView goWriteForm(@ModelAttribute("board") BoardVO board){
                                     /*모델에 자동 저장이미 楹~*/				
-		return new ModelAndView("noticeboard/modForm");
+		return new ModelAndView("noticeboard/modFormTemp");
 		
 	}
 	
@@ -288,7 +288,7 @@ public class NoticeBoardController {
 			
 		}
 		
-		ModelAndView dest = new ModelAndView("noticeboard/boardList","boardlist",boardlist);
+		ModelAndView dest = new ModelAndView("noticeboard/boardListTemp","boardlist",boardlist);
 		return dest;
 						
 	}
@@ -298,7 +298,7 @@ public class NoticeBoardController {
 	public ModelAndView goView(@ModelAttribute("board") BoardVO board, Model model){
 		
 		BoardVO boardinfo = service.selectBoard(board);
-		ModelAndView dest = new ModelAndView("noticeboard/boardView","board",boardinfo);
+		ModelAndView dest = new ModelAndView("noticeboard/boardViewTemp","board",boardinfo);
 		return dest;
 						
 	}
@@ -308,11 +308,11 @@ public class NoticeBoardController {
 		
 		new NoticeValidator().validate(board,result);
 		if (result.hasErrors()) {			
-			return new ModelAndView("noticeboard/writeForm");			
+			return new ModelAndView("noticeboard/writeFormTemp");			
 		}
 		board = service.insertBoard(board, request);
 		BoardVO boardinfo = service.selectBoard(board);
-		ModelAndView dest = new ModelAndView("noticeboard/boardView","board",boardinfo);
+		ModelAndView dest = new ModelAndView("noticeboard/boardViewTemp","board",boardinfo);
 		return dest;
 						
 	}
@@ -327,7 +327,7 @@ public class NoticeBoardController {
 		}
 		board = service.replyBoard(board, request);
 		BoardVO boardinfo = service.selectBoard(board);
-		ModelAndView dest = new ModelAndView("noticeboard/boardView","board",boardinfo);
+		ModelAndView dest = new ModelAndView("noticeboard/boardViewTemp","board",boardinfo);
 		return dest;
 						
 	}
@@ -337,13 +337,13 @@ public class NoticeBoardController {
 		
 		new NoticeValidator().validate(board,result);
 		if (result.hasErrors()) {			
-			return new ModelAndView("noticeboard/modForm");			
+			return new ModelAndView("noticeboard/modFormTemp");			
 		}
 		//나중에 시간나면 true로 바꾸자~
 		board = service.updateBoard(board, request);
 		
 		BoardVO boardinfo = service.selectBoard(board);
-		ModelAndView dest = new ModelAndView("noticeboard/boardView","board",boardinfo);
+		ModelAndView dest = new ModelAndView("noticeboard/boardViewTemp","board",boardinfo);
 		return dest;
 						
 	}

@@ -12,8 +12,32 @@
         <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
     </definition>
     
-    <definition name="freeBoardTemplate" template="/WEB-INF/tiles/freeboard/freeBoardTemplete.jsp">
+    <definition name="freeBoardTemplate" template="/WEB-INF/tiles/freeboard/freeBoardTemplate.jsp">
         <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
+    </definition>
+    
+    <definition name="noticeBoardListTemplate" template="/WEB-INF/tiles/noticeboard/noticeBoardListTemplate.jsp">
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="notice_list" value="/WEB-INF/tiles/noticeboard/boardList.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
+    </definition>
+    
+    <definition name="noticeBoardViewTemplate" template="/WEB-INF/tiles/noticeboard/noticeBoardViewTemplate.jsp">
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="notice_view" value="/WEB-INF/tiles/noticeboard/boardView.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
+    </definition>
+    
+    <definition name="noticeWriteFormTemplate" template="/WEB-INF/tiles/noticeboard/noticeWriteFormTemplate.jsp">
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="notice_write" value="/WEB-INF/tiles/noticeboard/writeForm.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
+    </definition>
+    
+    <definition name="noticeModFormTemplate" template="/WEB-INF/tiles/noticeboard/noticeModFormTemplate.jsp">
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="notice_mod" value="/WEB-INF/tiles/noticeboard/modForm.jsp" />
         <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
     </definition>
     
