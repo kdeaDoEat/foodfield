@@ -1,20 +1,23 @@
 package org.kdea.vo;
 
 import java.sql.Date;
+import java.util.List;
 
 public class BoardVO {
+   
 	private int num;
 	private String nickname;
 	private Date w_date;
 	private String title;
 	private String contents;
 	private int ref;
-	private int hit;
+	private int view;
 	private String photo;
 	private int recommend;
 	private int grade;
 	private String shop_name;
 	private String shop_add;
+	private List<CommentVO> cmtvo;
 	
 	public int getNum() {
 		return num;
@@ -52,11 +55,11 @@ public class BoardVO {
 	public void setRef(int ref) {
 		this.ref = ref;
 	}
-	public int getHit() {
-		return hit;
+	public int getView() {
+		return view;
 	}
-	public void setHit(int hit) {
-		this.hit = hit;
+	public void setView(int view) {
+		this.view = view;
 	}
 	public String getPhoto() {
 		return photo;
@@ -87,6 +90,12 @@ public class BoardVO {
 	}
 	public void setShop_add(String shop_add) {
 		this.shop_add = shop_add;
+	}
+	public List<CommentVO> getCmtvo() {
+		return cmtvo;
+	}
+	public void setCmtvo(List<CommentVO> cmtvo) {
+		this.cmtvo = cmtvo;
 	}
 	
 }
