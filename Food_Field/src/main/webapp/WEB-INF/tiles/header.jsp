@@ -13,7 +13,7 @@
 						<li class="dropdown">
 		            			<a href="#" class="dropdown-toggle" data-toggle="dropdown">Board <b class="caret"></b></a>
 		            			<ul class="dropdown-menu">
-		              				<li><a href="/FoodField/notice">공지사항<span class="border"></span></a></li>
+		              				<li><a href="/FoodField/notice/list">공지사항<span class="border"></span></a></li>
 		              				<li><a href="/FoodField/free">자유게시판<span class="border"></span></a></li>
 		              				<li><a href="/FoodField/qna">QnA<span class="border"></span></a></li>
 		              				<!-- <li class="divider"></li>

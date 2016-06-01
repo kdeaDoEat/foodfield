@@ -267,7 +267,7 @@ public class NoticeBoardController {
 		
 	}
 	
-	@RequestMapping(value={"/list"/*,""*/},method=RequestMethod.GET)
+	@RequestMapping(value={"/list"},method=RequestMethod.GET)
 	public ModelAndView goList(@ModelAttribute("search") SearchVO search, @ModelAttribute("board") BoardVO board, @ModelAttribute("page") PageVO page, Model model){
 		
 		List<BoardVO> boardlist = new ArrayList<BoardVO>();
