@@ -54,8 +54,6 @@
         <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
     </definition>
     
-    
-    
 </tiles-definitions>
 
   
