@@ -48,7 +48,6 @@
 	<body>
 	
 	<tiles:insertAttribute name="header" />
-	<%-- <tiles:insertAttribute name="freeBoard" /> --%>
 	<tiles:insertAttribute name="footer" />
 
 	<!-- jQuery -->

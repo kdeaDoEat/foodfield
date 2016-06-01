@@ -48,7 +48,9 @@
 	<body>
 	
 	<tiles:insertAttribute name="header" />
-	<%-- <tiles:insertAttribute name="list" /> --%>
+	
+	<tiles:insertAttribute name="review_list" />
+	
 	<tiles:insertAttribute name="footer" />
 
 	<!-- jQuery -->

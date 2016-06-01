@@ -14,14 +14,12 @@
     
     <definition name="freeBoardTemplate" template="/WEB-INF/tiles/freeboard/freeBoardTemplete.jsp">
         <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
-        <!-- <put-attribute name="main_slider" value="/WEB-INF/tiles/slider.jsp" />
-        <put-attribute name="main_body" value="/WEB-INF/tiles/mainbody.jsp" /> -->
         <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
     </definition>
     
     <definition name="reviewBoardTemplate" template="/WEB-INF/tiles/reviewboard/reviewBoardTemplete.jsp">
         <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
-        <put-attribute name="list" value="/WEB-INF/tiles/reviewboard/reviewBoardList.jsp" />
+        <put-attribute name="review_list" value="/WEB-INF/tiles/reviewboard/reviewBoardList.jsp" />
         <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
     </definition>
     
