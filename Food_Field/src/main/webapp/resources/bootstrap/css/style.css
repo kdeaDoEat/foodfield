@@ -1396,7 +1396,8 @@ pre code {
   margin-right: auto;
   margin-left: auto;
   padding-left: 20px;
-  padding-right: 20px; }
+  padding-right: 20px;
+   }
 .container:before, .container:after {
   content: " ";
   display: table; }

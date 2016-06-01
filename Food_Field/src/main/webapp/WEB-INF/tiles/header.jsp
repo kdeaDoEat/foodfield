@@ -23,7 +23,7 @@
          				<li><a href="right-sidebar.html"><span>미사용 <span class="border"></span></span></a></li>
 						<li><a href="/FoodField/review"><span>맛집리뷰 <span class="border"></span></span></a></li>
 						<li><a href="/FoodField/doit"><span>오늘의 메뉴 <span class="border"></span></span></a></li>
-						
+					
 					</ul>
 					
 					<ul class="nav navbar-nav navbar-right">
