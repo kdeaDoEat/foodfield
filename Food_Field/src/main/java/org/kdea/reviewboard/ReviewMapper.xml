@@ -4,16 +4,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kdea.reviewboard.ReviewDAO"> <!--이 sql 문장과 매핑될 인터페이스의 완전한 경로-->
 	<select id="getList" resultType="org.kdea.vo.BoardVO">
-        select num,title,nickname,w_date,hit,recommend from board3
+			select t3.num,t3.title,t3.nickname,t3.w_date,t3.hit,t3.recommend from(
+						select trunc((rn-1)/5+1) as page,t2.* from(
+							select rownum rn,t1.* from(
+					  			 select num,LPAD('└',(LEVEL-1)*2,'　')||title as title,contents,nickname,w_date,hit,recommend from board3 start with ref=0 connect by prior num=ref order siblings by num desc
+					  		) t1
+						 )t2
+					)t3 where page=#{page}
     </select>
 	<insert id="write" parameterType="org.kdea.vo.BoardVO">
         insert into board3 (num, w_date, title, contents, shop_name, shop_add, hit, ref, recommend) 
-        	values ( 0, sysdate, #{title}, #{contents}, #{shop_name}, #{shop_add}, 0, 0, 0 )
+        	values ( board3_num.NEXTVAL, sysdate, #{title}, #{contents}, #{shop_name}, #{shop_add}, 0, 0, 0 )
     </insert>
     <select id="read" resultType="org.kdea.vo.BoardVO">
         select num,title,contents from board3 where num=#{num}
     </select>
-	
+    
+	<select id="page" resultType="java.lang.Integer" >
+        select ceil(COUNT(num)/5) as page from board3
+    </select>
+    
     <!-- <select id="list" resultType="org.kdea.mybatis.EmpVO">
         select * from emp2
     </select>

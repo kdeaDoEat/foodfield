@@ -12,11 +12,32 @@
         <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
     </definition>
     
-    <definition name="freeBoardTemplate" template="/WEB-INF/tiles/freeboard/freeBoardTemplete.jsp">
-        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
-        <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
+    <definition name="freeBoardTemplate" template="/WEB-INF/tiles/freeBoard/freeBoardTemplate.jsp">
+     	 <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="body" value="/WEB-INF/tiles/freeBoard/freeBoard.jsp" />
+         <!--<put-attribute name="main_body" value="/WEB-INF/tiles/mainbody.jsp" /> -->
+	</definition>
+	
+ 	<definition name="writeTemplate" extends="freeBoardTemplate" >
+        <put-attribute name="body" value="/WEB-INF/tiles/freeBoard/write.jsp" />
     </definition>
-    
+ 	<definition name="detailTemplate" extends="freeBoardTemplate" >
+        <put-attribute name="body" value="/WEB-INF/tiles/freeBoard/detail.jsp" />
+    </definition>
+    <definition name="modifyTemplate" extends="freeBoardTemplate" >
+        <put-attribute name="body" value="/WEB-INF/tiles/freeBoard/modify.jsp" />
+    </definition>
+  
+ 	<definition name="writeTemplate" extends="freeBoardTemplate" >
+        <put-attribute name="body" value="/WEB-INF/tiles/freeBoard/write.jsp" />
+    </definition>
+ 	<definition name="detailTemplate" extends="freeBoardTemplate" >
+        <put-attribute name="body" value="/WEB-INF/tiles/freeBoard/detail.jsp" />
+    </definition>
+    <definition name="modifyTemplate" extends="freeBoardTemplate" >
+        <put-attribute name="body" value="/WEB-INF/tiles/freeBoard/modify.jsp" />
+    </definition>
+
     <definition name="reviewBoardTemplate" template="/WEB-INF/tiles/reviewboard/reviewBoardTemplete.jsp">
         <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
         <put-attribute name="body" value="/WEB-INF/tiles/reviewboard/reviewBoardList.jsp" />
@@ -36,7 +57,8 @@
 상속하여 사용할 수도 있고, 다수개의 xml 파일에 나누어 정의할 수도 있다 -->
 <!-- <tiles-definitions>
  
-    <definition name="base.definition" template="/WEB-INF/view/jsp/layout.jsp">
+    <definition name="base.definition" 
+    	  template="/WEB-INF/view/jsp/layout.jsp">
       <put-attribute name="title" value="" />
       <put-attribute name="header" value="/WEB-INF/view/jsp/template/header.jsp" />
  
