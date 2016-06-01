@@ -27,29 +27,11 @@
     <definition name="modifyTemplate" extends="freeBoardTemplate" >
         <put-attribute name="body" value="/WEB-INF/tiles/freeBoard/modify.jsp" />
     </definition>
-  
- 	<definition name="writeTemplate" extends="freeBoardTemplate" >
-        <put-attribute name="body" value="/WEB-INF/tiles/freeBoard/write.jsp" />
-    </definition>
- 	<definition name="detailTemplate" extends="freeBoardTemplate" >
-        <put-attribute name="body" value="/WEB-INF/tiles/freeBoard/detail.jsp" />
-    </definition>
-    <definition name="modifyTemplate" extends="freeBoardTemplate" >
-        <put-attribute name="body" value="/WEB-INF/tiles/freeBoard/modify.jsp" />
-    </definition>
-
+   
     <definition name="reviewBoardTemplate" template="/WEB-INF/tiles/reviewboard/reviewBoardTemplete.jsp">
         <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
-        <put-attribute name="body" value="/WEB-INF/tiles/reviewboard/reviewBoardList.jsp" />
+        <put-attribute name="review_list" value="/WEB-INF/tiles/reviewboard/reviewBoardList.jsp" />
         <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
-    </definition>
-    
-    <definition name="reviewBoardRead" extends="reviewBoardTemplate">
-        <put-attribute name="body" value="/WEB-INF/tiles/reviewboard/reviewBoardRead.jsp" />
-    </definition>
-    
-    <definition name="reviewBoardWrite" extends="reviewBoardTemplate">
-        <put-attribute name="body" value="/WEB-INF/tiles/reviewboard/reviewBoardWrite.jsp" />
     </definition>
     
 </tiles-definitions>

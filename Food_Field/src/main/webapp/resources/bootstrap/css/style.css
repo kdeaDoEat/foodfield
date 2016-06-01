@@ -1392,7 +1392,11 @@ pre code {
   overflow-y: scroll; }
 
 .container {
+<<<<<<< HEAD
+	margin-top:100px;
+=======
   margin-top:100px;
+>>>>>>> branch 'master' of https://github.com/kdeaDoEat/foodfield.git
   margin-right: auto;
   margin-left: auto;
   padding-left: 20px;

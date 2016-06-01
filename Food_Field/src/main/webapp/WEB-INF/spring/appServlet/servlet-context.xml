@@ -28,7 +28,35 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="contentType" value="text/html; charset=UTF-8"/>
+        <beans:property name="order" value="0"/>
+	</beans:bean>
 	
+
+	<context:component-scan base-package="org.kdea.main" />
+	<context:component-scan base-package="org.kdea.freeboard" />
+	<context:component-scan base-package="org.kdea.noticeboard" />
+	<context:component-scan base-package="org.kdea.reviewboard" />
+	<context:component-scan base-package="org.kdea.qnaboard" />
+	<context:component-scan base-package="org.kdea.login" />
+	<context:component-scan base-package="org.kdea.join" />
+	<context:component-scan base-package="org.kdea.vo" />
+	
+	 <beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	 
+		<beans:property name="mapperLocations" value="classpath:org/kdea/**/*.xml" />
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+
+	<beans:bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg index="0" ref="sqlSessionFactory" />
+
+	</beans:bean> 
+
 	<!-- 타일즈 뷰 리졸버 선언 -->
 	<beans:bean id="tilesViewResolver"
 	        class="org.springframework.web.servlet.view.UrlBasedViewResolver">
@@ -56,15 +84,6 @@
 		<beans:property name="suffix" value=".jsp" />
 		<beans:property name="contentType" value="text/html; charset=UTF-8"/>
         <beans:property name="order" value="2"/>
-	</beans:bean>
-	
-	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<beans:property name="mapperLocations" value="classpath:org/kdea/**/*.xml" />
-		<beans:property name="dataSource" ref="dataSource" />
-	</beans:bean>
-
-	<beans:bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-		<beans:constructor-arg index="0" ref="sqlSessionFactory" />
 	</beans:bean>
 	
 </beans:beans>
