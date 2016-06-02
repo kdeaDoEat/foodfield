@@ -74,7 +74,6 @@
 	</div>
 	
 	<form action="insert" method="post" style="margin-top:150px; width:80%; margin-left:auto; margin-right:auto;">
-	<div class="span6" style="width:100%">
 	<fieldset
 			style=" display: table; margin-left: auto; margin-right: auto; margin-top: 50px;" class="form-group">
 
@@ -856,7 +855,6 @@
 			<br>
 			
 		</fieldset>
-		</div>
 	</form>
 <script type="text/javascript">
 if(window.frameElement){

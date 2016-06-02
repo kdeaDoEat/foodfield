@@ -83,7 +83,7 @@ function modsubmitgo(){
 	<input type="button" onclick="showHTML();" value="본문 내용 가져오기" />
 	<input type="button" onclick="submitContents();" value="서버로 내용 전송" />
 	<input type="button" onclick="setDefaultFont();" value="기본 폰트 지정하기 (궁서_24)" /> -->		
-	<form action="modify" method="post">
+	<form action="modify" method="post" style="margin-top:150px; width:80%; margin-left:auto; margin-right:auto;">
 	<input type="hidden" value="${board.num}" name="num"/>
 	
 	<fieldset
@@ -854,7 +854,7 @@ function modsubmitgo(){
 	</div>
 </div>
 <!-- SE2 Markup End -->
-			<textarea rows="10" cols="50" id="contents" name="contents">${board.contents}</textarea>
+			<textarea rows="20" cols="10" id="contents" name="contents"  style="width: 20%; border: 1px solid #333; padding: 4px;">${board.contents}</textarea>
 			<span id="contentserror">
             <spring:bind path="board.contents">
 				${status.errorMessage }<!-- 설정한 에러메세지 출력 -->
