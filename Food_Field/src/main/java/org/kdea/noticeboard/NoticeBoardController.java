@@ -377,7 +377,7 @@ public class NoticeBoardController {
 			
 			boardno = board.getNum()-1;
 		}
-		return "redirect:list?boardno="+boardno;		
+		return "redirect:list?num="+boardno;		
 						
 	}
 	
