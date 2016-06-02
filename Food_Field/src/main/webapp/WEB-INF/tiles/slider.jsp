@@ -2,15 +2,15 @@
     pageEncoding="utf-8"%>
 <div class="fh5co-slider">
 		<div class="owl-carousel owl-carousel-fullwidth">
-		    <div class="item" style="background-image:url(/FoodField/resources/bootstrap/images/slide_1.jpg)">
+		    <div class="item" style="background-image:url(http://1.media.collegehumor.cvcdn.com/84/68/e4247ef50e7bc22a7f05351e885bac7f.gif)">
 		    	<div class="fh5co-overlay"></div>
 		    	<div class="container">
 		    		<div class="row">
 		    			<div class="col-md-8 col-md-offset-2">
 			    			<div class="fh5co-owl-text-wrap">
 						    	<div class="fh5co-owl-text text-center to-animate">
-						    		<h1 class="fh5co-lead">Booster Studio</h1>
-									<h2 class="fh5co-sub-lead">Booster is a free responsive HTML5 template using bootstrap released under Creative Commons 3.0. Lovely crafted by <a href="#">FREEHTML5.co</a></h2>
+						    		<h1 class="fh5co-lead">Find Place</h1>
+									<h2 class="fh5co-sub-lead">전국 맛집을 공유하자!</h2>
 						    	</div>
 						    </div>
 					    </div>

@@ -3,72 +3,13 @@
 <div id="fh5co-main">
 		<!-- Features -->
 
-		<div id="fh5co-features">
-			<div class="container">
-				<div class="row text-center">
-					<div class="col-md-8 col-md-offset-2">
-						<h2 class="fh5co-section-lead">Key Features</h2>
-						<h3 class="fh5co-section-sub-lead">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</h3>
-					</div>
-					<div class="fh5co-spacer fh5co-spacer-md"></div>
-				</div>
-				<div class="row">
-					<div class="col-md-6 col-sm-6 fh5co-feature-border">
-						<div class="fh5co-feature">
-							<div class="fh5co-feature-icon to-animate">
-								<i class="icon-bag"></i>
-							</div>
-							<div class="fh5co-feature-text">
-								<h3>Shopping Bag</h3>
-								<p>Far far away, behind the word mountains, far from the countries Vokalia.</p>
-								<p><a href="#">Read more</a></p>
-							</div>
-						</div>
-						<div class="fh5co-feature no-border">
-							<div class="fh5co-feature-icon to-animate">
-								<i class="icon-head"></i>
-							</div>
-							<div class="fh5co-feature-text">
-								<h3>User Satisfaction</h3>
-								<p>Far far away, behind the word mountains, far from the countries Vokalia.</p>
-								<p><a href="#">Read more</a></p>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 col-sm-6">
-						<div class="fh5co-feature">
-							<div class="fh5co-feature-icon to-animate">
-								<i class="icon-microphone"></i>
-							</div>
-							<div class="fh5co-feature-text">
-								<h3>Voice Recording</h3>
-								<p>Far far away, behind the word mountains, far from the countries Vokalia.</p>
-								<p><a href="#">Read more</a></p>
-							</div>
-						</div>
-						<div class="fh5co-feature no-border">
-							<div class="fh5co-feature-icon to-animate">
-								<i class="icon-clock2"></i>
-							</div>
-							<div class="fh5co-feature-text">
-								<h3>24/7 Support</h3>
-								<p>Far far away, behind the word mountains, far from the countries Vokalia.</p>
-								<p><a href="#">Read more</a></p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- Features -->
-
 
 		<div class="fh5co-spacer fh5co-spacer-lg"></div>		
 		<!-- Products -->
 		<div class="container" id="fh5co-products">
 			<div class="row text-left">
 				<div class="col-md-8">
-					<h2 class="fh5co-section-lead">Products</h2>
+					<h2 class="fh5co-section-lead">최고 평가</h2>
 					<h3 class="fh5co-section-sub-lead">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</h3>
 				</div>
 				<div class="fh5co-spacer fh5co-spacer-md"></div>
@@ -110,35 +51,70 @@
 				
 			</div>
 		</div>
-		<!-- Products -->
-		<div class="fh5co-spacer fh5co-spacer-lg"></div>
 
-		<div id="fh5co-clients">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-client-logo text-center to-animate"><img src="/FoodField/resources/bootstrap/images/client_1.png" alt="FREEHTML5.co Free HTML5 Bootstrap Template" class="img-responsive"></div>
-					<div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-client-logo text-center to-animate"><img src="/FoodField/resources/bootstrap/images/client_2.png" alt="FREEHTML5.co Free HTML5 Bootstrap Template" class="img-responsive"></div>
-					<div class="visible-sm-block visible-xs-block clearfix"></div>
-					<div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-client-logo text-center to-animate"><img src="/FoodField/resources/bootstrap/images/client_3.png" alt="FREEHTML5.co Free HTML5 Bootstrap Template" class="img-responsive"></div>
-					<div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-client-logo text-center to-animate"><img src="/FoodField/resources/bootstrap/images/client_4.png" alt="FREEHTML5.co Free HTML5 Bootstrap Template" class="img-responsive"></div>
-				</div>
-			</div>
-		</div>
 
-		<div class="fh5co-bg-section" style="background-image: url(/FoodField/resources/bootstrap/images/slide_2.jpg); background-attachment: fixed;">
-			<div class="fh5co-overlay"></div>
+
+		<!-- Features -->
+
+		<div id="fh5co-features">
 			<div class="container">
-				<div class="row">
+				<div class="row text-center">
 					<div class="col-md-8 col-md-offset-2">
-						<div class="fh5co-hero-wrap">
-							<div class="fh5co-hero-intro text-center">
-								<h1 class="fh5co-lead"><span class="quo">&ldquo;</span>Design is not just what it looks like and feels like. Design is how it works. <span class="quo">&rdquo;</span></h1>
-								<p class="author">&mdash; <cite>Steve Jobs</cite></p>
+						<h2 class="fh5co-section-lead">Key Features</h2>
+						<h3 class="fh5co-section-sub-lead">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</h3>
+					</div>
+					<div class="fh5co-spacer fh5co-spacer-md"></div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 col-sm-6 fh5co-feature-border">
+						<div class="fh5co-feature">
+							<div class="fh5co-feature-icon to-animate">
+								<i class="glyphicon glyphicon-map-marker"></i>
+							</div>
+							<div class="fh5co-feature-text">
+								<h3>내 주위 맛집!</h3>
+								<p>자신의 위치기반으로 주위 맛집을 찾아준다</p>
+								<p><a href="#">Read more</a></p>
+							</div>
+						</div>
+						<div class="fh5co-feature no-border">
+							<div class="fh5co-feature-icon to-animate">
+								<i class="glyphicon glyphicon-plus"></i>
+							</div>
+							<div class="fh5co-feature-text">
+								<h3>즐겨찾기!</h3>
+								<p>즐겨찾기설정으로 좋아하는 음식리뷰를 추가하고 모아본다</p>
+								<p><a href="#">Read more</a></p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 col-sm-6">
+						<div class="fh5co-feature">
+							<div class="fh5co-feature-icon to-animate">
+								<i class="glyphicon glyphicon-cutlery"></i>
+							</div>
+							<div class="fh5co-feature-text">
+								<h3>나만의 후기!</h3>
+								<p>나의 방문기를 여러사람들과 공유 추천을 받으며 포인트를 모은다</p>
+								<p><a href="#">Read more</a></p>
+							</div>
+						</div>
+						<div class="fh5co-feature no-border">
+							<div class="fh5co-feature-icon to-animate">
+								<i class="icon-clock2"></i>
+							</div>
+							<div class="fh5co-feature-text">
+								<h3>24/7 Support</h3>
+								<p>Far far away, behind the word mountains, far from the countries Vokalia.</p>
+								<p><a href="#">Read more</a></p>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		
+		<!-- Products -->
+		<div class="fh5co-spacer fh5co-spacer-lg"></div>
 
 	</div>
