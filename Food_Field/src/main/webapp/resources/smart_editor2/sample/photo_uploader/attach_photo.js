@@ -587,7 +587,7 @@
 			/*alert("setPhotoToEditor함수 : " + JSON.stringify(oFileInfo));
 			alert(oFileInfo[0].sFileURL);*/
 			
-			oFileInfo[0].sFileURL = "../"+oFileInfo[0].sFileURL
+			oFileInfo[0].sFileURL = oFileInfo[0].sFileURL
 			opener.nhn.husky.PopUpManager.setCallback(window, 'SET_PHOTO', [oFileInfo]);
 			
 			//본문에 바로 tag를 넣는 방법 (oFileInfo는 String으로 <img src=....> )
