@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.kdea.login.LoginDAO"> <!--이 sql 문장과 매핑될 인터페이스의 완전한 경로-->
+    <select id="login" resultType="org.kdea.vo.UserVO">
+    	SELECT * FROM USERS WHERE id = #{email}
+    </select>
+</mapper>
