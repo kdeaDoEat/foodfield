@@ -170,7 +170,6 @@ th {
 			<!--                         <p class="video-container">
                         <div class="fluid-width-video-wrapper" style="padding-top: 56.25%;"><iframe src="//player.vimeo.com/video/37254322?color=ffffff&amp;wmode=transparent" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" id="fitvid144791"></iframe></div>
                         </p>  -->
-
 		</div>
 
 		<br>
