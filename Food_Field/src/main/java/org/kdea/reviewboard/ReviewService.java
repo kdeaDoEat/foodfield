@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.plaf.synth.SynthSplitPaneUI;
 
 import org.json.simple.JSONObject;
 import org.kdea.vo.BoardVO;
+import org.kdea.vo.CommentVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import net.sf.json.JSONArray;
 
 @Service
 public class ReviewService {
@@ -36,7 +40,10 @@ public class ReviewService {
 
 	public BoardVO read(HttpServletRequest request) {
 		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
-		return dao.read(Integer.parseInt(request.getParameter("num")));
+		int page = Integer.parseInt(request.getParameter("num"));
+		BoardVO vo = dao.read(page);
+		vo.setCmtnum(dao.getCommentCount(page));
+		return vo;
 	}
 
 	public int pagecount() {
@@ -69,4 +76,75 @@ public class ReviewService {
 		return pageList;
 	}
 
+	public void updateHit(HttpServletRequest request) {
+		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
+		dao.updateHit(Integer.parseInt(request.getParameter("num")));
+	}
+
+	public String commentWrite(CommentVO vo) {
+		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
+		JSONObject jobj = new JSONObject();
+		boolean check = false;
+		if(dao.commentWrite(vo) > 0){
+			check = true;
+		}
+		jobj.put("ok", check);
+		return jobj.toJSONString();
+	}
+	
+	public List<CommentVO> commentList(HttpServletRequest request){
+		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
+		return dao.getCommentList(Integer.parseInt(request.getParameter("num")));
+	}
+
+	public String commentModify(CommentVO vo) {
+		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
+		JSONObject jobj = new JSONObject();
+		boolean check = false;
+		if(dao.commentModify(vo) > 0){
+			check = true;
+		}
+		jobj.put("ok", check);
+		return jobj.toJSONString();
+	}
+
+	public String commentDelete(CommentVO vo) {
+		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
+		JSONObject jobj = new JSONObject();
+		boolean check = false;
+		if(dao.commentDelete(vo) > 0){
+			check = true;
+		}
+		jobj.put("ok", check);
+		return jobj.toJSONString();
+	}
+
+	public String reviewModify(BoardVO vo) {
+		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
+		JSONObject jobj = new JSONObject();
+		boolean check = false;
+		if(dao.reviewModify(vo) > 0){
+			check = true;
+		}
+		jobj.put("ok", check);
+		return jobj.toJSONString();
+	}
+
+	public String reviewDelete(BoardVO vo) {
+		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
+		JSONObject jobj = new JSONObject();
+		boolean check = false;
+		if(dao.reviewDelete(vo) > 0){
+			dao.reviewBoardCommentDelete(vo.getNum());
+			check = true;
+		}
+		jobj.put("ok", check);
+		return jobj.toJSONString();
+	}
+
+	/*public BoardVO modify(HttpServletRequest request) {
+		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
+		return null;
+	}*/
+	
 }

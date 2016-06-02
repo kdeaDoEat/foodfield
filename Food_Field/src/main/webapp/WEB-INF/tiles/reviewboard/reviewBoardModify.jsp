@@ -1,26 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%> 
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <script type="text/javascript" src="/FoodField/resources/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	var oEditors = [];
 		$(function() {
-			
 			$('#searchmap').on('click',function(){
 				if($('#place').val() == ''){
-					alert('ê²€ìƒ‰ë‹¨ì–´ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”!');
+					alert('°Ë»ö´Ü¾î¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä!');
 				}else{
-					var popUrl = "searchMap?search="+$('#place').val();	//íŒì—…ì°½ì— ì¶œë ¥ë  í˜ì´ì§€ URL
-					var popOption = "width=870, height=660, resizable=no, scrollbars=no, status=no;";    //íŒì—…ì°½ ì˜µì…˜(optoin)
+					var popUrl = "searchMap?search="+$('#place').val();	//ÆË¾÷Ã¢¿¡ Ãâ·ÂµÉ ÆäÀÌÁö URL
+					var popOption = "width=870, height=660, resizable=no, scrollbars=no, status=no;";    //ÆË¾÷Ã¢ ¿É¼Ç(optoin)
 					window.open(popUrl,"",popOption);
 				} 
 			});
 			
 			$('#submit').on('click',function(){
-				var result = confirm('ë‚´ìš©ì„ í™•ì¸í•˜ì…¨ìŠµë‹ˆê¹Œ?');
+				var result = confirm('³»¿ëÀ» È®ÀÎÇÏ¼Ì½À´Ï±î?');
 				if(result){
 					$.ajax({
-						url:'wSubmit',
+						url:'reviewModify',
 						type:'post',
 						data:{title:$('input[name="title"]').val(),
 								shop_name:$('input[name="shop_name"]').val(),
@@ -29,7 +28,7 @@
 						},
 						dataType:'json',
 						success:function(result){
-							alert(result.ok);
+							location.href="/FoodField/review/read?num=${vo.num}";
 						}
 					});
 				}
@@ -38,22 +37,22 @@
 			nhn.husky.EZCreator.createInIFrame({
 				oAppRef: oEditors,
 				elPlaceHolder: "ir1",
-				//SmartEditor2Skin.html íŒŒì¼ì´ ì¡´ì¬í•˜ëŠ” ê²½ë¡œ
+				//SmartEditor2Skin.html ÆÄÀÏÀÌ Á¸ÀçÇÏ´Â °æ·Î
 				sSkinURI: "/FoodField/resources/editor/SmartEditor2Skin.html",	
 				htParams : {
-					// íˆ´ë°” ì‚¬ìš© ì—¬ë¶€ (true:ì‚¬ìš©/ false:ì‚¬ìš©í•˜ì§€ ì•ŠìŒ)
+					// Åø¹Ù »ç¿ë ¿©ºÎ (true:»ç¿ë/ false:»ç¿ëÇÏÁö ¾ÊÀ½)
 					bUseToolbar : true,				
-					// ì…ë ¥ì°½ í¬ê¸° ì¡°ì ˆë°” ì‚¬ìš© ì—¬ë¶€ (true:ì‚¬ìš©/ false:ì‚¬ìš©í•˜ì§€ ì•ŠìŒ)
+					// ÀÔ·ÂÃ¢ Å©±â Á¶Àı¹Ù »ç¿ë ¿©ºÎ (true:»ç¿ë/ false:»ç¿ëÇÏÁö ¾ÊÀ½)
 					bUseVerticalResizer : true,		
-					// ëª¨ë“œ íƒ­(Editor | HTML | TEXT) ì‚¬ìš© ì—¬ë¶€ (true:ì‚¬ìš©/ false:ì‚¬ìš©í•˜ì§€ ì•ŠìŒ)
+					// ¸ğµå ÅÇ(Editor | HTML | TEXT) »ç¿ë ¿©ºÎ (true:»ç¿ë/ false:»ç¿ëÇÏÁö ¾ÊÀ½)
 					bUseModeChanger : true,			
 					fOnBeforeUnload : function(){
 						
 					}
 				}, 
 				fOnAppLoad : function(){
-					//ê¸°ì¡´ ì €ì¥ëœ ë‚´ìš©ì˜ text ë‚´ìš©ì„ ì—ë””í„°ìƒì— ë¿Œë ¤ì£¼ê³ ì í• ë•Œ ì‚¬ìš©
-					oEditors.getById["ir1"].exec("PASTE_HTML", [""]);
+					//±âÁ¸ ÀúÀåµÈ ³»¿ëÀÇ text ³»¿ëÀ» ¿¡µğÅÍ»ó¿¡ »Ñ·ÁÁÖ°íÀÚ ÇÒ¶§ »ç¿ë
+					oEditors.getById["ir1"].exec("PASTE_HTML", ['${vo.contents}']);
 				},
 				fCreator: "createSEditor2"
 			});
@@ -64,50 +63,50 @@
 <div class="container">
         <div class="row">
             <div class="col-lg-12">
-            	<!-- ì…ë ¥ ë°•ìŠ¤  -->
+            	<!-- ÀÔ·Â ¹Ú½º  -->
 				<form class="form-horizontal" role="form" method="post" name="inputForm" id="inputForm">
-					<!--  ì œëª© ë¶€ë¶„  -->
+					<!--  Á¦¸ñ ºÎºĞ  -->
 					<div class="form-group">
-						<label for="name" class="col-sm-2 control-label">ì œëª©</label>
+						<label for="name" class="col-sm-2 control-label">Á¦¸ñ</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" name="title"
-								placeholder="input title">
+								placeholder="input title" value="${vo.title }">
 						</div>
 					</div>
-					<!-- ì¥ì†Œê²€ìƒ‰ë¶€ë¶„ -->
+					<!-- Àå¼Ò°Ë»öºÎºĞ -->
 					<div class="form-group">
-						<label for="human" class="col-sm-2 control-label">ì¥ì†Œ</label>
+						<label for="human" class="col-sm-2 control-label">Àå¼Ò</label>
 						<div class="col-sm-10">
 							<div class="input-group">
 								<input type="text" class="form-control" id="place"><span class="input-group-btn">
-									<button class="btn btn-default" type="button" id="searchmap">ê²€ìƒ‰</button>
+									<button class="btn btn-default" type="button" id="searchmap">°Ë»ö</button>
 								</span>
 							</div>
 						</div>
 					</div>
-					<!-- ì¥ì†Œ ëœ¨ëŠ” ë¶€ë¶„ -->
+					<!-- Àå¼Ò ¶ß´Â ºÎºĞ -->
 					<div class="form-group">
 						<label for="email" class="col-sm-2 control-label">SHOPNAME</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="shop_name" placeholder="ê°€ê²Œì´ë¦„" readonly="readonly">
+							<input type="text" class="form-control" name="shop_name" placeholder="°¡°ÔÀÌ¸§" readonly="readonly" value="${vo.shop_name }">
 						</div>
 						<label for="email" class="col-sm-2 control-label">SHOPADD</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="shop_add" placeholder="ê°€ê²Œì£¼ì†Œ" readonly="readonly">
+							<input type="text" class="form-control" name="shop_add" placeholder="°¡°ÔÁÖ¼Ò" readonly="readonly" value="${vo.shop_add }">
 						</div>
 					</div>
-					<!-- ë‚´ìš© ë¶€ë¶„ -->
+					<!-- ³»¿ë ºÎºĞ -->
 					<div class="form-group">
-						<label for="message" class="col-sm-2 control-label">ë‚´ìš©</label>
+						<label for="message" class="col-sm-2 control-label">³»¿ë</label>
 						<div class="col-sm-10">
 							<textarea rows="10" cols="30" id="ir1" name="contents"
 								style="width: 95%; height: 412px; min-width:260px; display:none;"></textarea>
 						</div>
 					</div>
-					<!-- ì „ì†¡ë²„íŠ¼  -->
+					<!-- Àü¼Û¹öÆ°  -->
 					<div class="form-group">
 						<div class="col-sm-10 col-sm-offset-2" style="text-align: center;">
-								<button class="btn icon-btn btn-default" type="button" id="submit"><span class="glyphicon btn-glyphicon glyphicon-pencil img-circle text-muted"></span>ã€€ì €ì¥</button>
+								<button class="btn icon-btn btn-primary" type="button" id="submit"><span class="glyphicon btn-glyphicon glyphicon-pencil img-circle text-muted"></span>¡¡¼öÁ¤¿Ï·á</button>
 								
 						</div>
 					</div>

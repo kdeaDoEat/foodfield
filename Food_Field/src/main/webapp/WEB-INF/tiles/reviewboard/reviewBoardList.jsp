@@ -28,9 +28,9 @@
 							<c:forEach var="l" items="${vo.list}">
 								<tr>
 									<td class="num" style="width: 10%">${l.num }</td>
-									<td class="title" style="width: 45%; text-align: left;" onclick="view(${l.num})"
-										onmouseover="this.style.color='gray'" style="cursor: pointer"
-										onmouseout="this.style.color='black'">${l.title}</td>
+									<td class="title" style="width: 45%; text-align: left; cursor: pointer;" onclick="view(${l.num})"
+										onmouseout="this.style.color='gray'" onmouseover="this.style.color='black'">
+										${l.title}</td>
 									<td class="author" style="width: 15%">${l.nickname }</td>
 									<td class="date" style="width: 10%"><fmt:formatDate value="${l.w_date }"
 											pattern="MM-dd" /></td>
@@ -77,30 +77,17 @@
 									</c:when>
 								</c:choose>
 								</li>
-									<!-- <li class="arrow unavailable" aria-disabled="true">
-							  <a href="">&laquo; Previous</a></li>
-							  
-							  <li class="current"><a href="">1</a></li>
-							  <li><a href="">2</a></li>
-							  <li><a href="">3</a></li>
-							  <li><a href="">4</a></li>
-							  <li class="unavailable" aria-disabled="true"><a href="">&hellip;</a></li>
-							  <li><a href="">12</a></li>
-							  <li><a href="">13</a></li>
-							  <li class="arrow"><a href="">Next &raquo;</a></li> -->
 							</ul>
 							</td>
 							</tr>
             				<tr><td colspan="6" style="text-align: center;">
-            				<a class="btn icon-btn btn-default" href="review/write">
+            				<a class="btn icon-btn btn-primary" href="review/write">
             				<span class="glyphicon btn-glyphicon glyphicon-pencil img-circle text-muted">
             				</span>　글쓰기</a></td></tr>
 						</tbody>
 
 					</table>
 				</div>
-                <!-- <h1>Logo Nav by Start Bootstrap</h1>
-                <p>Note: You may need to adjust some CSS based on the size of your logo. The default logo size is 150x50 pixels.</p> -->
             </div>
         </div>
  </div>
