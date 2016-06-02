@@ -35,7 +35,7 @@
 	var fnUploadImage = null;
 	
 	
-	var projectContextPath = "/doeat";
+	var projectContextPath = "/FoodField";
 	
 	//File API 지원 여부로 결정
 	function checkDragAndDropAPI(){
