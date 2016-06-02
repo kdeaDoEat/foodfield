@@ -72,14 +72,16 @@
 	<input type="button" onclick="submitContents();" value="서버로 내용 전송" />
 	<input type="button" onclick="setDefaultFont();" value="기본 폰트 지정하기 (궁서_24)" /> -->
 	</div>
-	<form action="insert" method="post" style="margin-top:150px;">
+	
+	<form action="insert" method="post" style="margin-top:150px; width:80%; margin-left:auto; margin-right:auto;">
+	<div class="span6" style="width:100%">
 	<fieldset
 			style=" display: table; margin-left: auto; margin-right: auto; margin-top: 50px;" class="form-group">
 
 			<legend>글 쓰기</legend>
 
 			<label for="title">글 제목</label><br> <input type="text"
-				id="title" name="title" class="form-control" />
+				id="title" name="title" class="form-control"/>
 			<br>
 			<span id="titleerror">
 			<spring:bind path="board.title">
@@ -90,7 +92,7 @@
 			<br>
 			<label for="contents">글 내용</label><br>
 			<!-- SE2 Markup Start -->	
-<div id="smart_editor2">
+<div id="smart_editor2" class="form-group">
 	<div id="smart_editor2_content"><a href="#se2_iframe" class="blind">글쓰기영역으로 바로가기</a>
 		<div class="se2_tool" id="se2_tool">
 			
@@ -841,7 +843,8 @@
 	</div>
 </div>
 <!-- SE2 Markup End -->
-			<textarea rows="10" cols="50" id="contents" name="contents"></textarea>
+            
+			<textarea rows="20" cols="10" id="contents" name="contents"  style="width: 20%; border: 1px solid #333; padding: 4px;"></textarea>
 			<span id="contentserror">
             <spring:bind path="board.contents">
 				${status.errorMessage }<!-- 설정한 에러메세지 출력 -->
@@ -853,8 +856,8 @@
 			<br>
 			
 		</fieldset>
+		</div>
 	</form>
-
 <script type="text/javascript">
 if(window.frameElement){
 	jindo.$("se2_sample").style.display = "none";
