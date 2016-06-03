@@ -1,44 +1,56 @@
-<%@page import="org.kdea.vo.FreeboardVO"%>
+<%@page import="org.kdea.vo.FreeBoardVO"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<% String cp = request.getContextPath();
-	String parentnum=request.getParameter("num");
-	System.out.println("ref: "+parentnum);
-	if(parentnum==null){
-		parentnum="0";
-		System.out.println("상귀 글번호가 없을때 ref: "+parentnum);
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+	String cp = request.getContextPath();
+	String parentnum = request.getParameter("num");
+	System.out.println("ref: " + parentnum);
+	if (parentnum == null) {
+		parentnum = "0";
+		System.out.println("상귀 글번호가 없을때 ref: " + parentnum);
 	}
 	session.setAttribute("ref", parentnum);
-%> <%--ContextPath 선언 --%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+%>
+<%--ContextPath 선언 --%>
 
-<title>자유게시판 글쓰기</title>
-</head>
-<body>
-<h2 id="bigTitle">글쓰기</h2>
-<form id="bform" name="input" method="post" action="winput">
-<input type="hidden" name="id" value="jungheeLee">
-<input type="hidden" name="ref" value="${ref}"> 
-<p>
-<div id="divTiltle" >글제목</div>
-<input type="text" name="title" id="title" >
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<form class="form-horizontal" id="bform" name="input" method="post"
+				action="winput">
+				<input type="hidden" name="nickname" value="jungheeLee"> <input
+					type="hidden" name="ref" value="${ref}">
+				<p>
+					<!--  제목 부분  -->
+				<div class="form-group">
+					<label for="name" class="col-sm-2 control-label">제목</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" name="title"
+							placeholder="input title">
+					</div>
+				</div>
+				<!-- 내용 부분 -->
+				<div class="form-group">
+					<label for="message" class="col-sm-2 control-label">내용</label>
+					<div class="col-sm-10">
+						<textarea rows="10" cols="30" id="ir1" name="contents"
+						class="form-control" placeholder="Input text" 
+							style="width: 100%; height: 412px; min-width: 260px; resize: none;"></textarea>
+					</div>
+				</div>
 
-<p><p>
-<textarea name="content"  id="content">
-내용
-</textarea>
-<p>
-<button type="submit" id="btn">저장</button>
-</form>
-<!--글쓰기 내용 -->
+			 	<!-- <input type="file" name="photo"> -->
+				<!--<div class="form-group">
+					<div class="col-sm-10 col-sm-offset-2" style="text-align: center;">
+						<button class="btn icon-btn btn-default" type="submit">
+							<span
+								class="glyphicon btn-glyphicon glyphicon-pencil img-circle text-muted"></span>저장
+						</button>
 
-</body>
-</html>
+					</div>
+				</div> -->
+			</form>
+		</div>
+	</div>
+</div>

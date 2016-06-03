@@ -1,15 +1,10 @@
-﻿<%@page import="org.kdea.vo.FreeboardVO"%>
+﻿<%@page import="org.kdea.vo.FreeBoardVO"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <% String cp = request.getContextPath(); 
 /* request.setCharacterEncoding("utf-8"); */%>
 <%--ContextPath 선언 --%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>글읽기</title>
 
 <script src="http://code.jquery.com/jquery-2.1.1.min.js"
 	type="text/javascript"></script>
@@ -123,7 +118,7 @@ function comodify(num){
 	console.log('동적으로 이벤트가 주어졌는가? '+$('#content'+num).val());
 	var commentval=$('#content'+num).val();
 	var jobj= {};
-	jobj.content=commentval;
+	jobj.contents=commentval;
 	jobj.num=num;
 	
 	$.ajax({
@@ -147,21 +142,23 @@ function comodify(num){
 	
 }
 </script>
-</head>
+<style>
+.detail{display: inline;}
+</style>
 <body>
 	<h2 id="bigTitle">글읽기</h2>
 	<form id="bform" name="input" method="post" action="modify">
-		<input type="hidden" name="id" value="${wvalue.id }"> <input
+		<input type="hidden" name="nickname" value="${wvalue.nickname }"> <input
 			type="hidden" name="num" value=" ${wvalue.num }">
 		<p>
-		<div id="divTiltle">글제목</div>
-		<div>글번호: ${wvalue.num }</div>
+		<div class="detail">글번호: ${wvalue.num }</div><div class="detail">조회수: ${wvalue.views}</div>
+		<div>글제목</div>
 		<input type="text" name="title" id="title" value="${wvalue.title} "
 			disabled="disabled">
 
 		<p>
-			<textarea name="content" id="content" disabled="disabled">
-${wvalue.content}
+			<textarea name="contents" id="content" disabled="disabled">
+${wvalue.contents}
 </textarea>
 		<p>
 			<button type="submit">수정</button>
@@ -176,13 +173,13 @@ ${wvalue.content}
 		<form id="clForm">
 		<table id="commentTable">
 			<c:forEach var="cList" items="${cvalue}">
-				<tr id="tr${cList.num }">
-					<td><input type="hidden" name="num" disabled="disabled" value="${cList.id}"></td>
-					<td><input type="text" disabled="disabled" value="${cList.id}"></td>
-					<td><input type="text" id="content${cList.num }" name="conent" disabled="disabled" value="${cList.content}"></td>
-					<td><input type="text" disabled="disabled" value="${cList.wdate}"></td>
-					<td id="tdbtn${cList.num }"><button type="button" id="mbtn${cList.num }" onclick="commentmodi(${cList.num });">수정</button></td>
-					<td><button type="button" id="dbtn${cList.num }" onclick="commentdel(${cList.num });">삭제</button></td>
+				<tr id="tr${cList.cnum }">
+					<td><input type="hidden" name="num" disabled="disabled" value="${cList.nickname}"></td>
+					<td><input type="text" disabled="disabled" value="${cList.nickname}"></td>
+					<td><input type="text" id="content${cList.cnum }" name="conent" disabled="disabled" value="${cList.contents}"></td>
+					<td><input type="text" disabled="disabled" value="${cList.w_date}"></td>
+					<td id="tdbtn${cList.cnum }"><button type="button" id="mbtn${cList.cnum }" onclick="commentmodi(${cList.cnum });">수정</button></td>
+					<td><button type="button" id="dbtn${cList.cnum }" onclick="commentdel(${cList.cnum });">삭제</button></td>
 				</tr>
 			</c:forEach> 
 			
@@ -193,11 +190,10 @@ ${wvalue.content}
 
 	<div id="comment" style="visibility: hidden">
 		<form name="input" method="post" action="comment">
-			<input type="hidden" name="id"
-				value="${wvalue.id }"> <input
-				type="hidden" name="ref" value=" ${wvalue.num }">
+			<input type="hidden" name="nickname" value="${wvalue.nickname }"> 
+				<input	type="hidden" name="num" value=" ${wvalue.num }">
 			<p>
-				<textarea name="content" id="ccontent">
+				<textarea name="contents">
 코멘트 내용
 </textarea>
 			<p>
@@ -205,5 +201,4 @@ ${wvalue.content}
 		</form>
 	</div>
 
-</body>
-</html>
+

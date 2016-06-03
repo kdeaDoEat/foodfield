@@ -15,7 +15,6 @@
     <definition name="freeBoardTemplate" template="/WEB-INF/tiles/freeBoard/freeBoardTemplate.jsp">
      	 <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
         <put-attribute name="body" value="/WEB-INF/tiles/freeBoard/freeBoard.jsp" />
-         <!--<put-attribute name="main_body" value="/WEB-INF/tiles/mainbody.jsp" /> -->
         <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
     </definition>
     

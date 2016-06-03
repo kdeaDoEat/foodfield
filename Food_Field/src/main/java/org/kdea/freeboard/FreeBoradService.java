@@ -4,7 +4,8 @@ import java.util.List;
 
 import org.json.simple.JSONObject;
 import org.kdea.vo.BoardListPageVO;
-import org.kdea.vo.FreeboardVO;
+import org.kdea.vo.CommentVO;
+import org.kdea.vo.FreeBoardVO;
 import org.kdea.vo.SearchVO;
 import org.mybatis.spring.*;
 import org.springframework.beans.factory.annotation.*;
@@ -17,9 +18,9 @@ public class FreeBoradService {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	public List<FreeboardVO> getFreebdList(int page){
+	public List<FreeBoardVO> list(int page){
 		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
-		List<FreeboardVO> list= fbdao.list(page);
+		List<FreeBoardVO> list= fbdao.list(page);
 		BoardListPageVO pagenavi=list.get(0).getPagevo();
 		int rowsPerScreen=10;//한 페이지 게시글 수
 		int linksPerScreen=5;//페이지네비게이션 수
@@ -29,14 +30,10 @@ public class FreeBoradService {
 		int linkGroup=(page-1)/linksPerScreen+1;
 		int linkEnd=linkGroup*linksPerScreen;
 		int linkBegin= linkEnd-linksPerScreen+1;
-		System.out.println("링크 끝: "+linkEnd);
-		System.out.println("총 글수: "+totalpages);
-		
 		if(linkEnd>totalpages)linkEnd=totalpages;
 		
 		pagenavi.setCurrentPage(page);
 		pagenavi.setLeftMore(linkGroup!=1?true:false);
-		System.out.println("서비스) 왼쪽: "+pagenavi.isLeftMore());
 		pagenavi.setRightMore(linkEnd<totalpages?true:false);
 		pagenavi.setFirstPage(linkBegin);
 		pagenavi.setLastPage(linkEnd);
@@ -44,24 +41,21 @@ public class FreeBoradService {
 		return list;
 	}
 
-	public FreeboardVO Input(FreeboardVO fbVO) {
+	public FreeBoardVO write(FreeBoardVO fbVO) {
 
-		System.out.println("서비스) 제목: "+fbVO.getTitle()+", 내용: "+fbVO.getContent());
-		System.out.println("아이디: "+fbVO.getId());
-		System.out.println("ref: "+fbVO.getRef());
-		
-		
 		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
 		if(fbVO.getRef()!=0){
-			System.out.println("여기는 reply다는 부분");
-			int replysuccess= fbdao.relpyinput(fbVO);
-			fbVO.setSuccess(true);
-			return fbVO;
+			if(fbVO.getPhoto()==null){fbVO.setPhoto(null);}
+			int replysuccess= fbdao.relpyInput(fbVO);
+			if(replysuccess>0){
+				fbVO.setSuccess(true);
+				return fbVO;
+				}
 		}
 		
-		int wSuccess=fbdao.winput(fbVO);
+		if(fbVO.getPhoto()==null){fbVO.setPhoto(null);}
+		int wSuccess=fbdao.write(fbVO);
 		if(wSuccess>0){
-			System.out.println("삽입성공");
 			fbVO.setSuccess(true);
 			return fbVO;
 		}
@@ -70,45 +64,42 @@ public class FreeBoradService {
 			return fbVO;
 		}
 	}
-
-	public FreeboardVO getDetail(int num) {
+	
+	public FreeBoardVO read(int num) {
 		// 글번호로 내용 불러올때
-		System.out.println("서비스:글번호로 상세내용)글번호: "+num);
 		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
 		
-		return fbdao.getModiDetail(num);
+		return fbdao.readNum(num);
 	}
-
-	public FreeboardVO getDetail(String id) {
+	
+	public FreeBoardVO read(String id) {
 		// 글쓴이로 내용 불러올때(글쓰고 나서 바로 불러오는거)
-		
-		System.out.println("서비스: 아이디로 상세내용)가져온 아이디: "+id);
 		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
-		return fbdao.getDetail(id);
+		return fbdao.read(id);
 	}
-
-	public boolean wcomment(FreeboardVO fb) {
+	
+	public boolean cmtWrite(CommentVO comment){
 	//코멘트달기
-		System.out.println("코멘트가 달리는 현재 글번호: "+fb.getRef());
+		System.out.println("코멘트가 달리는 현재 글번호: "+comment.getNum());
 		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
-		int commentSuccess=fbdao.commentsuc(fb);
+		int commentSuccess=fbdao.cmtWrite(comment);
 		if(commentSuccess>0){
 			return true;
 		}
 		return false;
 	}
-	public List<FreeboardVO> getCommentList(int num) {
+	public List<CommentVO> cmtList(int num) {
 		// 상위 글번호로 코멘트 리스트 불러오기
 		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
-		List<FreeboardVO> list= fbdao.CommentList(num);
+		List<CommentVO> list= fbdao.cmtList(num);
 	
 		return list;
 	}
 
-	public boolean modify(FreeboardVO fb) {
+	public boolean modify(FreeBoardVO fb) {
 		// 글수정
 		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
-		int mdSuccess=fbdao.getModiSuccess(fb);
+		int mdSuccess=fbdao.modify(fb);
 		if(mdSuccess>0){
 			return true;
 		}
@@ -118,14 +109,11 @@ public class FreeBoradService {
 
 	public boolean beforeDelete(int num) {
 		// 글을 삭제하기 전에 답글이 있는지 확인(댓글은 노상관)
-		System.out.println("상위부모 글번호: "+num);
 		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
-		List<FreeboardVO> list= fbdao.beforeDelete(num);
+		List<FreeBoardVO> list= fbdao.beforeDelete(num);
 		if(list.size()!=0){
-			System.out.println("답글이 있음");
 			return true;
-		}else	{
-			System.out.println("답글이 없음");
+		}else{
 			return false;
 			}
 	}
@@ -133,7 +121,7 @@ public class FreeBoradService {
 	public boolean delete(int num) {
 		// 답글 있는지 없는지 확인후 삭제
 		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
-		int deleteSuccess=fbdao.getDelete(num);
+		int deleteSuccess=fbdao.delete(num);
 		if(deleteSuccess>0){
 			return true;
 		}
@@ -143,27 +131,25 @@ public class FreeBoradService {
 	public String getCommentDetail(int num) {
 		// 코멘트 수정하기 위해 내용 불러오기
 		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
-		FreeboardVO fb=fbdao.getCommentDetail(num);
-		if(fb!=null){
+		CommentVO comment=fbdao.getCommentDetail(num);
+		if(comment!=null){
 			JSONObject jobj= new JSONObject();
-			jobj.put("Ccontent", fb.getContent());
-			jobj.put("Cnum", fb.getNum());
+			jobj.put("Ccontent", comment.getContents());
+			jobj.put("Cnum", comment.getNum());
 			String jobjStr= jobj.toJSONString();
-			System.out.println("서비스: "+jobjStr);
+		
 			return jobjStr;
 		}
 		return null;
 	}
 
-	public String ComodiSuceess(FreeboardVO fb) {
+	public String cmtModify(CommentVO comment) {
 		//코멘트 수정
 
 		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
-		int commentModi=fbdao.commentModisuc(fb);
+		int commentModi=fbdao.cmtModify(comment);
 		if(commentModi>0){
-			System.out.println("코멘트 수정 성공");
-			String sucModidetail=getCommentDetail(fb.getNum());
-			System.out.println("글수정 성공하고 불러온 내용: "+sucModidetail);
+			String sucModidetail=getCommentDetail(comment.getNum());
 			return sucModidetail;
 		}
 		JSONObject jobj= new JSONObject();
@@ -173,16 +159,15 @@ public class FreeBoradService {
 		
 	}
 
-	public String CoDelSuceess(int num) {
+	public String cmtDelete(int num) {
 		// 코멘트 삭제
 		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
-		int commentDel=fbdao.getCommentDeltet(num);
+		int commentDel=fbdao.cmtDelete(num);
 		if(commentDel>0){
-			System.out.println("코멘트 삭제성공");
+		
 			JSONObject jobj= new JSONObject();
 			jobj.put("Cdelsuc", true);
 			String sucDeleteComment=jobj.toJSONString();
-			System.out.println("글삭제 성공하고 불러온 내용: "+sucDeleteComment);
 			return sucDeleteComment;
 		}
 		JSONObject jobj= new JSONObject();
@@ -191,11 +176,11 @@ public class FreeBoradService {
 		
 	}
 
-	public List<FreeboardVO> getSearchList(SearchVO svo) {
+	public List<FreeBoardVO> getSearchList(SearchVO svo) {
 		// 글 찾기
 		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
 		int page= svo.getPage();
-		List<FreeboardVO> list= fbdao.getSearchList(svo);
+		List<FreeBoardVO> list= fbdao.getSearchList(svo);
 		BoardListPageVO pagenavi=list.get(0).getPagevo();
 		int rowsPerScreen=10;//한 페이지 게시글 수
 		int linksPerScreen=5;//페이지네비게이션 수
@@ -222,5 +207,15 @@ public class FreeBoradService {
 		}
 		
 		return null;
+	}
+
+	public boolean viewsCtn(int num) {
+		// 조회수 카운트
+		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
+		int ViewsCtn=fbdao.viewsCtn(num);
+		if(ViewsCtn>0){
+			return true;
+		}
+		return false;
 	}
 }
