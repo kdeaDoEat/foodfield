@@ -20,8 +20,7 @@ public class FileValidator implements Validator {
             errors.rejectValue("file", "uploadForm.selectFile",  
                     "Please select a file!");
             //rejectValue("");
-            //message.properties -> ?—?Ÿ¬ì»¤ë§¨?“œ.ëª¨ë¸?‚¤ê°?.ê°ì²´?•„?“œ =
-                                /*?ž„?‹œë¡? ì§?? •?•˜?Š” ê°?*/
+            //message.properties ->
         }
     }
 }

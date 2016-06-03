@@ -4,18 +4,11 @@ import java.sql.Date;
 
 public class CommentVO {
 
-	private int cnum;
 	private int num;
 	private String nickname;
 	private Date w_date;
 	private String contents;
 	
-	public int getCnum() {
-		return cnum;
-	}
-	public void setCnum(int cnum) {
-		this.cnum = cnum;
-	}
 	public int getNum() {
 		return num;
 	}

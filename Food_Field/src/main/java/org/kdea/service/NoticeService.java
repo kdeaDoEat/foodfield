@@ -5,26 +5,26 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONObject;
 import org.kdea.dao.NoticeDAO;
 import org.kdea.vo.BoardVO;
+import org.kdea.vo.CommentVO;
 import org.kdea.vo.PageVO;
 import org.kdea.vo.SearchVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.servlet.ModelAndView;
 
 @Service
 public class NoticeService {
 
-	final int rpp = 10; // RecordsPerPage server/dao 관련
-	final int ppp = 5; // PagesPerPage client 표면적 관련
+	final int rpp = 10;	
+	final int ppp = 5;
 
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
-	NoticeDAO dao;// 초기화가 먼저됨 없을때..Service 선언되자마자 실행되서;;
-
+	NoticeDAO dao;
 	public PageVO setPage(int currpage,String option,String search) {
 
 		PageVO page = new PageVO();
@@ -59,56 +59,86 @@ public class NoticeService {
 		} else {
 			curpage = (int) (((double) (curRn / rpp)) + 1);
 		}
-		System.out.println("구해진 rn"+curRn);
-		System.out.println("구해진 currpage"+curpage);
 		return curpage;
 	}
 
 	public BoardVO insertBoard(BoardVO board, HttpServletRequest request) {
 
-		/*board.setNickname((String) request.getSession().getAttribute("ID"));*/
 		board.setNickname("tempuser");
 		dao = sqlSessionTemplate.getMapper(NoticeDAO.class);
 		if (dao.insertBoard(board)) {
 
-			System.out.println("게시판 저장 성공");
 			board.setNum(dao.lastIndex() - 1);
 			return board;
 
-		}
-		;
-		System.out.println("게시판 저장 실패");
+		};
 		return board;
 
 	}
-
-	public BoardVO replyBoard(BoardVO board, HttpServletRequest request) {
-		/*board.setNickname((String) request.getSession().getAttribute("ID"));*/
-		board.setNickname("tempuser");
+	
+	public Object recommend(BoardVO board){
+		
 		dao = sqlSessionTemplate.getMapper(NoticeDAO.class);
-		if (dao.insertBoard(board)) {
-			System.out.println("답글 저장 성공");
-			board.setNum(dao.lastIndex() - 1);
-			return board;
-
+		int currrec = dao.getRecommend(board);
+		JSONObject object = new JSONObject();
+		if(dao.setRecommend(board,currrec+1)){
+		      	
+			object.put("recommend", currrec+1);
+			object.put("success", true);
+			
+		}else{
+		object.put("success", false);
 		}
-		;
-		System.out.println("답글 저장 실패");
-		return board;
+		return object;
+		
+	}
+	
+	public int increaseHit(BoardVO board){
+		
+		int currhit = dao.getHit(board);
+		if(dao.setHit(board,currhit+1)){
+			
+			return currhit+1;
+			
+		}
+		return currhit;
+		
+	}
+
+	public Object replyBoard(CommentVO comment, HttpServletRequest request) {
+		
+		
+		comment.setNickname("tempuser");
+		JSONObject object = new JSONObject();
+		
+		dao = sqlSessionTemplate.getMapper(NoticeDAO.class);
+		if (dao.insertComment(comment)) {
+						
+			object.put("success", true);
+			int last = dao.commentLastIndex();
+			comment = dao.selectComment(last-1);
+			object.put("nickname", comment.getNickname());
+			object.put("w_date", comment.getW_date());
+			object.put("contents", comment.getContents());
+			
+		}else{
+		    object.put("success", false);
+		}
+		return object;
+		
 	}
 
 	public List<BoardVO> getBoardListbyPage(int page, Model model, String option, String search) {
 
 		List<BoardVO> boardlist = new ArrayList<BoardVO>();
 		dao = sqlSessionTemplate.getMapper(NoticeDAO.class);
-		boardlist = dao.getList(page, rpp, option, '%'+search+'%');//동적 sql사용해보자~
+		boardlist = dao.getList(page, rpp, option, '%'+search+'%');
 
 		PageVO pageVO = setPage(page,option,'%'+search+'%');
 		SearchVO searchVO = new SearchVO();
 		searchVO.setWord(search);
 		searchVO.setType(option);
 		model.addAttribute("search",searchVO);
-		System.out.println("page로 구해진 페이지 " + pageVO.getCurrpage());
 		model.addAttribute("page", pageVO);
 		return boardlist;
 	}
@@ -120,41 +150,40 @@ public class NoticeService {
 		int curpage = getPageNobyBno(board,option,search);
 		boardlist = dao.getList(curpage, rpp, option, '%'+search+'%');
 
-		// board.setRowno(curRn);
 		PageVO page = setPage(curpage,option,'%'+search+'%');
 		SearchVO searchVO = new SearchVO();
 		searchVO.setWord(search);
 		searchVO.setType(option);
 		model.addAttribute("search",searchVO);
-		System.out.println("num로 구해진 페이지 " + page.getCurrpage());
 		model.addAttribute("page", page);
 		return boardlist;
+		
 	}
 
 	public BoardVO updateBoard(BoardVO board, HttpServletRequest request) {
 
 		dao = sqlSessionTemplate.getMapper(NoticeDAO.class);
-		System.out.println(board.getNum());
-		System.out.println(board.getTitle());
-		System.out.println(board.getContents());
 		if (dao.updateBoard(board)) {
             
-			System.out.println("게시판 수정 성공");
 			return board;
 
-		}
-		;
-		System.out.println("게시판 수정 실패");
+		};
 		return board;
 
+	}
+	
+	public List<CommentVO> selectComments(BoardVO board) {
+		
+		List<CommentVO> comments = new ArrayList<CommentVO>();
+		dao = sqlSessionTemplate.getMapper(NoticeDAO.class);
+		comments = dao.selectComments(board);
+		return comments;
 	}
 
 	public BoardVO selectBoard(BoardVO board) {
 
 		dao = sqlSessionTemplate.getMapper(NoticeDAO.class);
 		board = dao.selectBoard(board);
-		System.out.println(board);
-		// dest.getModel().put("board",board);//wrong grammer
 		return board;
 
 	}
@@ -169,15 +198,13 @@ public class NoticeService {
 		};
 		System.out.println("삭제 실패");
 
-		// dest.getModel().put("board",board);//wrong grammer
-		return board;//삭제된 보드객체 그대로 리턴
+		return board;
 
 	}
 	
 	public boolean confirmParent(BoardVO board) {
 		
 		dao = sqlSessionTemplate.getMapper(NoticeDAO.class);
-		System.out.println("서비스 부모 확인 번호 "+board.getNum());
 		int ref = dao.getParentConfirm(board);
 		if(ref == 0){
 			

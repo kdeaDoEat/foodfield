@@ -92,7 +92,7 @@ a {
 			</tr>
 		</c:forEach>
 	</table>
-	<button type="button" id="writebtn" class="btn btn-default">글쓰기</button>
+	<button type="button" id="writebtn" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span> 글쓰기</button>
 	</div>
 	
 	<div id="belownavi">
@@ -177,7 +177,7 @@ a {
 			</select> 
 			<input type="text" class="form-control" id="search" name="word"
 				placeholder="검색할 내용을 입력하세요"/>
-				<button type="button" id="searchbtn" class="btn btn-default">검색</button>
+				<button type="button" id="searchbtn" class="btn btn-info btn-warning"><span class="glyphicon glyphicon-search"></span> 검색</button>
 		</div>
 		
 	</form>	

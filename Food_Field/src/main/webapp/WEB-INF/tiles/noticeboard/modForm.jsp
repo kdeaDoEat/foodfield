@@ -853,16 +853,16 @@ function modsubmitgo(){
 		
 	</div>
 </div>
-<!-- SE2 Markup End -->
-			<textarea rows="20" cols="10" id="contents" name="contents"  style="width: 20%; border: 1px solid #333; padding: 4px;">${board.contents}</textarea>
+            <!-- SE2 Markup End -->
+			<textarea rows="20" cols="100" id="contents" name="contents"  style="width: 100%; border: 1px solid #333; padding: 4px;">${board.contents}</textarea>
 			<span id="contentserror">
             <spring:bind path="board.contents">
 				${status.errorMessage }<!-- 설정한 에러메세지 출력 -->
 			</spring:bind>
 			</span>
 			<br>
-			<button type="button" class="btn btn-default" onclick="submitContents()">수정하기</button>
-			<button type="button" id="listbtn" class="btn btn-default" onclick="goList()">리스트보기</button>
+			<button type="button" class="btn btn-warning" onclick="submitContents()"><span class="glyphicon glyphicon-wrench"></span> 수정하기</button>
+			<button type="button" id="listbtn" class="btn btn-warning" onclick="goList()"><span class="glyphicon glyphicon-th-list"></span> 리스트보기</button>
 			<br>
 			
 		</fieldset>
