@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%> 
+    pageEncoding="utf-8"%>
 <script type="text/javascript" src="/FoodField/resources/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	var oEditors = [];
 		$(function() {
-			
 			$('#searchmap').on('click',function(){
 				if($('#place').val() == ''){
 					alert('검색단어를 입력해주세요!');
@@ -35,7 +34,7 @@
 				}
 			});
 			
-			nhn.husky.EZCreator.createInIFrame({
+			/* nhn.husky.EZCreator.createInIFrame({
 				oAppRef: oEditors,
 				elPlaceHolder: "ir1",
 				//SmartEditor2Skin.html 파일이 존재하는 경로
@@ -56,7 +55,7 @@
 					oEditors.getById["ir1"].exec("PASTE_HTML", [""]);
 				},
 				fCreator: "createSEditor2"
-			});
+			}); */
 		})
 		
 	</script>
@@ -96,12 +95,13 @@
 							<input type="text" class="form-control" name="shop_add" placeholder="가게주소" readonly="readonly">
 						</div>
 					</div>
+					<textarea name="jodit" id="jodit" cols="30" rows="10"></textarea>
 					<!-- 내용 부분 -->
 					<div class="form-group">
 						<label for="message" class="col-sm-2 control-label">내용</label>
 						<div class="col-sm-10">
-							<textarea rows="10" cols="30" id="ir1" name="contents"
-								style="width: 95%; height: 412px; min-width:260px; display:none;"></textarea>
+							<!-- <textarea rows="10" cols="30" id="ir1" name="contents"
+								style="width: 95%; height: 412px; min-width:260px; display:none;"></textarea> -->
 						</div>
 					</div>
 					<!-- 전송버튼  -->
