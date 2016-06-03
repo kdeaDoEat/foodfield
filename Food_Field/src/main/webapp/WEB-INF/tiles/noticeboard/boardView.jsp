@@ -208,7 +208,6 @@ th {
 </style>
 </head>
 <body>
-
 	<div style="margin-left: 20% !important; margin-right: auto !important; width: 60%; margin-top: 50px !important; margin-bottom: 50px;">
 		<article class="post" style="margin-top:100px;">
 		<h2 class="title">${board.title}</h2>
@@ -255,19 +254,19 @@ th {
 			<button type="button" id="listbtn" class="btn btn-warning"><span class="glyphicon glyphicon-th-list"></span> 리스트보기</button>
 			<button type="button" id="delete" class="btn btn-warning"><span class="glyphicon glyphicon-remove"></span> 삭제</button>
 			<div id="replyformdiv" style="width:100%;"></div>
-		</div>
-
-		<div id="replylist" style="width:100%;">
-		    <table style="margin-top:40px; width:100%;" class="table">
+			<div id="replylist" style="width:100%;">
+		    <table style="margin-top:60px; width:100%; float:right;" class="table">
 			<c:forEach var="reply" items="${comments}" varStatus="status">
                   <tr>
-                    <td>${reply.nickname}</td>
+                    <td style="padding-left:25%;">${reply.nickname}</td>
                     <td class="replycontents">${reply.contents}</td>
                     <td>${reply.w_date}</td>
+                    <td><a href="" class="glyphicon glyphicon-wrench" style="text-decoration:none; width:50px; color:#bbb"></a><a href="" class="glyphicon glyphicon-remove" style="text-decoration:none; width:10px; color:#bbb"></a></td>
                   </tr>
 			</c:forEach>
 			</table>
 		</div>
+		</div>		
 	</div>
 	</div>
 </body>
