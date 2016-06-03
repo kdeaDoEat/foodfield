@@ -73,7 +73,7 @@
 	function replyajax() {
 
 		var data = $("#replyform").serialize();
-
+		
 		$.ajax({
 
 			url : "reply",
@@ -83,11 +83,15 @@
 			success : function(obj) {
 
 				if (obj.success) {
-
-					$("#replylist table").append(
-							"<tr><td>" + obj.nickname + "</td><td>"
+                    
+					var cnts = $("#commentscnt").text()*1;
+					cnts = cnts+1;
+					$("#commentscnt").text(cnts);
+ 					$("#replylist table").append(
+							"<tr><td style='padding-left:25%;'>" + obj.nickname + "</td><td class='replycontents'>"
 									+ obj.contents + "</td><td>" + obj.w_date
-									+ "</td></tr>");
+									+ "</td><td><a href='' class='glyphicon glyphicon-wrench' style='text-decoration:none; width:50px; color:#bbb'></a><a href='' class='glyphicon glyphicon-remove' style='text-decoration:none; width:10px; color:#bbb'></a></td></tr>");
+		     			
 					
 				}
 				
@@ -266,7 +270,7 @@ th {
 			</c:forEach>
 			</table>
 		</div>
-		</div>		
+		</div>
 	</div>
 	</div>
 </body>
