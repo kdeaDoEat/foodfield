@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.kdea.noticeboard.NoticeDAO"> <!--이 sql 문장과 매핑될 인터페이스의 완전한 경로 -->
+
+	<insert id="insertBoard">
+		insert into noticeboard(num,nickname,title,contents,w_date,ref,hit,recommend) values
+		(noticeboard_sequence.nextval,#{board.nickname},#{board.title},#{board.contents},sysdate,#{board.ref},0,0)
+	</insert>
+	
+	<insert id="insertComment">
+		insert into noticecomment(cnum,num,nickname,w_date,contents) values
+		(noticecomment_sequence.nextval,#{comment.num},#{comment.nickname},sysdate,#{comment.contents})
+	</insert>
+
+	<update id="updateBoard">
+		update noticeboard set title = #{board.title}, contents = #{board.contents} where num = #{board.num}
+	</update>
+
+	<select id="selectBoard" resultType="org.kdea.vo.BoardVO">
+		select * from noticeboard where num = #{board.num}
+	</select>
+	
+	<select id="selectComment" resultType="org.kdea.vo.CommentVO">
+	    select * from noticecomment where cnum = #{cnum}
+	</select>
+	
+	<select id="getRecommend" resultType="int">
+	    select recommend from noticeboard where num = #{board.num}
+	</select>
+	
+	<update id="setRecommend">
+	    update noticeboard set recommend = #{recommend} where num = #{board.num}
+	</update>
+	
+	<select id="getHit" resultType="int">
+	    select hit from noticeboard where num = #{board.num}
+	</select>
+	
+	<update id="setHit">
+	    update noticeboard set hit = #{hit} where num = #{board.num}
+	</update>
+	
+	<select id="selectComments" resultType="org.kdea.vo.CommentVO">
+	    select * from noticecomment where num = #{board.num}
+	</select>
+
+	<select id="lastIndex" resultType="int">
+		select last_number from
+		user_sequences where sequence_name='NOTICEBOARD_SEQUENCE'
+	</select>
+	
+    <select id="commentLastIndex" resultType="int">
+		select last_number from
+		user_sequences where sequence_name='NOTICECOMMENT_SEQUENCE'
+	</select>
+	
+	<select id="getRnbyBno" resultType="int">
+		select "rowno" from ( select rownum "rowno", t1.* from ( select num,
+		LPAD('└',(LEVEL-1)*4,'　')||title title,contents,nickname,w_date from
+		noticeboard
+		<where>
+		
+			<if test="true">
+
+			</if>
+			<if test="option == '제목'">
+				title like #{search}
+			</if>
+			<if test="option == '내용'">
+				contents like #{search}
+			</if>
+			<if test="option == '작성자'">
+				nickname like #{search}
+			</if>
+
+		</where>
+		start with ref = 0 connect by prior num = ref order siblings by
+		num ) t1 ) where num = #{board.num}
+	</select>
+
+	<select id="getAllCount" resultType="int">
+		select count(*) from noticeboard
+		<where>
+			<if test="true">
+
+			</if>
+			<if test="option == '제목'">
+				title like #{search}
+			</if>
+			<if test="option == '내용'">
+				contents like #{search}
+			</if>
+			<if test="option == '작성자'">
+				nickname like #{search}
+			</if>
+
+		</where>
+	</select>
+
+	<select id="getList" resultType="org.kdea.vo.BoardVO">
+	
+		select * from ( select rownum "rowno", t1.* from ( select num,
+		LPAD('└',(LEVEL-1)*4,'　')||title title,contents,nickname,w_date from
+		noticeboard
+		<where>
+			<if test="true">
+
+			</if>
+			<if test="option == '제목'">
+				title like #{search}
+			</if>
+			<if test="option == '내용'">
+				contents like #{search}
+			</if>
+			<if test="option == '작성자'">
+				nickname like #{search}
+			</if>
+
+		</where>
+		start with ref = 0 connect by prior num = ref order siblings by
+		num ) t1 ) where "rowno" between (#{rpp}*#{page}-(#{rpp}-1)) and
+		#{rpp}*#{page}
+
+	</select>
+
+	<select id="getParentConfirm" resultType="int">
+		select count(*) from
+		noticeboard where ref = #{board.num}
+	</select>
+
+	<delete id="deleteBoard">
+		delete from noticeboard where num = #{board.num}
+	</delete>
+	
+	<update id="updateComment">
+	    update noticecomment set contents = #{comment.contents} where cnum = #{comment.cnum}
+	</update>
+	
+	<delete id="deleteComment">
+	    delete from noticecomment where cnum = #{comment.cnum}
+	</delete>
+
+</mapper>

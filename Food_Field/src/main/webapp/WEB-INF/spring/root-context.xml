@@ -1,47 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sec="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.1.xsd">
-	
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<bean id="dataSource" class="oracle.jdbc.pool.OracleDataSource"> 
-	    <property name="dataSourceName" value="ds"/>
-	    <property name="URL" value="jdbc:oracle:thin:@localhost:1521:xe"/>
-	    <property name="user" value="scott"/>
-	    <property name="password" value="TIGER"/>
-    </bean>
-    
-    <!-- <sec:http auto-config='true'>
-    	<sec:intercept-url pattern="/**" access="ROLE_USER" />
-	</sec:http> -->
+	<bean id="dataSource" class="oracle.jdbc.pool.OracleDataSource">
+		<property name="dataSourceName" value="ds" />
+		<property name="URL" value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="user" value="scott" />
+		<property name="password" value="TIGER" />
+	</bean>
+
+	<!-- <sec:http auto-config='true'> <sec:intercept-url pattern="/**" access="ROLE_USER" 
+		/> </sec:http> -->
 
 	<sec:http auto-config='true' use-expressions="true">
-		<sec:intercept-url pattern="/admin/**" access="hasAuthority('ROLE_ADMIN')" />
+	    <!-- smart-editor for spring security -->
+		<sec:headers>
+			<sec:frame-options policy="SAMEORIGIN" />
+		</sec:headers>
+		<!-- smart-editor for spring security -->
+		<sec:intercept-url pattern="/admin/**"
+			access="hasAuthority('ROLE_ADMIN')" />
 		<sec:intercept-url pattern="/manager/**" access="hasRole('ROLE_MANAGER')" />
 		<sec:intercept-url pattern="/member/**" access="isAuthenticated()" />
 		<sec:intercept-url pattern="/**" access="permitAll" />
 		<sec:form-login login-page="/login"
-			login-processing-url="/loginProcess"
-			username-parameter="email"
-			password-parameter="pwd"
-			authentication-failure-url="/main" />
+			login-processing-url="/loginProcess" username-parameter="email"
+			password-parameter="pwd" authentication-failure-url="/main" />
 		<sec:logout logout-success-url="/main" />
 	</sec:http>
-	
+
 	<sec:authentication-manager>
 		<sec:authentication-provider>
-		<!-- <sec:user-service >
-            <sec:user name="smith"  password="smith_pw"  authorities="USER" />
-            <sec:user name="blake"  password="blake_pw"  authorities="USER_MANAGER" />
-            <sec:user name="king"  password="king_pw"  authorities="USER_ADMIN" />
-        </sec:user-service> -->
-			<sec:jdbc-user-service
-				id="jdbcUserService"
+			<!-- <sec:user-service > <sec:user name="smith" password="smith_pw" authorities="USER" 
+				/> <sec:user name="blake" password="blake_pw" authorities="USER_MANAGER" 
+				/> <sec:user name="king" password="king_pw" authorities="USER_ADMIN" /> </sec:user-service> -->
+			<sec:jdbc-user-service id="jdbcUserService"
 				data-source-ref="dataSource"
 				users-by-username-query="SELECT email, pwd, enabled FROM USERS WHERE email=?"
-				authorities-by-username-query="SELECT email, authority FROM USERS WHERE email=?"/>
+				authorities-by-username-query="SELECT email, authority FROM USERS WHERE email=?" />
 		</sec:authentication-provider>
 	</sec:authentication-manager>
+
+
+
 </beans>
