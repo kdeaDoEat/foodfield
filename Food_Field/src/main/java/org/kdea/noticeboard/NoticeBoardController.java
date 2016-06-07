@@ -119,7 +119,7 @@ public class NoticeBoardController {
 					} else if(item.getFieldName().equals("Filedata")) {
 						if(item.getSize() > 0) {
 							
-			                // 疫꿸퀣�� 占쎄맒占쎈뼊 �굜遺얜굡�몴占� 筌띾맦�� 占쎈릭占쎈뼊�굜遺얜굡�몴占� 占쎌뵠占쎌뒠
+			                
 			                name = item.getName().substring(item.getName().lastIndexOf(File.separator)+1);
 							String filename_ext = name.substring(name.lastIndexOf(".")+1);
 							filename_ext = filename_ext.toLowerCase();
@@ -134,9 +134,7 @@ public class NoticeBoardController {
 						   		return3 = "&errstr="+name;
 						   	} else {
 						   		
-						   		//占쎈솁占쎌뵬 疫꿸퀡�궚野껋럥以�
 					    		String dftFilePath = request.getSession().getServletContext().getRealPath("/");
-					    		//占쎈솁占쎌뵬 疫꿸퀡�궚野껋럥以� _ 占쎄맒占쎄쉭野껋럥以�
 					    		String filePath = dftFilePath + "editor" + File.separator +"upload" + File.separator;
 					    		
 					    		File file = null;
@@ -151,7 +149,7 @@ public class NoticeBoardController {
 								realFileNm = today+UUID.randomUUID().toString() + name.substring(name.lastIndexOf("."));
 								
 								String rlFileNm = filePath + realFileNm;
-								///////////////// 占쎄퐣甕곌쑴肉� 占쎈솁占쎌뵬占쎈쾺疫뀐옙 ///////////////// 
+								
 								InputStream is = item.getInputStream();
 								OutputStream os=new FileOutputStream(rlFileNm);
 								int numRead;
@@ -164,7 +162,7 @@ public class NoticeBoardController {
 								}
 								os.flush();
 								os.close();
-								///////////////// 占쎄퐣甕곌쑴肉� 占쎈솁占쎌뵬占쎈쾺疫뀐옙 /////////////////
+								
 					    		
 					    		return3 += "&bNewLine=true";
 					    		return3 += "&sFileName="+ name;
@@ -211,7 +209,7 @@ public class NoticeBoardController {
 		String dftFilePath = request.getSession().getServletContext().getRealPath("/");
 
 		String filePath = dftFilePath + "resources" + File.separator +"smart_editor2" + File.separator +"sample" + File.separator + "photo_uploader" + File.separator + "multiupload" + File.separator;
-		System.out.println("uploadhtml5 占쎈솁占쎌뵬 filePath" + filePath);
+		System.out.println("uploadhtml5 함수 filePath" + filePath);
 		File file = new File(filePath);
 		if(!file.exists()) {
 			file.mkdirs();
@@ -310,7 +308,7 @@ public class NoticeBoardController {
 	@ResponseBody
 	public Object getRecommend(@ModelAttribute("board") BoardVO board){
 		
-		//new NoticeValidator().validate(comment,result);(ajax 占쎌뒄筌ｏ옙 占쎄맒占쎄묶)
+		//new NoticeValidator().validate(comment,result);(ajax 요청임)
 		return service.recommend(board);
 						
 	}
@@ -319,7 +317,7 @@ public class NoticeBoardController {
 	@ResponseBody
 	public Object getReply(@ModelAttribute("comment") CommentVO comment,BindingResult result,HttpServletRequest request, Model model){
 		
-		//new NoticeValidator().validate(comment,result);(ajax 占쎌뒄筌ｏ옙 占쎄맒占쎄묶)
+		//new NoticeValidator().validate(comment,result);(ajax 요청임)
 		return service.replyBoard(comment, request);
 						
 	}
