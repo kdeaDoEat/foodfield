@@ -16,11 +16,13 @@
 		/> </sec:http> -->
 
 	<sec:http auto-config='true' use-expressions="true">
+	
 	    <!-- smart-editor for spring security -->
 		<sec:headers>
 			<sec:frame-options policy="SAMEORIGIN" />
 		</sec:headers>
 		<!-- smart-editor for spring security -->
+		
 		<sec:intercept-url pattern="/admin/**"
 			access="hasAuthority('ROLE_ADMIN')" />
 		<sec:intercept-url pattern="/manager/**" access="hasRole('ROLE_MANAGER')" />
