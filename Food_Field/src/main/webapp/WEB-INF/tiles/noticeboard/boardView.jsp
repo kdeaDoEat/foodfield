@@ -84,15 +84,7 @@
 
 				if (obj.success) {
                     
-					var cnts = $("#commentscnt").text()*1;
-					cnts = cnts+1;
-					$("#commentscnt").text(cnts);
- 					$("#replylist table").append(
-							"<tr><td style='padding-left:25%;'>" + obj.nickname + "</td><td class='replycontents'>"
-									+ obj.contents + "</td><td>" + obj.w_date
-									+ "</td><td><a href='' class='glyphicon glyphicon-wrench' style='text-decoration:none; width:50px; color:#bbb'></a><a href='' class='glyphicon glyphicon-remove' style='text-decoration:none; width:10px; color:#bbb'></a></td></tr>");
-		     			
-					
+                         location.href='view?num=${board.num}';
 				}
 				
 			},
@@ -190,7 +182,7 @@
 		if(confirm("이대로 댓글을 수정하시겠습니까?")){
 		$.ajax({
 			
-			url:"replyModify",
+			url:"replyModify?${_csrf.parameterName}=${_csrf.token}",
 			data:data,
 			type:"post",
 			dataType:"json",
@@ -200,7 +192,7 @@
 										
 					$("#reply"+index).css("display","none");
 		            $("#reply-noform"+index).css("display","");
-					$("#reply-noform"+index).find("#replycontents").text(obj.contents);
+					$("#reply-noform"+index).find(".replycontents").text(obj.contents);
 										
 				}
 				
@@ -219,7 +211,7 @@
 		if(confirm("이대로 댓글을 삭제하시겠습니까?")){
 		$.ajax({
 			
-			url:"replyDel",
+			url:"replyDel?${_csrf.parameterName}=${_csrf.token}",
 			data:data,
 			type:"post",
 			dataType:"json",
@@ -229,6 +221,9 @@
 										
 					hideForm(index);
 					$("#reply-noform"+index).parent().remove();
+					var cnts = $("#commentscnt").text()*1;
+					cnts = cnts-1;
+					$("#commentscnt").text(cnts);
 										
 				}
 				
