@@ -6,7 +6,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
+<meta name="_csrf" content="${_csrf.token}"/>
+<meta name="_csrf_header" content="${_csrf.headerName}"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>수정 하기</title>
 <script type="text/javascript"
@@ -84,6 +85,7 @@ function modsubmitgo(){
 	<input type="button" onclick="submitContents();" value="서버로 내용 전송" />
 	<input type="button" onclick="setDefaultFont();" value="기본 폰트 지정하기 (궁서_24)" /> -->		
 	<form action="modify" method="post" style="margin-top:150px; width:80%; margin-left:auto; margin-right:auto;">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<input type="hidden" value="${board.num}" name="num"/>
 	
 	<fieldset

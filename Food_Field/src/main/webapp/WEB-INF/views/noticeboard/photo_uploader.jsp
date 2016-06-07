@@ -6,6 +6,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="Content-Script-Type" content="text/javascript">
 <meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="_csrf" content="${_csrf.token}"/>
+<meta name="_csrf_header" content="${_csrf.headerName}"/>
 <title>사진 첨부하기 :: SmartEditor2</title>
 <style type="text/css">
 /* NHN Web Standard 1Team JJS 120106 */ 
@@ -57,9 +59,12 @@ h1{color:#333;font-size:14px;letter-spacing:-1px}
     <!-- [D] HTML5인 경우 pop_container 클래스와 하위 HTML 적용
 	    	 그밖의 경우 pop_container2 클래스와 하위 HTML 적용      -->
 	<div id="pop_container2" class="pop_container2">
+	    <input type="hidden" id="csrfheaderName" value="${_csrf.headerName}" />
+	    <input type="hidden" id="csrftoken" value="${_csrf.token}" />
     	<!-- content -->
-		<form id="editor_upimage" name="editor_upimage" action="FileUploader.php" method="post" enctype="multipart/form-data" onSubmit="return false;">
+		<form id="editor_upimage" name="editor_upimage" method="post" enctype="multipart/form-data" onSubmit="return false;">
         <div id="pop_content2">
+        
 			<input type="file" class="upload" id="uploadInputBox" name="Filedata">
             <p class="dsc" id="info"><strong>10MB</strong>이하의 이미지 파일만 등록할 수 있습니다.<br>(JPG, GIF, PNG, BMP)</p>
         </div>

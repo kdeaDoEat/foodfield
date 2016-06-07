@@ -354,6 +354,9 @@
 	}
     
     function callAjaxForHTML5 (tempFile, sUploadURL){
+
+    	alert(token);
+    	alert(header);
     	           /*jindo의 함수*/
     	var oAjax = jindo.$Ajax(sUploadURL, {
 			type: 'xhr',
@@ -373,6 +376,7 @@
 			timeout : 3,
 			onerror :  jindo.$Fn(onAjaxError, this).bind()
 		});
+    	oAjax.header(header,token);
 		oAjax.header("contentType","multipart/form-data");
 		oAjax.header("file-name",encodeURIComponent(tempFile.name));
 		oAjax.header("file-size",tempFile.size);
@@ -543,10 +547,16 @@
 	   	}
 	   	window.close();
     }
-    
+    var token;
+    var header;
 	window.onload = function(){
+
+		
   		checkDragAndDropAPI();
-  		
+  		//alert("대입 전"); 
+    	token = document.getElementById('csrftoken').value;
+    	header = document.getElementById('csrfheaderName').value;
+    	//alert("대입 후");
   		if(bSupportDragAndDropAPI){
   			$Element("pop_container2").hide();
   			$Element("pop_container").show();

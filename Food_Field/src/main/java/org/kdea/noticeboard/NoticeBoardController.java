@@ -49,12 +49,13 @@ public class NoticeBoardController {
 	@ModelAttribute("board")
 	public BoardVO rangeModel(HttpServletRequest request, HttpServletResponse response){
 		
-		try {
+/*		try {
 			request.setCharacterEncoding("UTF-8");
+			System.out.println("UTF-8로 변경");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	
 		/*response.addHeader("X-Frame-Options", "ALLOW-FROM uri");*/
 		return new BoardVO();

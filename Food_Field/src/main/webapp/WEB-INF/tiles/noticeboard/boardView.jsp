@@ -104,7 +104,7 @@
 		})
 	};
 
-	var replyform = "<form action=\"reply\" id=\"replyform\" class=\"form-group\" style=\"width:100%; margin-top:25px;\"><input type=\"hidden\" name=\"num\" value=\"${board.num}\"><br><textarea rows=\"4\" cols=\"45\" id=\"contents\" name=\"contents\" class=\"form-control\" style=\"margin-bottom:20px; width: 100%; padding: 4px;\" placeholder=\"내용\"></textarea><br><button type='button' onclick=\"replyajax()\" class=\"btn btn-warning\"><span class=\"glyphicon glyphicon-pushpin\"></span> 답글</button></form>";
+	var replyform = "<form action=\"reply\" id=\"replyform\" class=\"form-group\" style=\"width:100%; margin-top:25px;\"><input type=\"hidden\" name=\"${_csrf.parameterName}\" value=\"${_csrf.token}\" /><input type=\"hidden\" name=\"num\" value=\"${board.num}\"><br><textarea rows=\"4\" cols=\"45\" id=\"contents\" name=\"contents\" class=\"form-control\" style=\"margin-bottom:20px; width: 100%; padding: 4px;\" placeholder=\"내용\"></textarea><br><button type='button' onclick=\"replyajax()\" class=\"btn btn-warning\"><span class=\"glyphicon glyphicon-pushpin\"></span> 답글</button></form>";
 	
 	function showForm() {
 
@@ -319,6 +319,7 @@ th {
 		<br>
 		<div class="navbar-form navbar">
 			<form action="modform" style="display: inline;" id="infoform">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				<input type="hidden" name="num" value="${board.num}" /> <input
 					type="hidden" name="title" value="${board.title}" /> <input
 					type="hidden" name="wdate" value="${board.w_date}" /> <input
