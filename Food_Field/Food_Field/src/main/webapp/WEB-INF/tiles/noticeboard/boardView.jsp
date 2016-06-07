@@ -184,6 +184,77 @@
 
 	}
 	
+	function replyModify(index){
+		
+		var data = $("#reply"+index).serialize();
+		if(confirm("이대로 댓글을 수정하시겠습니까?")){
+		$.ajax({
+			
+			url:"replyModify",
+			data:data,
+			type:"post",
+			dataType:"json",
+			success:function(obj){
+				
+				if(obj.success){
+										
+					$("#reply"+index).css("display","none");
+		            $("#reply-noform"+index).css("display","");
+					$("#reply-noform"+index).find("#replycontents").text(obj.contents);
+										
+				}
+				
+			},
+			error:function(){
+				
+			}
+			
+		})
+		}
+	}
+	
+	function replyDel(index){
+		
+		var data = $("#reply"+index).serialize();
+		if(confirm("이대로 댓글을 삭제하시겠습니까?")){
+		$.ajax({
+			
+			url:"replyDel",
+			data:data,
+			type:"post",
+			dataType:"json",
+			success:function(obj){
+				
+				if(obj.success){
+										
+					hideForm(index);
+					$("#reply-noform"+index).parent().remove();
+										
+				}
+				
+			},
+			error:function(){
+				
+			}
+			
+		})
+		}
+	}
+	
+	function changeForm(index){
+		
+		$("#reply"+index).css("display","");
+		$("#reply-noform"+index).css("display","none");
+		
+	}
+	
+	function hideForm(index){
+		
+		$("#reply"+index).css("display","none");
+		$("#reply-noform"+index).css("display","");
+		
+	}
+	
 </script>
 <style>
 
@@ -261,11 +332,32 @@ th {
 			<div id="replylist" style="width:100%;">
 		    <table style="margin-top:60px; width:100%; float:right;" class="table">
 			<c:forEach var="reply" items="${comments}" varStatus="status">
-                  <tr>
-                    <td style="padding-left:25%;">${reply.nickname}</td>
-                    <td class="replycontents">${reply.contents}</td>
-                    <td>${reply.w_date}</td>
-                    <td><a href="" class="glyphicon glyphicon-wrench" style="text-decoration:none; width:50px; color:#bbb"></a><a href="" class="glyphicon glyphicon-remove" style="text-decoration:none; width:10px; color:#bbb"></a></td>
+                  <tr>                 
+                    <td colspan="4" style="padding-left:25%;">  
+                    <span id="reply-noform${status.index}">
+                    <span id="replynick">${reply.nickname}</span>
+                    <span id="replycontents" style="margin-left:20px;">${reply.contents}</span>
+                    <span id="replywdate" style="margin-left:20px;">${reply.w_date}</span>
+                    <span style="float:right">
+
+                    <a onclick="changeForm(${status.index})" class="glyphicon glyphicon-wrench" style="text-decoration:none; width:10px; color:#bbb; cursor:pointer"></a>
+                    <a onclick="replyDel(${status.index})" class="glyphicon glyphicon-remove" style="margin-left:20px; text-decoration:none; width:10px; color:#bbb; cursor:pointer"></a>
+                    
+                    </span>   
+                    </span>  
+                    <form method="post" id="reply${status.index}" style="display:none;" >
+                    <input type="hidden" value="${reply.cnum}" name="cnum"/>
+                    <span id="replynick">${reply.nickname}</span> <span id="freplycontents" style="margin-left:20px;"><input type="text" name="contents" value="${reply.contents}"></span> <span id="replywdate" style="margin-left:20px;">${reply.w_date}</span>
+                    <span style="float:right">
+                    <a onclick="replyModify(${status.index})" class="glyphicon glyphicon-ok" style="text-decoration:none; width:10px; color:#bbb; cursor:pointer"></a>
+                    <a onclick="hideForm(${status.index})" class="glyphicon glyphicon-remove" style="margin-left:20px; text-decoration:none; width:10px; color:#bbb; cursor:pointer"></a>
+                    <!--  
+                    <a href="#" onclick="" class="glyphicon glyphicon-wrench" style="text-decoration:none; width:10px; color:#bbb"></a>
+                    <a href="#" onclick="" class="glyphicon glyphicon-remove" style="margin-left:20px; text-decoration:none; width:10px; color:#bbb"></a>
+                    -->
+                    </span>   
+                    </form>                    
+                    </td>                 
                   </tr>
 			</c:forEach>
 			</table>

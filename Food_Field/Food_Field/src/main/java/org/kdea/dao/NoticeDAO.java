@@ -11,6 +11,8 @@ public interface NoticeDAO {
 	public boolean insertBoard(@Param("board") BoardVO board);
 	public boolean insertComment(@Param("comment") CommentVO comment);
 	public boolean updateBoard(@Param("board") BoardVO board);
+	public boolean updateComment(@Param("comment") CommentVO comment);
+	public boolean deleteComment(@Param("comment") CommentVO comment);
 	public BoardVO selectBoard(@Param("board") BoardVO board);
 	public CommentVO selectComment(@Param("cnum") int cnum);
 	public int getHit(@Param("board") BoardVO board);

@@ -133,5 +133,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteBoard">
 		delete from noticeboard where num = #{board.num}
 	</delete>
+	
+	<update id="updateComment">
+	    update noticecomment set contents = #{comment.contents} where cnum = #{comment.cnum}
+	</update>
+	
+	<delete id="deleteComment">
+	    delete from noticecomment where cnum = #{comment.cnum}
+	</delete>
 
 </mapper>
