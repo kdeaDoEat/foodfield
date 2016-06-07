@@ -355,8 +355,8 @@
     
     function callAjaxForHTML5 (tempFile, sUploadURL){
 
-    	alert(token);
-    	alert(header);
+    	/*alert(token);
+    	alert(header);*/
     	           /*jindo의 함수*/
     	var oAjax = jindo.$Ajax(sUploadURL, {
 			type: 'xhr',
