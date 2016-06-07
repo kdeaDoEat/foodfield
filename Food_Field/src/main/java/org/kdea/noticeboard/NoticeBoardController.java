@@ -367,11 +367,19 @@ public class NoticeBoardController {
 						
 	}
 	
-	@RequestMapping(value="/showViewFormat",method=RequestMethod.GET)
-	public ModelAndView goViewFormat(@ModelAttribute("board") BoardVO board, Model model){
-		
-		ModelAndView dest = new ModelAndView("noticeboard/boardViewFormat");
-		return dest;
+	@RequestMapping(value="/replyModify",method=RequestMethod.POST)
+	@ResponseBody
+	public Object replyModify(@ModelAttribute("comment") CommentVO comment){
+				
+		return service.modifyReply(comment);
+						
+	}
+	
+	@RequestMapping(value="/replyDel",method=RequestMethod.POST)
+	@ResponseBody
+	public Object replyDel(@ModelAttribute("comment") CommentVO comment){
+				
+		return service.delReply(comment);
 						
 	}
 	
