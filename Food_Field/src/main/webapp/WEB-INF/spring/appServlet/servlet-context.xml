@@ -45,6 +45,13 @@
 		<beans:constructor-arg index="0" ref="sqlSessionFactory" />
 	</beans:bean> 
 
+	<beans:bean id="dataSource" class="oracle.jdbc.pool.OracleDataSource">
+		<beans:property name="dataSourceName" value="ds" />
+		<beans:property name="URL"
+			value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<beans:property name="user" value="scott" />
+		<beans:property name="password" value="TIGER" />
+	</beans:bean>
 	<!-- 타일즈 뷰 리졸버 선언 -->
 	<beans:bean id="tilesViewResolver"
 	        class="org.springframework.web.servlet.view.UrlBasedViewResolver">
