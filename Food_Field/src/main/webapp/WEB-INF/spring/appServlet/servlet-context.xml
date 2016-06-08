@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/mvc"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:beans="http://www.springframework.org/schema/beans"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:websocket="http://www.springframework.org/schema/websocket"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		 http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.2.xsd">
 
-	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-	<context:annotation-config/>
-	
+	<!-- DispatcherServlet Context: defines this servlet's request-processing 
+		infrastructure -->
+	<context:annotation-config />
+
 	<context:component-scan base-package="org.kdea.main" />
+	<context:component-scan base-package="org.kdea.chatting" />
 	<context:component-scan base-package="org.kdea.freeboard" />
 	<context:component-scan base-package="org.kdea.noticeboard" />
 	<context:component-scan base-package="org.kdea.reviewboard" />
@@ -21,57 +21,70 @@
 	<context:component-scan base-package="org.kdea.login" />
 	<context:component-scan base-package="org.kdea.join" />
 	<context:component-scan base-package="org.kdea.vo" />
-	
-    <!-- Enables the Spring MVC @Controller programming model -->
-    <mvc:annotation-driven />
-    
-	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<mvc:annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
-		<beans:property name="contentType" value="text/html; charset=UTF-8"/>
-        <beans:property name="order" value="2"/>
+		<beans:property name="contentType" value="text/html; charset=UTF-8" />
+		<beans:property name="order" value="2" />
 	</beans:bean>
-	
-	 <beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<beans:property name="mapperLocations" value="classpath:org/kdea/**/*.xml" />
 		<beans:property name="dataSource" ref="dataSource" />
 	</beans:bean>
 
 	<beans:bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg index="0" ref="sqlSessionFactory" />
-	</beans:bean> 
+	</beans:bean>
 
 	<!-- 타일즈 뷰 리졸버 선언 -->
 	<beans:bean id="tilesViewResolver"
-	        class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-	    <beans:property name="viewClass">
-	            <beans:value>
-	                org.springframework.web.servlet.view.tiles3.TilesView
-	            </beans:value>
-	    </beans:property>
-	    <beans:property name="order" value="1"/>
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<beans:property name="viewClass">
+			<beans:value>
+				org.springframework.web.servlet.view.tiles3.TilesView
+			</beans:value>
+		</beans:property>
+		<beans:property name="order" value="1" />
 	</beans:bean>
-	 
+
 	<!-- Tiles configuration -->
 	<beans:bean id="tilesConfigurer"
-	    class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
-	    <beans:property name="definitions">
-	        <beans:list>
-	            <beans:value>/WEB-INF/tiles/tiles-definitions.xml</beans:value>
-	        </beans:list>
-	    </beans:property>
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<beans:property name="definitions">
+			<beans:list>
+				<beans:value>/WEB-INF/tiles/tiles-definitions.xml</beans:value>
+			</beans:list>
+		</beans:property>
 	</beans:bean>
 
-	
-	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"  />
 
-	<!-- <view-controller path="/index" view-name="security/index" />
-	<view-controller path="/sec/loginForm" view-name="security/loginForm" />
-	<view-controller path="/sec/joinForm" view-name="security/joinForm" />
-	<view-controller path="/admin/usermanager/main" view-name="security/usermanagerMain" />
-	<view-controller path="/member/main" view-name="security/memberMain" /> -->
+	<beans:bean id="passwordEncoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+
+	<!-- <view-controller path="/index" view-name="security/index" /> <view-controller 
+		path="/sec/loginForm" view-name="security/loginForm" /> <view-controller 
+		path="/sec/joinForm" view-name="security/joinForm" /> <view-controller path="/admin/usermanager/main" 
+		view-name="security/usermanagerMain" /> <view-controller path="/member/main" 
+		view-name="security/memberMain" /> -->
+
+	<beans:bean id="ChattingHandler" class="org.kdea.chatting.ChattingHandler" />
+	<websocket:handlers>
+		<websocket:mapping path="/chat" handler="ChattingHandler" />
+		<websocket:handshake-interceptors>
+			<beans:bean class="org.kdea.chatting.ChattingInterceptor" />
+		</websocket:handshake-interceptors>
+	</websocket:handlers>
+
 </beans:beans>
