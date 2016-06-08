@@ -165,7 +165,7 @@ a {
 			</select> 
 			<input type="text" class="form-control" id="search" name="word"
 				placeholder="검색할 내용을 입력하세요"/>
-				<button type="button" id="searchbtn" class="btn btn-info btn-warning"><span class="glyphicon glyphicon-search"></span> 검색</button>
+				<button type="button" id="searchbtn" class="btn btn-info btn-warning" style="margin:0px"><span class="glyphicon glyphicon-search"></span> 검색</button>
 		</div>
 		
 	</form>	
