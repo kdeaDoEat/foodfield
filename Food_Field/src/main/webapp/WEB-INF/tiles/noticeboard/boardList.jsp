@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><%--계산을 쓸려면 fmt!! --%>
-<% String cp = request.getContextPath(); %> <%--ContextPath 선언 --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,17 +12,6 @@
 	src="http://code.jquery.com/jquery-2.2.2.min.js">
 	
 </script>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
-<!-- Optional theme -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
-<!-- Latest compiled and minified JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script>
 
 	$(function() {
@@ -177,7 +165,7 @@ a {
 			</select> 
 			<input type="text" class="form-control" id="search" name="word"
 				placeholder="검색할 내용을 입력하세요"/>
-				<button type="button" id="searchbtn" class="btn btn-info btn-warning"><span class="glyphicon glyphicon-search"></span> 검색</button>
+				<button type="button" id="searchbtn" class="btn btn-info btn-warning" style="margin:0px"><span class="glyphicon glyphicon-search"></span> 검색</button>
 		</div>
 		
 	</form>	
