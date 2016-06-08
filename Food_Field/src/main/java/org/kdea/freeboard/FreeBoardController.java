@@ -42,8 +42,9 @@ public class FreeBoardController {
 	@RequestMapping(value="/winput",method=RequestMethod.POST)
 	public String write(FreeBoardVO  fbVO, 
 			Model model,HttpServletRequest request){
-		System.out.println("내용: "+fbVO.getContents()
-		+",photo: "+fbVO.getPhoto());
+		System.out.println("내용: "+fbVO.getContents());
+		
+		
 		FreeBoardVO fb= fbService.write(fbVO);
 	
 		if(fb.isSuccess()){
