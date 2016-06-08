@@ -80,6 +80,7 @@
 		view-name="security/memberMain" /> -->
 
 	<beans:bean id="ChattingHandler" class="org.kdea.chatting.ChattingHandler" />
+	<beans:bean id="ChattingService" class="org.kdea.chatting.ChattingService" />
 	<websocket:handlers>
 		<websocket:mapping path="/chat" handler="ChattingHandler" />
 		<websocket:handshake-interceptors>
