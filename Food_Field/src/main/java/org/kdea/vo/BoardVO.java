@@ -1,6 +1,7 @@
 package org.kdea.vo;
 
 import java.sql.Date;
+import java.util.List;
 
 public class BoardVO {
 	private int num;
@@ -15,7 +16,21 @@ public class BoardVO {
 	private int grade;
 	private String shop_name;
 	private String shop_add;
+	private List<CommentVO> cmtvo;
+	private int cmtnum;
 	
+	public int getCmtnum() {
+		return cmtnum;
+	}
+	public void setCmtnum(int cmtnum) {
+		this.cmtnum = cmtnum;
+	}
+	public List<CommentVO> getCmtvo() {
+		return cmtvo;
+	}
+	public void setCmtvo(List<CommentVO> cmtvo) {
+		this.cmtvo = cmtvo;
+	}
 	public int getNum() {
 		return num;
 	}

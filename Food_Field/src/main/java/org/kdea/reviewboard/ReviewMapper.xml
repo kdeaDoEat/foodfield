@@ -12,17 +12,56 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						 )t2
 					)t3 where page=#{page}
     </select>
+    
 	<insert id="write" parameterType="org.kdea.vo.BoardVO">
         insert into board3 (num, w_date, title, contents, shop_name, shop_add, hit, ref, recommend) 
         	values ( board3_num.NEXTVAL, sysdate, #{title}, #{contents}, #{shop_name}, #{shop_add}, 0, 0, 0 )
     </insert>
+    
     <select id="read" resultType="org.kdea.vo.BoardVO">
-        select num,title,contents from board3 where num=#{num}
+        select * from board3 where num=#{num}
     </select>
     
 	<select id="page" resultType="java.lang.Integer" >
         select ceil(COUNT(num)/5) as page from board3
     </select>
+    
+    <update id="updateHit">
+        update board3 set hit=hit+1 where num=#{num}
+    </update>
+    
+    <insert id="commentWrite" parameterType="org.kdea.vo.CommentVO">
+        insert into reviewComment (num, cnum, w_date, contents) 
+        	values ( #{num}, reviewComment_num.NEXTVAL, sysdate, #{contents} )
+    </insert>
+    
+    <select id="getCommentList" resultType="org.kdea.vo.CommentVO">
+        select c.num, c.cnum, c.contents, c.w_date from board3 r INNER JOIN reviewComment c on r.num=c.num where r.num=#{num} order by c.cnum
+    </select>
+    
+    <select id="getCommentCount"  resultType="java.lang.Integer" >
+        select count(cnum) from board3 r INNER JOIN reviewComment c on r.num=c.num where r.num=#{num}
+    </select>
+    
+    <update id="commentModify" parameterType="org.kdea.vo.CommentVO">
+        update reviewComment set contents=#{contents} where cnum=#{cnum} and num=#{num}
+    </update>
+    
+    <delete id="commentDelete" parameterType="org.kdea.vo.CommentVO">
+        delete from reviewComment where cnum=#{cnum}
+    </delete>
+    
+    <delete id="reviewDelete" parameterType="org.kdea.vo.BoardVO">
+        delete from board3 where num=#{num}
+    </delete>
+    
+    <delete id="reviewBoardCommentDelete">
+        delete from reviewComment where num=#{num}
+    </delete>
+    
+    <update id="reviewModify" parameterType="org.kdea.vo.BoardVO">
+        update board3 set title=#{title} shop_name=#{shop_name} shop_add=#{shop_add} contents=#{contents} where num=#{num}
+    </update>
     
     <!-- <select id="list" resultType="org.kdea.mybatis.EmpVO">
         select * from emp2

@@ -5,15 +5,37 @@
 <%
 	String cp = request.getContextPath();
 	String parentnum = request.getParameter("num");
-	System.out.println("ref: " + parentnum);
 	if (parentnum == null) {
 		parentnum = "0";
-		System.out.println("상귀 글번호가 없을때 ref: " + parentnum);
+
 	}
 	session.setAttribute("ref", parentnum);
 %>
 <%--ContextPath 선언 --%>
+<script type="text/javascript" src="/FoodField/resources/ckeditor/ckeditor.js" charset="utf-8"></script>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function(){
+	CKEDITOR.replace('editor',{//해당 이름으로 된 textarea에 에디터를 적용
+		filebrowserImageUploadUrl:'/FoodField/uploadPhoto'//여기 경로로 파일을 전달하여 업로드 시킨다.
+	});
+	
+    
+    CKEDITOR.on('dialogDefinition', function( ev ){
+        var dialogName = ev.data.name;
+        var dialogDefinition = ev.data.definition;
+      
+        switch (dialogName) {
+            case 'image': //Image Properties dialog
+                dialogDefinition.removeContents('info');
+                dialogDefinition.removeContents('Link');
+                dialogDefinition.removeContents('advanced');
+                break;
+        }
+    });
+});
 
+</script>
 <div class="container">
 	<div class="row">
 		<div class="col-lg-12">
@@ -30,18 +52,18 @@
 							placeholder="input title">
 					</div>
 				</div>
+		
+
 				<!-- 내용 부분 -->
+			
 				<div class="form-group">
 					<label for="message" class="col-sm-2 control-label">내용</label>
 					<div class="col-sm-10">
-						<textarea rows="10" cols="30" id="ir1" name="contents"
-						class="form-control" placeholder="Input text" 
-							style="width: 100%; height: 412px; min-width: 260px; resize: none;"></textarea>
+						<textarea id="editor" style="width:100%; height:400px;"></textarea>
 					</div>
 				</div>
-
-			 	<!-- <input type="file" name="photo"> -->
-				<!--<div class="form-group">
+				<!-- <input type="file" name="photo"> -->
+				<div class="form-group">
 					<div class="col-sm-10 col-sm-offset-2" style="text-align: center;">
 						<button class="btn icon-btn btn-default" type="submit">
 							<span
@@ -49,7 +71,7 @@
 						</button>
 
 					</div>
-				</div> -->
+				</div> 
 			</form>
 		</div>
 	</div>

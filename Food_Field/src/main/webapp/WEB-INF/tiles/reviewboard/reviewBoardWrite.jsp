@@ -22,7 +22,6 @@
 					$.ajax({
 						url:'wSubmit',
 						type:'post',
-						data:$('#inputForm').serialize(),
 						data:{title:$('input[name="title"]').val(),
 								shop_name:$('input[name="shop_name"]').val(),
 								shop_add:$('input[name="shop_add"]').val(),

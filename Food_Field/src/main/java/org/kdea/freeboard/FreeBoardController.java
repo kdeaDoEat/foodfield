@@ -1,18 +1,17 @@
 package org.kdea.freeboard;
 
-import java.io.UnsupportedEncodingException;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.*;
 
 import org.json.simple.JSONObject;
-import org.kdea.vo.CommentVO;
-import org.kdea.vo.FreeBoardVO;
-import org.kdea.vo.SearchVO;
+import org.kdea.vo.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Controller
@@ -22,8 +21,8 @@ public class FreeBoardController {
 	@Autowired
 	private FreeBoradService fbService;
 
-	@RequestMapping(value="free", method = RequestMethod.GET)
-	public String list(Model model,HttpServletRequest request){
+	@RequestMapping(value="/free", method = RequestMethod.GET)
+	public String free(Model model,HttpServletRequest request){
 		String spage= request.getParameter("page");
 		int page=Integer.parseInt(spage);
 		List<FreeBoardVO> list= fbService.list(page);
@@ -36,7 +35,6 @@ public class FreeBoardController {
 	
 	@RequestMapping(value="/write",method=RequestMethod.GET)
 	public String WriteAndView(){
-		
 		return "write";
 	}
 	
@@ -58,9 +56,9 @@ public class FreeBoardController {
 	@RequestMapping(value="detail", method=RequestMethod.GET)
 	public String boardDetail(HttpServletRequest request, Model model){
 		if(request.getParameter("id")!=null){
-		String id=request.getParameter("id");
-		
+		String id=request.getParameter("id");		
 		FreeBoardVO fb= fbService.read(id);
+
 		model.addAttribute("wvalue", fb);
 		return "detail";
 		}
@@ -78,8 +76,6 @@ public class FreeBoardController {
 		return null;
 	}
 
-
-	
 	@RequestMapping(value="modify", method=RequestMethod.POST)
 	public String modifyForm(@ModelAttribute("input") FreeBoardVO fb,
 			Model model){
@@ -107,7 +103,6 @@ public class FreeBoardController {
 		if(isParents){
 			JSONObject jobj= new JSONObject();
 			jobj.put("isParents", true);
-			
 		return jobj.toJSONString();
 		}else{
 			JSONObject jobj= new JSONObject();
@@ -116,16 +111,7 @@ public class FreeBoardController {
 			return jobj.toJSONString();
 			}
 	}
-	@RequestMapping(value="delete", method=RequestMethod.GET)
-	public String delete(@RequestParam("num") int num,
-			Model model){
-		boolean deleteSuccess=fbService.delete(num);
-		if(deleteSuccess){
-		return "redirect:free?page=1";
-		}else
-			return "redirect:detail?num="+num;
-	}
-	
+
 	//댓글//
 	@RequestMapping(value="comment", method=RequestMethod.POST)
 	public String cmtWrite(@ModelAttribute("cinput") CommentVO comment,
@@ -146,18 +132,17 @@ public class FreeBoardController {
 	@ResponseBody
 	public String BeforeCommentmodi(@RequestParam("number") int num
 			){
-		//코멘트 수정전에 내용 불러오기
+
 		String jobjStr=fbService.getCommentDetail(num);
-	
+
 		return jobjStr;
 	}
 	@RequestMapping(value="comodify", method=RequestMethod.POST
 			,produces="application/text; charset=utf8")
 	@ResponseBody
-	public String cmtModify(@ModelAttribute("cinput") CommentVO comment){
-		
+	String cmtModify(@ModelAttribute("cinput") CommentVO comment){
 		String jobjStr=fbService.cmtModify(comment);
-		
+
 		return jobjStr;
 	}
 	
@@ -168,14 +153,22 @@ public class FreeBoardController {
 		
 		String jobjStr=fbService.cmtDelete(num);
 		
+
 		return jobjStr;
 	}
 
-
+	@RequestMapping(value="delete", method=RequestMethod.GET)
+	public String delte(@RequestParam("num") int num,
+			Model model){
+		boolean deleteSuccess=fbService.delete(num);
+		if(deleteSuccess){
+		return "redirect:free?page=1";
+		}else
+			return "redirect:detail?num="+num;
+	}
 	@RequestMapping(value="replyForm", method=RequestMethod.GET)
 	public String Reply(@RequestParam("num") int num,
 			Model model){
-
 		return "redirect:write?num="+num;
 
 	}
@@ -183,7 +176,7 @@ public class FreeBoardController {
 	@RequestMapping(value="search", method=RequestMethod.GET)
 	public String Search(@ModelAttribute("search") SearchVO svo,
 			Model model){
-		
+
 		System.out.println("검색으로 넘어온것? "+svo.getSearchCategory()+", "+svo.getSearchContent()+", "+svo.getPage());
 		List<FreeBoardVO> searchList= fbService.getSearchList(svo);
 		svo.setBsearch(true);
@@ -191,5 +184,56 @@ public class FreeBoardController {
 		model.addAttribute("isSearch", svo);
 		return "freeboard";
 	}
+	
+	@RequestMapping(value="uploadPhoto",method = RequestMethod.POST)
+	  public void communityImageUpload
+	  (HttpServletRequest request, HttpServletResponse response,
+		@RequestParam MultipartFile upload)
+	{
+		System.out.println("여기로 넘어오긴 하냐?");
+        OutputStream out = null;
+        PrintWriter printWriter = null;
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/html;charset=utf-8");
+ 
+        try{
+ 
+            String fileName = upload.getOriginalFilename();
+            byte[] bytes = upload.getBytes();
+            String uploadPath = "C:/test/upload/" + fileName;//저장경로
+ 
+            out = new FileOutputStream(new File(uploadPath));
+            out.write(bytes);
+            String callback = request.getParameter("CKEditorFuncNum");
+ 
+            printWriter = response.getWriter();
+            String fileUrl = "C:/test/upload/" + fileName;//url경로
+ 
+            printWriter.println("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction("
+                    + callback
+                    + ",'"
+                    + fileUrl
+                    + "','이미지를 업로드 하였습니다.'"
+                    + ")</script>");
+            printWriter.flush();
+ 
+        }catch(IOException e){
+            e.printStackTrace();
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+                if (printWriter != null) {
+                    printWriter.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+ 
+        return;
+    }
+
 
 }

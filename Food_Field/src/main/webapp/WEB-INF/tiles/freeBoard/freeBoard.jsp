@@ -11,6 +11,7 @@
 	String strPages = (String) request.getParameter("page");
 	int pages = Integer.parseInt(strPages);
 	int lastPages = list.get(0).getPagevo().getLastPage();
+
 %>
 
 <script src="http://code.jquery.com/jquery-2.1.1.min.js"
@@ -38,8 +39,7 @@
 	function nextClick(){
 			console.log("후버튼 눌림");
 			<%if (list.get(0).getPagevo().isRightMore()) {%>
-				location.href="../list?page=<%=list.get(0).getPagevo().getLastPage() + 1%>
-	";
+				location.href="../list?page=<%=list.get(0).getPagevo().getLastPage() + 1%>";
 <%} else {%>
 	$('#next').hide();
 		$('#prev').show();
