@@ -46,7 +46,7 @@ public class FreeBoradService {
 
 		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
 		if(fbVO.getRef()!=0){
-			if(fbVO.getPhoto()==null){fbVO.setPhoto(null);}
+			if(fbVO.getPhoto()==null){fbVO.setPhoto("img");}
 			int replysuccess= fbdao.relpyInput(fbVO);
 			if(replysuccess>0){
 				fbVO.setSuccess(true);
@@ -54,7 +54,7 @@ public class FreeBoradService {
 				}
 		}
 		
-		if(fbVO.getPhoto()==null){fbVO.setPhoto(null);}
+		if(fbVO.getPhoto()==null){fbVO.setPhoto("img");}
 		int wSuccess=fbdao.write(fbVO);
 		if(wSuccess>0){
 			fbVO.setSuccess(true);

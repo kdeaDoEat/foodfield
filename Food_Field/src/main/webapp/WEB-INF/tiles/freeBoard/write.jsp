@@ -17,17 +17,17 @@
 <script type="text/javascript">
 $(function(){
 	CKEDITOR.replace('editor',{//해당 이름으로 된 textarea에 에디터를 적용
-		filebrowserImageUploadUrl:'/FoodField/uploadPhoto'//여기 경로로 파일을 전달하여 업로드 시킨다.
+		filebrowserImageUploadUrl:'uploadPhoto?${_csrf.parameterName}=${_csrf.token}'//여기 경로로 파일을 전달하여 업로드 시킨다.
 	});
-	
-    
+	var data=CKEDITOR.instances.editor.getData();
+    console.log(data);
     CKEDITOR.on('dialogDefinition', function( ev ){
         var dialogName = ev.data.name;
         var dialogDefinition = ev.data.definition;
       
         switch (dialogName) {
             case 'image': //Image Properties dialog
-                dialogDefinition.removeContents('info');
+                //dialogDefinition.removeContents('info');
                 dialogDefinition.removeContents('Link');
                 dialogDefinition.removeContents('advanced');
                 break;
@@ -40,7 +40,7 @@ $(function(){
 	<div class="row">
 		<div class="col-lg-12">
 			<form class="form-horizontal" id="bform" name="input" method="post"
-				action="winput">
+				action="winput?${_csrf.parameterName}=${_csrf.token}">
 				<input type="hidden" name="nickname" value="jungheeLee"> <input
 					type="hidden" name="ref" value="${ref}">
 				<p>
@@ -59,7 +59,9 @@ $(function(){
 				<div class="form-group">
 					<label for="message" class="col-sm-2 control-label">내용</label>
 					<div class="col-sm-10">
-						<textarea id="editor" style="width:100%; height:400px;"></textarea>
+						<textarea id="editor" name="contents"style="width:100%; height:400px;">
+						<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+						</textarea>
 					</div>
 				</div>
 				<!-- <input type="file" name="photo"> -->

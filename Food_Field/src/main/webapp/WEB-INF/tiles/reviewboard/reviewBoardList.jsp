@@ -2,19 +2,26 @@
     pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script type="text/javascript">
-		$(function() {
+
+$(function() {
 		})
-		function view(num) {
-			location.href="reviews/read?num="+num;
-		}
+		
+
+function view(num) {
+	location.href="review/read?num="+num;
+}
+function search_Option(evt) {
+	$('#search_concept').text(evt);
+}
+		
 </script>
 <div class="container">
         <div class="row">
         <h1 style="margin-left: 100px;padding-bottom: 20px">맛집을 찾자</h1>
-        
             <div class="col-lg-12">
-            <div class="table-responsive">
+            	<div class="table-responsive">
 					<table class="table" >
 						<thead>
 							<tr>
@@ -40,18 +47,25 @@
 									<td class="recommend" style="width: 10%">${l.recommend }</td>
 								</tr>
 							</c:forEach>
-							<tr>
-							<td colspan="6">
-							<ul class="pagination" role="menubar" aria-label="Pagination">
-					<li class="arrow unavailable" aria-disabled="true">
+
+						</tbody>
+
+					</table>
+				</div>
+				<div class="row">
+					<div class="col-md-4"></div>
+					<div class="col-md-4" style="text-align: center;">
+						<ul class="pagination" role="menubar" aria-label="Pagination">
+								<li class="arrow unavailable" aria-disabled="true">
+
 								<c:choose>
 									<c:when test="${vo.type eq 'list'}">
 										<a href="review?page=${vo.nowpage-1 }">
-										&laquo; Previous</a>
+										&laquo;</a>
 									</c:when>
 									<c:when test="${vo.type eq 'search'}">
 										<a href="search?option=${vo.searchType }&con=${vo.searchOption }&page=${vo.nowpage-1 }">
-							  			&laquo; Previous</a>
+							  			&laquo;</a>
 									</c:when>
 								</c:choose>
 								</li>
@@ -72,25 +86,46 @@
 								<li class="arrow">
 								<c:choose>
 									<c:when test="${vo.type eq 'list'}">
-										<a href="review?page=${vo.nowpage+1 }">Next &raquo;</a>
+										<a href="review?page=${vo.nowpage+1 }">&raquo;</a>
 									</c:when>
 									<c:when test="${vo.type eq 'search'}">
-										<a href="search?option=${vo.searchType }&con=${vo.searchOption }&page=${vo.nowpage+1 }">Next &raquo;</a>
+										<a href="search?option=${vo.searchType }&con=${vo.searchOption }&page=${vo.nowpage+1 }">&raquo;</a>
 									</c:when>
 								</c:choose>
 								</li>
+
 							</ul>
-							</td>
-							</tr>
-            				<tr><td colspan="6" style="text-align: center;">
+					</div>
+					<div class="col-md-4" style="padding-top: 2%">
+						<div class="input-group">
+			                <div class="input-group-btn search-panel">
+			                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+			                    	<span id="search_concept">Option</span> <span class="caret"></span>
+			                    </button>
+			                    <ul class="dropdown-menu" role="menu">
+			                      <li><span style="cursor: pointer;" onclick="search_Option('제목');">제목</span></li>
+			                      <li><span style="cursor: pointer;" onclick="search_Option('내용');">내용</span></li>
+			                      <li><span style="cursor: pointer;" onclick="search_Option('작성자');">작성자</span></li>
+			                    </ul>
+			                </div>
+			                <input type="hidden" name="search_param" value="all" id="search_param">         
+			                <input type="text" class="form-control" name="x" placeholder="Search">
+			                <span class="input-group-btn">
+			                    <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search"></span></button>
+			                </span>
+			            </div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div></div>
+					
+				</div>
+				<div style="text-align: center;">
+					<a class="btn icon-btn btn-primary" href="review/write">
+            		<span class="glyphicon btn-glyphicon glyphicon-pencil img-circle text-muted">
+            		</span>　글쓰기</a>
 
-            				<a class="btn icon-btn btn-primary" href="review/write">
-
-            				<span class="glyphicon btn-glyphicon glyphicon-pencil img-circle text-muted">
-            				</span>　글쓰기</a></td></tr>
-						</tbody>
-
-					</table>
 				</div>
             </div>
         </div>

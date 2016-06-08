@@ -40,9 +40,10 @@ public class FreeBoardController {
 	
 
 	@RequestMapping(value="/winput",method=RequestMethod.POST)
-	public String write(@ModelAttribute("input")  FreeBoardVO  fbVO, 
+	public String write(FreeBoardVO  fbVO, 
 			Model model,HttpServletRequest request){
-	
+		System.out.println("내용: "+fbVO.getContents()
+		+",photo: "+fbVO.getPhoto());
 		FreeBoardVO fb= fbService.write(fbVO);
 	
 		if(fb.isSuccess()){
@@ -200,14 +201,14 @@ public class FreeBoardController {
  
             String fileName = upload.getOriginalFilename();
             byte[] bytes = upload.getBytes();
-            String uploadPath = "C:/test/upload/" + fileName;//저장경로
+            String uploadPath = "C:/img/" + fileName;//저장경로
  
             out = new FileOutputStream(new File(uploadPath));
             out.write(bytes);
             String callback = request.getParameter("CKEditorFuncNum");
  
             printWriter = response.getWriter();
-            String fileUrl = "C:/test/upload/" + fileName;//url경로
+            String fileUrl = "http://localhost:8088/img/" + fileName;//url경로
  
             printWriter.println("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction("
                     + callback
