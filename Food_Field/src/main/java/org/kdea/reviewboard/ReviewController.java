@@ -2,6 +2,7 @@ package org.kdea.reviewboard;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.kdea.vo.BoardVO;
 import org.kdea.vo.CommentVO;
@@ -105,7 +106,7 @@ public class ReviewController {
 	}
 	
 	@RequestMapping(value="review/uploadPhoto")
-	public String uploadPhoto(FileBean fileBean, Model model){
-		return rsvc.uploadPhoto(fileBean,model);
+	public String uploadPhoto(FileBean fileBean, Model model,HttpSession session){
+		return rsvc.uploadPhoto(fileBean,model,session);
 	}
 }

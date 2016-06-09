@@ -172,7 +172,8 @@ function reviewDelete(num) {
 					
 					<div class="col-sm-10 col-sm-offset-2">
 						<form id="commentForm" >
-							<input type="hidden" value="${vo.num }" name="num">
+							<input type="hidden" value="${vo.num }" name="num" style="display: none;">
+							<input type="hidden" value="${sessionScope.userInfo.nickname}" name="nickname" style="display: none;">
 	                    	<textarea rows="3" class="form-control" placeholder="댓글을 입력해주세요" name="contents"></textarea>  
                 		</form>
 	                    <div class="required-icon" style="margin: 3%">

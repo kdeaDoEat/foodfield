@@ -55,7 +55,7 @@
 			</div>
 			<div class="modal-footer">
 				<span id="joinErrMsg" style="padding-right: 100px"></span>
-				<button type="button" id="joinBtn" class="btn btn-primary" style="margin-bottom: 0px"><span class="glyphicon glyphicon-ok"></span> 회원가입</button>
+				<button type="submit" class="btn btn-primary" style="margin-bottom: 0px"><span class="glyphicon glyphicon-ok"></span> 회원가입</button>
 			</div>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				</form>
