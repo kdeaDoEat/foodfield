@@ -18,6 +18,7 @@ public class LoginService {
 		LoginDAO dao = sqlSessionTemplate.getMapper(LoginDAO.class);
 		UserVO userDB = dao.login(user.getEmail());
 		boolean result = passwordEncoder.matches(user.getPwd(), userDB.getPwd());
+
 		if(result) {
 			return user;
 		}

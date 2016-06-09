@@ -3,12 +3,13 @@ package org.kdea.vo;
 import java.sql.Date;
 
 public class CommentVO {
-	
-	private int num;
+
+
 	private int cnum;
+	private int num;
+	private String contents;
 	private String nickname;
 	private Date w_date;
-	private String contents;
 	
 	public int getCnum() {
 		return cnum;
@@ -22,6 +23,12 @@ public class CommentVO {
 	public void setNum(int num) {
 		this.num = num;
 	}
+	public String getContents() {
+		return contents;
+	}
+	public void setContents(String contents) {
+		this.contents = contents;
+	}
 	public String getNickname() {
 		return nickname;
 	}
@@ -34,13 +41,5 @@ public class CommentVO {
 	public void setW_date(Date w_date) {
 		this.w_date = w_date;
 	}
-	public String getContents() {
-		return contents;
-	}
-	public void setContents(String contents) {
-		this.contents = contents;
-	}
 	
-	
-
 }

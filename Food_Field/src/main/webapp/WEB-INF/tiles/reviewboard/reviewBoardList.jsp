@@ -4,11 +4,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script type="text/javascript">
-/* $(function() {
-	$('.input-group').on( 'click', '.dropdown-menu li', function(event) {
-		alert(event);
-	});
-}) */
+
+$(function() {
+		})
+		
 
 function view(num) {
 	location.href="review/read?num="+num;
@@ -35,7 +34,7 @@ function search_Option(evt) {
 							</tr>
 						</thead>
 						<tbody style="text-align: center;">
-							<c:forEach var="l" items="${vo.list}">
+							<c:forEach var="l" items="${list}">
 								<tr>
 									<td class="num" style="width: 10%">${l.num }</td>
 									<td class="title" style="width: 45%; text-align: left; cursor: pointer;" onclick="view(${l.num})"
@@ -48,6 +47,7 @@ function search_Option(evt) {
 									<td class="recommend" style="width: 10%">${l.recommend }</td>
 								</tr>
 							</c:forEach>
+
 						</tbody>
 
 					</table>
@@ -57,6 +57,7 @@ function search_Option(evt) {
 					<div class="col-md-4" style="text-align: center;">
 						<ul class="pagination" role="menubar" aria-label="Pagination">
 								<li class="arrow unavailable" aria-disabled="true">
+
 								<c:choose>
 									<c:when test="${vo.type eq 'list'}">
 										<a href="review?page=${vo.nowpage-1 }">
@@ -92,6 +93,7 @@ function search_Option(evt) {
 									</c:when>
 								</c:choose>
 								</li>
+
 							</ul>
 					</div>
 					<div class="col-md-4" style="padding-top: 2%">
@@ -123,6 +125,7 @@ function search_Option(evt) {
 					<a class="btn icon-btn btn-primary" href="review/write">
             		<span class="glyphicon btn-glyphicon glyphicon-pencil img-circle text-muted">
             		</span>　글쓰기</a>
+
 				</div>
             </div>
         </div>

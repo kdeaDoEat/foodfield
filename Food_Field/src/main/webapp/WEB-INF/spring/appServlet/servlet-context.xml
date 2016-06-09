@@ -70,8 +70,9 @@
 	</beans:bean>
 
 
-	<beans:bean id="passwordEncoder"
-		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"  />
+
 
 	<!-- <view-controller path="/index" view-name="security/index" /> <view-controller 
 		path="/sec/loginForm" view-name="security/loginForm" /> <view-controller 
