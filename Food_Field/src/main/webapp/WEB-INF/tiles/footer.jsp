@@ -99,10 +99,4 @@
 		유저리스트 :
 		<div id="users"></div>
 	</div>
-	<div>
-		<canvas id="myCanvas" width="450" height="300"
-			style="border: 1px solid #000;">
-        </canvas>
-	</div>
-	
 </footer>
