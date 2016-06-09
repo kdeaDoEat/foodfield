@@ -2277,7 +2277,7 @@ input[type="search"] {
   input[type="date"].input-lg, .input-group-lg > input[type="date"].form-control, .input-group-lg > input[type="date"].input-group-addon, .input-group-lg > .input-group-btn > input[type="date"].btn, .input-group-lg input[type="date"], input[type="time"].input-lg, .input-group-lg > input[type="time"].form-control, .input-group-lg > input[type="time"].input-group-addon, .input-group-lg > .input-group-btn > input[type="time"].btn, .input-group-lg input[type="time"], input[type="datetime-local"].input-lg, .input-group-lg > input[type="datetime-local"].form-control, .input-group-lg > input[type="datetime-local"].input-group-addon, .input-group-lg > .input-group-btn > input[type="datetime-local"].btn, .input-group-lg input[type="datetime-local"], input[type="month"].input-lg, .input-group-lg > input[type="month"].form-control, .input-group-lg > input[type="month"].input-group-addon, .input-group-lg > .input-group-btn > input[type="month"].btn, .input-group-lg input[type="month"] {
     line-height: 46px; } }
 .form-group {
-  margin-bottom: 30px; }
+  margin-bottom: 10px; }
 
 .radio, .checkbox {
   position: relative;
@@ -2524,8 +2524,8 @@ textarea.input-lg, .input-group-lg > textarea.form-control, .input-group-lg > te
 .form-horizontal .radio, .form-horizontal .checkbox {
   min-height: 35px; }
 .form-horizontal .form-group {
-  margin-left: -20px;
-  margin-right: -20px; }
+  margin-left: -10px;
+  margin-right: -65px; }
 .form-horizontal .form-group:before, .form-horizontal .form-group:after {
   content: " ";
   display: table; }
@@ -5907,12 +5907,14 @@ pre {
   margin-bottom: 30px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-family: "Montserrat", arial, sans-serif; }
+  font-family: "Montserrat", arial, sans-serif;
+  font-size:80px; }
 .owl-carousel-fullwidth .item .fh5co-owl-text .fh5co-sub-lead {
   font-size: 30px;
   line-height: 42px;
   font-weight: 100;
-  font-family: "Roboto", arial, sans-serif; }
+  font-family: "Roboto", arial, sans-serif;
+  font-size:30px; }
 
 .js .to-animate {
   opacity: 0; }
