@@ -54,31 +54,26 @@
 	</beans:bean>
 	<!-- 타일즈 뷰 리졸버 선언 -->
 	<beans:bean id="tilesViewResolver"
-	        class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-	    <beans:property name="viewClass">
-	            <beans:value>
-	                org.springframework.web.servlet.view.tiles3.TilesView
-	            </beans:value>
-	    </beans:property>
-	    <beans:property name="order" value="1"/>
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<beans:property name="viewClass">
+			<beans:value>
+				org.springframework.web.servlet.view.tiles3.TilesView
+			</beans:value>
+		</beans:property>
+		<beans:property name="order" value="1" />
 	</beans:bean>
 	 
 	<!-- Tiles configuration -->
 	<beans:bean id="tilesConfigurer"
-	    class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
-	    <beans:property name="definitions">
-	        <beans:list>
-	            <beans:value>/WEB-INF/tiles/tiles-definitions.xml</beans:value>
-	        </beans:list>
-	    </beans:property>
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<beans:property name="definitions">
+			<beans:list>
+				<beans:value>/WEB-INF/tiles/tiles-definitions.xml</beans:value>
+			</beans:list>
+		</beans:property>
 	</beans:bean>
 
-	
-	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"  />
 
-	<!-- <view-controller path="/index" view-name="security/index" />
-	<view-controller path="/sec/loginForm" view-name="security/loginForm" />
-	<view-controller path="/sec/joinForm" view-name="security/joinForm" />
-	<view-controller path="/admin/usermanager/main" view-name="security/usermanagerMain" />
-	<view-controller path="/member/main" view-name="security/memberMain" /> -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"  />
 </beans:beans>

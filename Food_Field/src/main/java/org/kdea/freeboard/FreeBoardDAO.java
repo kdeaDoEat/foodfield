@@ -2,38 +2,41 @@ package org.kdea.freeboard;
 
 import java.util.List;
 
-import org.kdea.vo.FreeboardVO;
+import org.kdea.vo.CommentVO;
+import org.kdea.vo.FreeBoardVO;
 import org.kdea.vo.SearchVO;
 
 public interface FreeBoardDAO {
-	
-	public List<FreeboardVO> list(int page);
+   
+   public List<FreeBoardVO> list(int page);//¸®½ºÆ® ºÒ·¯¿À±â
 
-	public int winput(FreeboardVO fbVO);
+   public int write(FreeBoardVO fbVO);
 
-	public FreeboardVO getDetail(String id);
+   public FreeBoardVO read(String id);
 
-	public FreeboardVO getModiDetail(int num);//ìˆ˜ì •í•œ ë‚´ìš©ë¶ˆëŸ¬ì˜¤ê¸°
+   public FreeBoardVO readNum(int num);//¼öÁ¤ÇÑ ³»¿ëºÒ·¯¿À±â
 
-	public int commentsuc(FreeboardVO fb);//ì½”ë©˜íŠ¸ë‹¬ê¸°
+   public int cmtWrite(CommentVO comment);//ÄÚ¸àÆ®´Ş±â
 
-	public List<FreeboardVO> CommentList(int num);//ì½”ë©˜íŠ¸ ë¶ˆëŸ¬ì˜¤ê¸°
+   public List<CommentVO> cmtList(int num);//ÄÚ¸àÆ® ºÒ·¯¿À±â
 
-	public int getModiSuccess(FreeboardVO fb);//ê¸€ìˆ˜ì •
+   public int modify(FreeBoardVO fb);//±Û¼öÁ¤
 
-	public List<FreeboardVO> beforeDelete(int num);//ì‚­ì œì „ ë‹µê¸€ìˆëŠ”ì§€ í™•ì¸
+   public List<FreeBoardVO> beforeDelete(int num);//»èÁ¦Àü ´ä±ÛÀÖ´ÂÁö È®ÀÎ
 
-	public int getDelete(int num);//ë‚´ìš©ì‚­ì œ
+   public int delete(int num);//³»¿ë»èÁ¦
 
-	public FreeboardVO getCommentDetail(int num);//ìˆ˜ì •ì „ ë‚´ìš©ë¶ˆëŸ¬ì˜¤ê¸°
+   public CommentVO getCommentDetail(int num);//¼öÁ¤Àü ³»¿ëºÒ·¯¿À±â
 
-	public int commentModisuc(FreeboardVO fb);//ì½”ë©˜íŠ¸ ë‚´ìš©ìˆ˜ì •
+   public int cmtModify(CommentVO comment);//ÄÚ¸àÆ® ³»¿ë¼öÁ¤
 
-	public int getCommentDeltet(int num);//ì½”ë©˜íŠ¸ ì‚­ì œ
+   public int cmtDelete(int num);//ÄÚ¸àÆ® »èÁ¦
 
-	public int relpyinput(FreeboardVO fbVO);//ë‹µê¸€ ë‹¬ê¸°
+   public int relpyInput(FreeBoardVO fbVO);//´ä±Û ´Ş±â
 
-	public List<FreeboardVO> getSearchList(SearchVO svo);//ê²€ìƒ‰
+   public List<FreeBoardVO> getSearchList(SearchVO svo);//°Ë»ö
+
+   public int viewsCtn(int num);//Á¶È¸¼ö Ä«¿îÆ®
 
 
 

@@ -3,40 +3,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
-<script type="text/javascript">
-$(function() {
-	$('#loginBtn').on('click', function() {
-		$.ajax({
-			url : 'loginProcess',
-			type : 'post',
-			data : $('#loginForm').serialize(),
-			success : function(res) {
-				if(res == 'true') {
-					location.href = 'main';
-				} else {
-					$('#loginMsg').text('아이디 또는 비밀번호가 틀렸습니다.');
-					$('#loginMsg').css('color', 'red');
-				}
-			},
-			error : function(xhr, status, error) {
-				alert(error);
-			}
-		});
-	});
-	
-	$('.pwd').on('change', function() {
-		if($('#pwd').val() == $('#pwdCheck').val() && $('#pwd').val() != "") {
-			$('#joinPwdMsg').css('color', 'blue');
-			$('#joinPwdMsg').text('비밀번호 일치');
-		} else if($('#pwd').val() == "") {
-			$('#joinPwdMsg').text('');
-		} else {
-			$('#joinPwdMsg').css('color', 'red');
-			$('#joinPwdMsg').text('비밀번호 불일치');
-		}
-	});
-});
-</script>
+<script src="/FoodField/resources/bootstrap/js/login.js"></script>
 <!-- Login Modal -->
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
@@ -87,7 +54,8 @@ $(function() {
 				성별  남<input type="radio" name="gender" value="man"> 여<input type="radio" name="gender" value="woman">
 			</div>
 			<div class="modal-footer">
-				<button type="submit" class="btn btn-primary" style="margin-bottom: 0px"><span class="glyphicon glyphicon-ok"></span> 회원가입</button>
+				<span id="joinErrMsg" style="padding-right: 100px"></span>
+				<button type="button" id="joinBtn" class="btn btn-primary" style="margin-bottom: 0px"><span class="glyphicon glyphicon-ok"></span> 회원가입</button>
 			</div>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				</form>
@@ -127,7 +95,7 @@ $(function() {
 						</sec:authorize>
 						<sec:authorize access="isAuthenticated()">
 						<li><a><span>${sessionScope.userInfo.nickname}님 환영합니다 !<span class="border"></span></span></a></li>
-						<li><a href="logout"><span>logout<span class="border"></span></span></a></li>
+						<li><a href="<c:url value='logout'/>"><span>logout<span class="border"></span></span></a></li>
 						</sec:authorize>
 						<!-- <li><a href="left-sidebar.html"><span>Left Sidebar <span class="border"></span></span></a></li>
 						<li><a href="elements.html"><span>Elements <span class="border"></span></span></a></li> -->

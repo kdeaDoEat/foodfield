@@ -4,100 +4,108 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kdea.freeboard.FreeBoardDAO">
 
-	<resultMap type="org.kdea.vo.FreeboardVO" id="pageMap">
-		<result property="pagevo.totalPage" column="totalPage" />
-	</resultMap>
+   <resultMap type="org.kdea.vo.FreeBoardVO" id="pageMap">
+      <result property="pagevo.totalPage" column="totalPage" />
+   </resultMap>
 
-	<select id="list" resultType="org.kdea.vo.FreeboardVO"
-		resultMap="pageMap">
-		SELECT * FROM
-		(SELECT TRUNC((rn-1)/10+1)as page,ceil(count(*) over()/10) as totalPage, t2.*
-		FROM
-		(SELECT ROWNUM rn, t1.* FROM
-		(SELECT num,LPAD('ㄴ', 4*(level-1),' ')||title as title,content,wdate,id
-		FROM MYBATISBOARD START WITH ref=0 CONNECT BY PRIOR num=ref
-		ORDER SIBLINGS BY wdate DESC
-		)t1
-		)t2
-		)where page=#{page}
-	</select>
+   <select id="list" resultType="org.kdea.vo.FreeBoardVO"
+      resultMap="pageMap">
+      SELECT * FROM
+      (SELECT TRUNC((rn-1)/10+1)as page,ceil(count(*) over()/10) as totalPage, t2.*
+      FROM
+      (SELECT ROWNUM rn, t1.* FROM
+      (SELECT num,LPAD('ㄴ', 4*(level-1),' ')||title as title,contents,w_date,nickname,views
+      FROM FREEBOARD START WITH ref=0 CONNECT BY PRIOR num=ref
+      ORDER SIBLINGS BY w_date DESC
+      )t1
+      )t2
+      )where page=#{page}
+   </select>
 
-	<select id="CommentList" resultType="org.kdea.vo.FreeboardVO">
-		SELECT num, content, wdate, id, ref FROM fbcomment where ref=#{num}
+   <select id="cmtList" resultType="org.kdea.vo.CommentVO">
+      SELECT cnum, contents, w_date, nickname, num FROM fbcomment where num=#{num}
 
-	</select>
+   </select>
 
-	<select id="getCommentDetail" resultType="org.kdea.vo.FreeboardVO">
-		SELECT num, content, wdate, id, ref FROM fbcomment where num=#{num}
+   <select id="getCommentDetail" resultType="org.kdea.vo.CommentVO">
+      SELECT cnum, contents, w_date, nickname, num FROM fbcomment where cnum=#{num}
 
-	</select>
+   </select>
 
-	<select id="beforeDelete" resultType="org.kdea.vo.FreeboardVO">
-		select * from MYBATISBOARD
-		where ref=#{num}
-	</select>
-	<insert id="winput" parameterType="org.kdea.vo.FreeboardVO">
-		insert into mybatisboard (num,
-		id, title,content, wdate, ref)
-		values(MYBATISBD_NUM_SEQ.nextval,#{id},#{title},#{content},sysdate,0)
-	</insert>
-	<insert id="relpyinput" parameterType="org.kdea.vo.FreeboardVO">
-		insert into mybatisboard
-		(num, id, title,content, wdate, ref)
-		values(MYBATISBD_NUM_SEQ.nextval,#{id},#{title},#{content},sysdate,#{ref})
-	</insert>
-	<select id="getDetail" resultType="org.kdea.vo.FreeboardVO">
-		select * from MYBATISBOARD
-		where num=(select max(num) from MYBATISBOARD where id=#{id})
-	</select>
-	<select id="getModiDetail" resultType="org.kdea.vo.FreeboardVO">
-		select * from MYBATISBOARD
-		where num=#{num}
-	</select>
-	<select id="getSearchList" parameterType="org.kdea.vo.SearchVO"
-		resultType="org.kdea.vo.FreeboardVO" resultMap="pageMap">
-		SELECT * FROM
-		(SELECT TRUNC((rn-1)/10+1)as page,ceil(count(*) over()/10) as totalPage, t2.*
-		FROM
-		(SELECT ROWNUM rn, t1.* FROM
-		(SELECT num,LPAD('ㄴ', 4*(level-1),' ')||title as title,content,wdate,id
-		FROM MYBATISBOARD START WITH ref=0 CONNECT BY PRIOR num=ref
-		ORDER SIBLINGS BY wdate DESC
-		)t1
-		<where>
-			<if test="searchCategory=='title'">
-				LOWER(title) like LOWER('%' || #{searchContent} || '%')
-			</if>
-			<if test="searchCategory=='id'">
-				LOWER(id) like LOWER('%' || #{searchContent} || '%')
-			</if>
-			<if test="searchCategory=='content'">
-				LOWER(content) like LOWER('%' || #{searchContent} || '%')
-			</if>
-		</where>
-		)t2
-		)where page=#{page}
-	</select>
+   <select id="beforeDelete" resultType="org.kdea.vo.FreeBoardVO">
+      select * from FREEBOARD
+      where ref=#{num}
+   </select>
+   
+   <select id="read" resultType="org.kdea.vo.FreeBoardVO">
+      select * from FREEBOARD
+      where num=(select max(num) from FREEBOARD where nickname=#{id})
+   </select>
+   <select id="readNum" resultType="org.kdea.vo.FreeBoardVO">
+      select * from FREEBOARD
+      where num=#{num}
+   </select>
+   <select id="getSearchList" parameterType="org.kdea.vo.SearchVO"
+      resultType="org.kdea.vo.FreeBoardVO" resultMap="pageMap">
+      SELECT * FROM
+      (SELECT TRUNC((rn-1)/10+1)as page,ceil(count(*) over()/10) as totalPage, t2.*
+      FROM
+      (SELECT ROWNUM rn, t1.* FROM
+      (SELECT num,LPAD('ㄴ', 4*(level-1),' ')||title as title,contents,w_date,nickname,views
+      FROM FREEBOARD START WITH ref=0 CONNECT BY PRIOR num=ref
+      ORDER SIBLINGS BY w_date DESC
+      )t1
+      <where>
+         <if test="searchCategory=='title'">
+            LOWER(title) like LOWER('%' || #{searchContent} || '%')
+         </if>
+         <if test="searchCategory=='id'">
+            LOWER(nickname) like LOWER('%' || #{searchContent} || '%')
+         </if>
+         <if test="searchCategory=='content'">
+            LOWER(contents) like LOWER('%' || #{searchContent} || '%')
+         </if>
+      </where>
+      )t2
+      )where page=#{page}
+   </select>
 
 
-	<insert id="commentsuc" parameterType="org.kdea.vo.FreeboardVO">
-		insert into fbcomment
-		(num, content, wdate,id, ref)
-		values(FBCOMMENT_SEQ.nextval,#{content},sysdate,#{id},#{ref})
-	</insert>
-	<update id="getModiSuccess" parameterType="org.kdea.vo.FreeboardVO">
-		update mybatisboard
-		set title=#{title}, content=#{content} where num=#{num}
-	</update>
+   <insert id="write" parameterType="org.kdea.vo.FreeBoardVO">
+      insert into FREEBOARD 
+      values(FREEBOARD_SEQ.nextval,#{nickname},sysdate,#{title},#{contents},0,0,#{photo},0)
+      <!-- (num,
+      nickname, w_date, title,contents, ref, views, photo, recommend) -->
+   </insert>
+   
+   <insert id="relpyInput" parameterType="org.kdea.vo.FreeBoardVO">
+      insert into FREEBOARD
+      values(FREEBOARD_SEQ.nextval,#{nickname},sysdate,#{title},#{contents},#{ref},0,#{photo},0)
+   </insert>
+   <insert id="cmtWrite" parameterType="org.kdea.vo.CommentVO">
+      insert into fbcomment
+      (cnum, contents, w_date,nickname, num)
+      values(FBCOMMENT_SEQ.nextval,#{contents},sysdate,#{nickname},#{num})
+   </insert>
+   <update  id="viewsCtn">
+      update FREEBOARD
+      set views = views+1
+      where num=#{num}
+   </update>
+   
+   <update id="modify" parameterType="org.kdea.vo.FreeBoardVO">
+      update FREEBOARD
+      set title=#{title}, contents=#{contents} where num=#{num}
+   </update>
 
-	<update id="commentModisuc" parameterType="org.kdea.vo.FreeboardVO">
-		update fbcomment set
-		content=#{content} where num=#{num}
-	</update>
-	<delete id="getDelete">
-		delete from mybatisboard where num=#{num}
-	</delete>
-	<delete id="getCommentDeltet">
-		delete from fbcomment where num=#{num}
-	</delete>
+   <update id="cmtModify" parameterType="org.kdea.vo.CommentVO">
+      update fbcomment set
+      contents=#{contents} where cnum=#{num}
+   </update>
+   <delete id="delete">
+      delete from FREEBOARD where num=#{num}
+   </delete>
+   <delete id="cmtDelete">
+      delete from fbcomment where cnum=#{num}
+   </delete>
 </mapper>
