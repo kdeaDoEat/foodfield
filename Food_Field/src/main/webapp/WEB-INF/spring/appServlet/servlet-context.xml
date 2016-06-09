@@ -13,6 +13,7 @@
 	<context:annotation-config />
 
 	<context:component-scan base-package="org.kdea.main" />
+	<context:component-scan base-package="org.kdea.doit" />
 	<context:component-scan base-package="org.kdea.chatting" />
 	<context:component-scan base-package="org.kdea.freeboard" />
 	<context:component-scan base-package="org.kdea.noticeboard" />
@@ -58,7 +59,7 @@
 		</beans:property>
 		<beans:property name="order" value="1" />
 	</beans:bean>
-
+	 
 	<!-- Tiles configuration -->
 	<beans:bean id="tilesConfigurer"
 		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
@@ -69,16 +70,8 @@
 		</beans:property>
 	</beans:bean>
 
-
-	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"  />
-
-
-	<!-- <view-controller path="/index" view-name="security/index" /> <view-controller 
-		path="/sec/loginForm" view-name="security/loginForm" /> <view-controller 
-		path="/sec/joinForm" view-name="security/joinForm" /> <view-controller path="/admin/usermanager/main" 
-		view-name="security/usermanagerMain" /> <view-controller path="/member/main" 
-		view-name="security/memberMain" /> -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 
 	<beans:bean id="ChattingHandler" class="org.kdea.chatting.ChattingHandler" />
 	<beans:bean id="ChattingService" class="org.kdea.chatting.ChattingService" />

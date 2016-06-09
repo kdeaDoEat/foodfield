@@ -62,7 +62,7 @@ public class ChattingHandler extends TextWebSocketHandler {
               Map<String, Object> mymap = session.getAttributes();
               String myId = (String) mymap.get("usrId");
                             
-              session.sendMessage(new TextMessage(myId+":"+msgarray[msgarray.length - 1]));
+              //session.sendMessage(new TextMessage(myId+":"+msgarray[msgarray.length - 1]));
               List<String> userlist = new ArrayList<String>();
               Iterator usernames = users.keySet().iterator();
               while (usernames.hasNext()) {

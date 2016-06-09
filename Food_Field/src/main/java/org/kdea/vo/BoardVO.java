@@ -19,6 +19,12 @@ public class BoardVO {
 	private List<CommentVO> cmtvo;
 	private int cmtnum;
 	
+	public String getContents() {
+		return contents;
+	}
+	public void setContents(String contents) {
+		this.contents = contents;
+	}
 	public int getCmtnum() {
 		return cmtnum;
 	}
@@ -54,12 +60,6 @@ public class BoardVO {
 	}
 	public void setTitle(String title) {
 		this.title = title;
-	}
-	public String getContents() {
-		return contents;
-	}
-	public void setContents(String contents) {
-		this.contents = contents;
 	}
 	public int getRef() {
 		return ref;

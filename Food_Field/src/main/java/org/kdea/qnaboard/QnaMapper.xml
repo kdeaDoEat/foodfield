@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.kdea.qnaboard.QnADAO">
+
+
+
+<!--                  [ List ]                       -->
+	<select id="getRnbyBno" resultType="int">
+		select "rowno" from 
+			( select rownum "rowno", t1.* from ( 
+				select num,	LPAD('ㄴ',(LEVEL-1)*4,'　')||title title,contents,nickname,w_date from qnaboard
+				<where>
+					<if test="true">
+					</if>
+					<if test="type == '제목'">
+						title like #{word}
+					</if>
+					<if test="type == '내용'">
+						contents like #{word}
+					</if>
+					<if test="type == '작성자'">
+						nickname like #{word}
+					</if>
+				</where>
+				start with ref = 0 connect by prior num = ref order siblings by num DESC
+			) t1 
+		) where num = #{board.num}
+	</select>
+
+	<select id="getAllCount" resultType="int">
+		select count(*) from qnaboard
+		<where>
+			<if test="true">
+			</if>
+			<if test="type == '제목'">
+				title like #{word}
+			</if>
+			<if test="type == '내용'">
+				contents like #{word}
+			</if>
+			<if test="type == '작성자'">
+				nickname like #{word}
+			</if>
+		</where>
+	</select>
+
+	<select id="getList" resultType="org.kdea.vo.BoardVO">
+		select * from ( 
+			select rownum "rowno", t1.* from ( 
+				select num, LPAD('ㄴ',(LEVEL-1)*4,'　')||title title,contents,nickname,w_date from qnaboard
+				<where>
+					<if test="true">
+					</if>
+					<if test="type == '제목'">
+						title like #{word}
+					</if>
+					<if test="type == '내용'">
+						contents like #{word}
+					</if>
+					<if test="type == '작성자'">
+						nickname like #{word}
+					</if>
+				</where>
+				start with ref = 0 connect by prior num = ref order siblings by num DESC
+			) t1 
+		) where "rowno" between (#{rpp}*#{page}-(#{rpp}-1)) and	#{rpp}*#{page}
+	</select>
+	
+	
+	
+	
+	
+<!--                  [ Write ]                       -->
+	<insert id="insertBoard">
+		insert into qnaboard(num, nickname,title,contents,w_date,ref) 
+		values (qnaboard_sequence.nextval,#{board.nickname},#{board.title},#{board.contents},sysdate,#{board.ref})
+	</insert>
+	
+	<select id="lastIndex" resultType="int">
+		select last_number from	user_sequences where sequence_name='QNABOARD_SEQUENCE'
+	</select>
+	<!-- oracle sequence에서 cash size 0으로 만들것 -->
+	
+	
+	
+	
+	
+<!--                  [ Write&View ]                       -->	
+	<select id="selectBoard" resultType="org.kdea.vo.BoardVO">
+		select * from qnaboard where num = #{board.num}
+	</select>
+
+
+
+
+
+<!--                  [ Modify ]                       -->
+	<update id="updateBoard">
+		update qnaboard set title = '${board.title}', contents =
+		'${board.contents}'
+		where num = ${board.num}
+	</update>	
+	
+	
+	
+	
+	
+<!--                  [ Delete ]                       -->
+	<select id="getParentConfirm" resultType="int">
+		select count(*) from
+		qnaboard where ref = #{board.num}
+	</select>
+
+	<delete id="deleteBoard">
+		delete from qnaboard where num = #{board.num}
+	</delete>
+	
+	
+	
+	
+</mapper>

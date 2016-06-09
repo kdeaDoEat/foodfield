@@ -51,6 +51,10 @@
         <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
     </definition>
     
+    <definition name="doitTemplate" extends="reviewBoardTemplate">
+        <put-attribute name="body" value="/WEB-INF/tiles/doit/doit.jsp" />
+    </definition>
+        
     <definition name="noticeBoardViewTemplate" template="/WEB-INF/tiles/noticeboard/noticeBoardViewTemplate.jsp">
         <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
         <put-attribute name="notice_view" value="/WEB-INF/tiles/noticeboard/boardView.jsp" />
@@ -68,6 +72,32 @@
         <put-attribute name="notice_mod" value="/WEB-INF/tiles/noticeboard/modForm.jsp" />
         <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
     </definition>
+    
+    <!-- QnA Board -->
+	<definition template="/WEB-INF/tiles/qnaboard/qnaBoardTemplate.jsp"	name="qnaBoardTemplate">
+		<put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+		<put-attribute name="list"	value="/WEB-INF/tiles/qnaboard/qnaBoardList.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
+	</definition>
+	
+	
+		<definition template="/WEB-INF/tiles/qnaboard/qnaWriteTemplate.jsp"	name="qnaWriteTemplate">
+			<put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+			<put-attribute name="write"	value="/WEB-INF/tiles/qnaboard/qnaBoardWrite.jsp" />
+			<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
+		</definition>
+	
+		<definition template="/WEB-INF/tiles/qnaboard/qnaViewTemplate.jsp"	name="qnaViewTemplate">	
+			<put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+			<put-attribute name="view" value="/WEB-INF/tiles/qnaboard/qnaBoardView.jsp" />
+			<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
+		</definition>
+		
+		<definition template="/WEB-INF/tiles/qnaboard/qnaModifyTemplate.jsp" name="qnaModifyTemplate">
+			<put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+			<put-attribute name="modify" value="/WEB-INF/tiles/qnaboard/qnaBoardModify.jsp" />
+			<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
+		</definition>
     
 
 </tiles-definitions>

@@ -3,11 +3,9 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kdea.freeboard.FreeBoardDAO">
-
 	<resultMap type="org.kdea.vo.FreeBoardVO" id="pageMap">
 		<result property="pagevo.totalPage" column="totalPage" />
 	</resultMap>
-
 	<select id="list" resultType="org.kdea.vo.FreeBoardVO"
 		resultMap="pageMap">
 		SELECT * FROM
@@ -24,8 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="cmtList" resultType="org.kdea.vo.CommentVO">
 		SELECT cnum, contents, w_date, nickname, num FROM fbcomment where num=#{num}
-
-	</select>
+   </select>
 
 	<select id="getCommentDetail" resultType="org.kdea.vo.CommentVO">
 		SELECT cnum, contents, w_date, nickname, num FROM fbcomment where cnum=#{num}
@@ -89,7 +86,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)t2
 		)where page=#{page}
 	</select>
-
 
 	<insert id="write" parameterType="org.kdea.vo.FreeBoardVO">
 		insert into FREEBOARD 

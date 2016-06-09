@@ -1,11 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<style>
+    .overlay_info {border-radius: 6px; margin-bottom: 12px; float:left;position: relative; border: 1px solid #ccc; border-bottom: 2px solid #ddd;background-color:#fff;}
+    .overlay_info:nth-of-type(n) {border:0; box-shadow: 0px 1px 2px #888;}
+    .overlay_info a {display: block; background: #d95050; background: #d95050 url(http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center; text-decoration: none; color: #fff; padding:12px 36px 12px 14px; font-size: 14px; border-radius: 6px 6px 0 0}
+    .overlay_info a strong {background:url(http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/place_icon.png) no-repeat; padding-left: 27px;}
+    .overlay_info .desc {padding:14px;position: relative; min-width: 190px; height: 56px}
+    .overlay_info img {vertical-align: top;}
+    .overlay_info .address {font-size: 12px; color: #333; position: absolute; left: 80px; right: 14px; top: 24px; white-space: normal}
+    .overlay_info:after {content:'';position: absolute; margin-left: -11px; left: 50%; bottom: -12px; width: 22px; height: 12px; background:url(http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png) no-repeat 0 bottom;}
+</style>
+
 <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function() {
 	// html로 내용을 뿌려준다
-	$('#ir1').html('${vo.contents}');
+	var contents='${vo.contents}';
+	contents.slice(0,-1);
+	$('#ir1').html(contents);
 	// 댓글 읽어 온다
 	$('#cmt').load("/FoodField/review/comment?num=${vo.num}");
 	
@@ -57,7 +71,6 @@ function editok(cnum) {
 		});
 	}
 }
-
 
 function del(cnum) {
 	var result = confirm('댓글을 삭제하시겠습니까?');
@@ -159,7 +172,8 @@ function reviewDelete(num) {
 					
 					<div class="col-sm-10 col-sm-offset-2">
 						<form id="commentForm" >
-							<input type="hidden" value="${vo.num }" name="num">
+							<input type="hidden" value="${vo.num }" name="num" style="display: none;">
+							<input type="hidden" value="${sessionScope.userInfo.nickname}" name="nickname" style="display: none;">
 	                    	<textarea rows="3" class="form-control" placeholder="댓글을 입력해주세요" name="contents"></textarea>  
                 		</form>
 	                    <div class="required-icon" style="margin: 3%">
@@ -177,6 +191,8 @@ function reviewDelete(num) {
 					</div>
             </div>
         </div>
+
+        
 <!--  지도표시  -->
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=9a675a9591fb0de82c5feea1ff08af2c&libraries=services"></script>
 <script>
