@@ -25,6 +25,7 @@ public class ChattingInterceptor extends HttpSessionHandshakeInterceptor{
         HttpServletRequest req =  ssreq.getServletRequest();
                                 /*session에서 id 가져오기 전*/
         System.out.println("param, id:"+"접속자"/*req.getSession().getAttribute("ID")*/);
+        System.out.println(req.getParameter("_csrf"));
          
         String usrId = "접속자";/*(String)req.getSession().getAttribute("ID");*/
         attributes.put("usrId", usrId);

@@ -370,8 +370,9 @@ public class NoticeBoardController {
 	
 	@RequestMapping(value="/replyModify",method=RequestMethod.POST)
 	@ResponseBody
-	public Object replyModify(@ModelAttribute("comment") CommentVO comment){
-				
+	public Object replyModify(@ModelAttribute("comment") CommentVO comment, HttpServletRequest request){
+	    
+		System.out.println(request.getParameter("_csrf"));
 		return service.modifyReply(comment);
 						
 	}

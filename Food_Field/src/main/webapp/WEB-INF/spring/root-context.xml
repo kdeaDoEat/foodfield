@@ -36,9 +36,11 @@
 
 	<sec:authentication-manager>
 		<sec:authentication-provider>
-			<!-- <sec:user-service > <sec:user name="smith" password="smith_pw" authorities="USER" 
-				/> <sec:user name="blake" password="blake_pw" authorities="USER_MANAGER" 
-				/> <sec:user name="king" password="king_pw" authorities="USER_ADMIN" /> </sec:user-service> -->
+			<!-- <sec:user-service > 
+			<sec:user name="smith" password="smith_pw" authorities="USER"/> 
+			<sec:user name="blake" password="blake_pw" authorities="USER_MANAGER"/> 
+			<sec:user name="king" password="king_pw" authorities="USER_ADMIN" /> 
+			</sec:user-service> -->
 			<sec:jdbc-user-service id="jdbcUserService"
 				data-source-ref="dataSource"
 				users-by-username-query="SELECT email, pwd, enabled FROM USERS WHERE email=?"
