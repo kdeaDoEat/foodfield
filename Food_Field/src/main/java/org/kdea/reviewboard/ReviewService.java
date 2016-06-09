@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,7 @@ import javax.swing.plaf.synth.SynthSplitPaneUI;
 import org.json.simple.JSONObject;
 import org.kdea.vo.BoardVO;
 import org.kdea.vo.CommentVO;
+import org.kdea.vo.UserVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -156,14 +158,18 @@ public class ReviewService {
 	}
 
 
-	public String uploadPhoto(FileBean fileBean, Model model) {
+	public String uploadPhoto(FileBean fileBean, Model model, HttpSession session) {
 	    String root_path = "C:/img/"; // 웹서비스 root 경로
 
 	    MultipartFile upload = fileBean.getUpload();
 	    String filename = "";
 	    String CKEditorFuncNum = "";
+	    
+	    Date d = new Date();
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+	    UserVO uvo = (UserVO)session.getAttribute("userInfo");
 	    if (upload != null) {
-	        filename = upload.getOriginalFilename();
+	        filename = sdf.format(d)+"_"+uvo.getNickname()+"_"+upload.getOriginalFilename();
 	        fileBean.setFilename(filename);
 	        CKEditorFuncNum = fileBean.getCKEditorFuncNum();
 	        try {

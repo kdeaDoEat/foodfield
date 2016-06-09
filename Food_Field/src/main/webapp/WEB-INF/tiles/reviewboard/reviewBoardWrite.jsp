@@ -29,7 +29,8 @@
 					$.ajax({
 						url:'wSubmit?${_csrf.parameterName}=${_csrf.token}',
 						type:'post',
-						data:{title:$('input[name="title"]').val(),
+						data:{nickname:'${sessionScope.userInfo.nickname}',
+								title:$('input[name="title"]').val(),
 								shop_name:$('input[name="shop_name"]').val(),
 								shop_add:$('input[name="shop_add"]').val(),
 								contents:con
