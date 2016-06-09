@@ -108,7 +108,4 @@ public class ReviewController {
 	public String uploadPhoto(FileBean fileBean, Model model){
 		return rsvc.uploadPhoto(fileBean,model);
 	}
-	
-	
-	
 }
