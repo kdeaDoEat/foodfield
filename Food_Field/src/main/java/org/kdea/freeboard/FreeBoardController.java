@@ -159,7 +159,7 @@ public class FreeBoardController {
 			return "";
 	}
 	//댓글읽기//
-	@RequestMapping(value="commentList", method=RequestMethod.GET)
+	@RequestMapping(value="commentList", method=RequestMethod.POST)
 	@ResponseBody
 	public String commentRead(@RequestParam("cnum") int cnum,
 			 Model model){
