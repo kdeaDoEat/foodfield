@@ -2,38 +2,41 @@ package org.kdea.freeboard;
 
 import java.util.List;
 
-import org.kdea.vo.FreeboardVO;
+import org.kdea.vo.CommentVO;
+import org.kdea.vo.FreeBoardVO;
 import org.kdea.vo.SearchVO;
 
 public interface FreeBoardDAO {
 	
-	public List<FreeboardVO> list(int page);
+	public List<FreeBoardVO> list(int page);//리스트 불러오기
 
-	public int winput(FreeboardVO fbVO);
+	public int write(FreeBoardVO fbVO);
 
-	public FreeboardVO getDetail(String id);
+	public FreeBoardVO read(String id);
 
-	public FreeboardVO getModiDetail(int num);//수정한 내용불러오기
+	public FreeBoardVO readNum(int num);//수정한 내용불러오기
 
-	public int commentsuc(FreeboardVO fb);//코멘트달기
+	public int cmtWrite(CommentVO comment);//코멘트달기
 
-	public List<FreeboardVO> CommentList(int num);//코멘트 불러오기
+	public List<CommentVO> cmtList(int num);//코멘트 불러오기
 
-	public int getModiSuccess(FreeboardVO fb);//글수정
+	public int modify(FreeBoardVO fb);//글수정
 
-	public List<FreeboardVO> beforeDelete(int num);//삭제전 답글있는지 확인
+	public List<FreeBoardVO> beforeDelete(int num);//삭제전 답글있는지 확인
 
-	public int getDelete(int num);//내용삭제
+	public int delete(int num);//내용삭제
 
-	public FreeboardVO getCommentDetail(int num);//수정전 내용불러오기
+	public CommentVO getCommentDetail(int num);//수정전 내용불러오기
 
-	public int commentModisuc(FreeboardVO fb);//코멘트 내용수정
+	public int cmtModify(CommentVO comment);//코멘트 내용수정
 
-	public int getCommentDeltet(int num);//코멘트 삭제
+	public int cmtDelete(int num);//코멘트 삭제
 
-	public int relpyinput(FreeboardVO fbVO);//답글 달기
+	public int relpyInput(FreeBoardVO fbVO);//답글 달기
 
-	public List<FreeboardVO> getSearchList(SearchVO svo);//검색
+	public List<FreeBoardVO> getSearchList(SearchVO svo);//검색
+
+	public int viewsCtn(int num);//조회수 카운트
 
 
 
