@@ -31,12 +31,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT cnum, contents, w_date, nickname, num FROM fbcomment where cnum=#{num}
 
 	</select>
+	<select id="CommentDetail" resultType="org.kdea.vo.CommentVO">
+		select * from fbcomment where cnum=(select max(cnum) from fbcomment
+		where nickname=#{nickname})
+		<!-- select * from FREEBOARD
+		where num=(select max(num) from FREEBOARD where nickname=#{id}) -->
+	</select>
 
 	<select id="beforeDelete" resultType="org.kdea.vo.FreeBoardVO">
 		select * from FREEBOARD
 		where ref=#{num}
 	</select>
 	
+	<select id="haveComment" resultType="org.kdea.vo.FreeBoardVO">
+		select * from fbcomment
+		where num=#{num}
+	</select>
+	
+	<select id="haverecommend" resultType="org.kdea.vo.FreeBoardVO">
+		select * from freerecommend
+		where num=#{num}
+	</select>
+	<select id="confirmrecommendCtn" resultType="org.kdea.vo.FreeBoardVO"
+	parameterType="org.kdea.vo.FreeBoardVO">
+		select * from freerecommend
+		where num=#{num} and nickname=#{nickname}
+	</select>
 	<select id="read" resultType="org.kdea.vo.FreeBoardVO">
 		select * from FREEBOARD
 		where num=(select max(num) from FREEBOARD where nickname=#{id})
@@ -87,9 +107,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(cnum, contents, w_date,nickname, num)
 		values(FBCOMMENT_SEQ.nextval,#{contents},sysdate,#{nickname},#{num})
 	</insert>
+		<insert  id="recommend" parameterType="org.kdea.vo.FreeBoardVO">
+		insert into freerecommend
+		values( #{num}, #{nickname})
+	</insert>
 	<update  id="viewsCtn">
 		update FREEBOARD
 		set views = views+1
+		where num=#{num}
+	</update>
+
+	<update  id="recommendCount" parameterType="org.kdea.vo.FreeBoardVO">
+		update FREEBOARD
+		set recommend = recommend+1
 		where num=#{num}
 	</update>
 	
@@ -107,5 +137,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	<delete id="cmtDelete">
 		delete from fbcomment where cnum=#{num}
+	</delete>
+	<delete id="deleteRecommend">
+		delete from freerecommend where num=#{num}
+	</delete>
+		<delete id="deleteAllComment">
+		delete from fbcomment where num=#{num}
 	</delete>
 </mapper>

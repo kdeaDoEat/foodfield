@@ -38,6 +38,22 @@ public interface FreeBoardDAO {
 
 	public int viewsCtn(int num);//조회수 카운트
 
+	public int recommend(FreeBoardVO bvo);//추천 누가, 어느 번호에 했는지 입력
+
+	public int recommendCount(FreeBoardVO bvo);//추천수업데이트
+
+	public FreeBoardVO confirmrecommendCtn(FreeBoardVO bvo);//해당 글번호에 추천누른적있는지 확인
+
+	public List<FreeBoardVO> haverecommend(int num);
+
+	public int deleteRecommend(int num);
+
+	public List<FreeBoardVO> haveComment(int num);//코멘트 있는지 확인(상위부모글번호)
+
+	public int deleteAllComment(int num);
+
+	public CommentVO CommentDetail(String nickname);
+
 
 
 }

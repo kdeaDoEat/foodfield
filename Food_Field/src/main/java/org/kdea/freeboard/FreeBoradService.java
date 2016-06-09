@@ -8,6 +8,7 @@ import org.kdea.vo.CommentVO;
 import org.kdea.vo.FreeBoardVO;
 import org.kdea.vo.SearchVO;
 import org.mybatis.spring.*;
+import org.osjava.sj.loader.SJDataSource;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
@@ -117,6 +118,7 @@ public class FreeBoradService {
 
 		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
 		List<FreeBoardVO> list= fbdao.beforeDelete(num);
+		System.out.println("넘어온 상위 글번호: "+num+", 리스트 사이즈: "+list.size());
 		if(list.size()!=0){
 			return true;
 		}else{
@@ -136,20 +138,29 @@ public class FreeBoradService {
 	}
 
 	public String getCommentDetail(int num) {
-		// 肄붾찘�듃 �닔�젙�븯湲� �쐞�빐 �궡�슜 遺덈윭�삤湲�
+		
 		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
 		CommentVO comment=fbdao.getCommentDetail(num);
 		if(comment!=null){
 			JSONObject jobj= new JSONObject();
 			jobj.put("Ccontent", comment.getContents());
 			jobj.put("Cnum", comment.getNum());
+			jobj.put("cdate", comment.getW_date());
+			jobj.put("nickname", comment.getNickname());
+			jobj.put("ref", comment.getNum());
 			String jobjStr= jobj.toJSONString();
-		
+		System.out.println("string내용: "+jobjStr);
 			return jobjStr;
 		}
 		return null;
 	}
-
+	public CommentVO getCommentDetail(String nickname) {
+		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
+		CommentVO comment=fbdao.CommentDetail(nickname);
+		System.out.println("받아온 최신 코멘트 번호: "+comment.getCnum());
+		
+		return comment;
+	}
 	public String cmtModify(CommentVO comment) {
 		//코멘트 수정
 		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
@@ -219,4 +230,80 @@ public class FreeBoradService {
 		}
 		return false;
 	}
+
+	public String recommend(int num, String nickname) {
+		// 추천카운트
+		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
+		FreeBoardVO bvo= new FreeBoardVO();
+		bvo.setNickname(nickname);
+		bvo.setNum(num);
+		int recommendCtn=fbdao.recommend(bvo);
+		JSONObject jobj= new JSONObject();
+		String jsonStr= "";
+		if(recommendCtn>0){//추천누른사람의 정보와 글번호가 성공적으로 recommend테이블에 저장됨
+			int recommendPlus=fbdao.recommendCount(bvo);//글번호를 가지고 추천수 업하기
+			if(recommendPlus>0){//해당 글에 추천수가 성공적으로 1 오름
+				FreeBoardVO bvo2=read(bvo.getNum());
+				jobj.put("recommendsuc", true);
+				jobj.put("recommendCtn", bvo2.getRecommend());
+				jsonStr=jobj.toJSONString();
+				System.out.println("서비스에서 만들어지고 화면으로 넘어가는 문자열: "+jsonStr);
+				return jsonStr;
+			}
+		}
+		jobj.put("recommendsuc", false);
+		jsonStr=jobj.toJSONString();
+		return jsonStr;
+	}
+
+	public boolean confirmrecommendCtn(int num, String nickname) {
+		// 해당 글번호에 이 사용자가 글번호를 누른적이 있는가 확인
+		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
+		FreeBoardVO bvo= new FreeBoardVO();
+		bvo.setNickname(nickname);
+		bvo.setNum(num);
+	
+		
+		FreeBoardVO fvo2=fbdao.confirmrecommendCtn(bvo);
+		if(fvo2 !=null){
+			
+			return true;
+		}
+		return false;
+	}
+
+	public boolean haverecommend(int num) {
+		//해당 글번호에 대한 추천수가 달려있는가?
+		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
+		List<FreeBoardVO> bvo=fbdao.haverecommend(num);
+		if(bvo.size()!=0){
+			System.out.println("추천수가 있으니 삭제바람");
+			int deleteRecommend=fbdao.deleteRecommend(num);
+			if(deleteRecommend>0){
+				System.out.println("추천수 삭제완료");
+				return true;
+			}
+		}
+		
+		return true;
+	}
+
+	public boolean haveComment(int num) {
+		// 해당글번호에 코멘트가 달려있는가
+		System.out.println("코멘트삭제를 위한 상위 부모 글번호:"+num);
+		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
+		List<FreeBoardVO> bvo=fbdao.haveComment(num);
+		System.out.println("리스트 사이즈: "+bvo.size());
+		if(bvo.size()!=0){
+			System.out.println("코멘트가 있으니 삭제바람");
+			int deleteAllComment=fbdao.deleteAllComment(num);
+			if(deleteAllComment>0){
+				return true;
+			}
+			return false;
+		}
+		return true;
+	}
+
+
 }

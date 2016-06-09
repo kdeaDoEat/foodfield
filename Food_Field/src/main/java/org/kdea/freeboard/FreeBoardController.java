@@ -41,18 +41,41 @@ public class FreeBoardController {
 
 	@RequestMapping(value="/winput",method=RequestMethod.POST)
 	public String write(FreeBoardVO  fbVO, 
-			Model model,HttpServletRequest request){
+			HttpSession session){
 		System.out.println("내용: "+fbVO.getContents());
 		
 		
 		FreeBoardVO fb= fbService.write(fbVO);
 	
 		if(fb.isSuccess()){
-			model.addAttribute("w", "success");
+			session.setAttribute("w", "success");
 			return "redirect:detail?id="+fbVO.getNickname();
 		}
 		else 
 		return "redirect:/freeboard/winput";
+	}
+	
+	@RequestMapping(value="recommend",method=RequestMethod.POST)
+	@ResponseBody
+	public String recommend(@RequestParam("num")int num,
+			@RequestParam("nickname") String nickname)
+	{
+		System.out.println("코멘트가 달리는 글번호: "+num+", 글쓰는 사람: "+nickname);
+		boolean confirmrecommendCtn=fbService.confirmrecommendCtn(num, nickname);
+		//해당 글번호에 이 사용자가 글번호를 누른적이 있는가 확인
+		if(confirmrecommendCtn){
+	
+			JSONObject jobj= new JSONObject();
+			jobj.put("recommendsuc", false);
+			String jsonStr=jobj.toJSONString();
+			System.out.println("글추천이 되어있습니다."+jsonStr);
+			return jsonStr; 
+		}
+		System.out.println("글추천이 안되어있습니다.");
+		String recommendStr=fbService.recommend(num,nickname);
+		System.out.println("성공: "+recommendStr);
+		
+		return recommendStr;
 	}
 	
 	@RequestMapping(value="detail", method=RequestMethod.GET)
@@ -78,20 +101,21 @@ public class FreeBoardController {
 		return null;
 	}
 
-	@RequestMapping(value="modify", method=RequestMethod.POST)
-	public String modifyForm(@ModelAttribute("input") FreeBoardVO fb,
+	@RequestMapping(value="modify", method=RequestMethod.GET)
+	public String modifyForm(@RequestParam("num") int num,
 			Model model){
-		FreeBoardVO fb1= fbService.read(fb.getNum());
+		FreeBoardVO fb1= fbService.read(num);
 		model.addAttribute("modi", fb1);
+	
 		return "modify";
 		
 	}
 	@RequestMapping(value="modifycontent", method=RequestMethod.POST)
 	public String modify(@ModelAttribute("input") FreeBoardVO fb,
-			Model model){
+			HttpSession session){
 		boolean modiSuccess=fbService.modify(fb);
 		if(modiSuccess){
-			model.addAttribute("m", "success");
+			session.setAttribute("m", "success");
 		return "redirect:detail?num="+fb.getNum();
 		}else
 			return "redirect:modifyForm";
@@ -99,8 +123,7 @@ public class FreeBoardController {
 
 	@RequestMapping(value="beforeDelete", method=RequestMethod.POST)
 	@ResponseBody
-	public String beforeDelete(@ModelAttribute("input") FreeBoardVO fb
-			){
+	public String beforeDelete(FreeBoardVO fb){
 		boolean isParents=fbService.beforeDelete(fb.getNum());
 		if(isParents){
 			JSONObject jobj= new JSONObject();
@@ -114,19 +137,37 @@ public class FreeBoardController {
 			}
 	}
 
-	//댓글//
+	//댓글쓰기//
 	@RequestMapping(value="comment", method=RequestMethod.POST)
+	@ResponseBody
 	public String cmtWrite(@ModelAttribute("cinput") CommentVO comment,
 			 Model model){
+		System.out.println("코멘트 컨드롤로러 옴");
 		boolean commentSuccess=fbService.cmtWrite(comment);
 	
 		if(commentSuccess){
 
-		return "redirect:detail?num="+comment.getNum();
+			CommentVO cmt= fbService.getCommentDetail(comment.getNickname());
+		
+			JSONObject jobj= new JSONObject();
+			jobj.put("commentsuc", "success");
+			jobj.put("cnum", cmt.getCnum());
+		return jobj.toJSONString();
 
 		}else
 			
 			return "";
+	}
+	//댓글읽기//
+	@RequestMapping(value="commentList", method=RequestMethod.GET)
+	@ResponseBody
+	public String commentRead(@RequestParam("cnum") int cnum,
+			 Model model){
+			System.out.println("코멘트 읽기 컨드롤로러 옴");
+			String cmt= fbService.getCommentDetail(cnum);
+			
+		return cmt;
+
 	}
 
 	@RequestMapping(value="commentmodi", method=RequestMethod.POST
@@ -160,10 +201,17 @@ public class FreeBoardController {
 	}
 
 	@RequestMapping(value="delete", method=RequestMethod.GET)
-	public String delte(@RequestParam("num") int num,
-			Model model){
-		boolean deleteSuccess=fbService.delete(num);
+	public String delete(@RequestParam("num") int num,
+			HttpSession session){
+		boolean deleterecommend=fbService.haverecommend(num);
+		boolean deleteComment=fbService.haveComment(num);
+		System.out.println("추천수삭제: "+deleterecommend+",코멘트삭제: "+deleteComment);
+		boolean deleteSuccess=false;
+		if(deleterecommend&&deleteComment){
+		 deleteSuccess=fbService.delete(num);
+		}
 		if(deleteSuccess){
+			session.setAttribute("deletesuc","true");
 		return "redirect:free?page=1";
 		}else
 			return "redirect:detail?num="+num;

@@ -27,6 +27,14 @@
 		/* $('#next').hide(); 	*/
 
 		}); 
+	<%	System.out.println("글 삭제성공: "+(String)session.getAttribute("deletesuc"));
+	String deletesuc=(String)session.getAttribute("deletesuc");
+	if(deletesuc!=null){
+	if(deletesuc.equals("true")){%>
+	alert('글이 성공적으로 삭제되었습니다.');
+	<%
+	session.setAttribute("deletesuc", null);}
+	}%>
 	function prevClick(){
 			console.log("전버튼 눌림");
 			<%if (list.get(0).getPagevo().isLeftMore()) {%>
