@@ -1,5 +1,8 @@
 eclipse.preferences.version=1
+<<<<<<< HEAD
+=======
 encoding//src/main/java/org/kdea/chatting/ChattingHandler.java=UTF-8
 encoding//src/main/java/org/kdea/freeboard/FreeBoardController.java=UTF-8
+>>>>>>> branch 'master' of https://github.com/kdeaDoEat/foodfield.git
 encoding//src/main/java/org/kdea/freeboard/FreeBoradService.java=UTF-8
 encoding//src/main/java/org/kdea/noticeboard/NoticeBoardController.java=UTF-8
