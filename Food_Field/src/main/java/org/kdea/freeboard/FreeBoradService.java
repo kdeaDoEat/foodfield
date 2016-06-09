@@ -25,7 +25,6 @@ public class FreeBoradService {
 		int rowsPerScreen=10;//�븳 �럹�씠吏� 寃뚯떆湲� �닔
 		int linksPerScreen=5;//�럹�씠吏��꽕鍮꾧쾶�씠�뀡 �닔
 		int totalpages=pagenavi.getTotalPage();
-
 		
 		int linkGroup=(page-1)/linksPerScreen+1;
 		int linkEnd=linkGroup*linksPerScreen;
@@ -43,7 +42,6 @@ public class FreeBoradService {
 	}
 
 	public FreeBoardVO write(FreeBoardVO fbVO) {
-
 		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
 		if(fbVO.getRef()!=0){
 			if(fbVO.getPhoto()==null){fbVO.setPhoto("img");}
@@ -165,7 +163,6 @@ public class FreeBoradService {
 		
 		
 	}
-
 
 	public String cmtDelete(int num) {
 		// 코멘트 삭제

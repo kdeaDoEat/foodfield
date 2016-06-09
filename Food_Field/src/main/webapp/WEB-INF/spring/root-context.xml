@@ -8,17 +8,12 @@
 
 	<bean id="dataSource" class="oracle.jdbc.pool.OracleDataSource"> 
 	    <property name="dataSourceName" value="ds"/>
-	    <property name="URL" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+	    <property name="URL" value="jdbc:oracle:thin:@192.168.8.28:1521:xe"/>
 	    <property name="user" value="scott"/>
 	    <property name="password" value="TIGER"/>
     </bean>
-    
-    <!-- <sec:http auto-config='true'>
-    	<sec:intercept-url pattern="/**" access="ROLE_USER" />
-	</sec:http> -->
 	
 	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"  />
-
 	
 	<sec:http auto-config='true' use-expressions="true">
 	
@@ -35,26 +30,24 @@
 		<sec:intercept-url pattern="/**" access="permitAll" />
 		<sec:form-login login-page="/login"
 			login-processing-url="/loginProcess"
-			default-target-url="/main"
+			default-target-url="/loginSuccess" 
 			username-parameter="email"
 			password-parameter="pwd"
-			authentication-failure-url="/main" />
-		<sec:logout logout-success-url="/main" />
+			authentication-failure-url="/loginFailure" />
+		<sec:logout logout-url="/FoodField/logout"
+			invalidate-session="true"
+			logout-success-url="/main" />
+		<sec:csrf disabled="true"/>
 	</sec:http>
-
+	
 	<sec:authentication-manager>
 		<sec:authentication-provider>
-			<!-- <sec:user-service > 
-			<sec:user name="smith" password="smith_pw" authorities="USER"/> 
-			<sec:user name="blake" password="blake_pw" authorities="USER_MANAGER"/> 
-			<sec:user name="king" password="king_pw" authorities="USER_ADMIN" /> 
-			</sec:user-service> -->
-			<sec:jdbc-user-service id="jdbcUserService"
+			<sec:jdbc-user-service
+				id="jdbcUserService"
 				data-source-ref="dataSource"
 				users-by-username-query="SELECT email, pwd, enabled FROM USERS WHERE email=?"
 				authorities-by-username-query="SELECT email, authority FROM USERS WHERE email=?"/>
-				<sec:password-encoder ref="passwordEncoder" />
-
+			<sec:password-encoder ref="passwordEncoder" />
 		</sec:authentication-provider>
 		
 	</sec:authentication-manager>
