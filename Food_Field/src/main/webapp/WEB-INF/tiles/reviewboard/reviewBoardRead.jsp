@@ -19,6 +19,7 @@ $(function() {
 	// html로 내용을 뿌려준다
 	var contents='${vo.contents}';
 	contents.slice(0,-1);
+	
 	$('#ir1').html(contents);
 	// 댓글 읽어 온다
 	$('#cmt').load("/FoodField/review/comment?num=${vo.num}");
@@ -45,6 +46,12 @@ $(function() {
 			}
 		}
 	});
+	var nick = "${vo.nickname}";
+	var myNick = "${sessionScope.userInfo.nickname}";
+	if(nick == myNick){
+		$('#modifyIcon').css("visibility","visible");
+		$('#deleteIcon').css("visibility","visible");
+	}
 })
 
 function edit(cnum) {
@@ -154,8 +161,8 @@ function reviewDelete(num) {
 					
 					<div class="form-group">
 						<div class="col-sm-10 col-sm-offset-2" style="text-align: right; width: 80%; margin-left: 10%">
-						<span class="glyphicon glyphicon-edit" style="font-size: 25px; cursor: pointer;" onclick="reviewModify(${vo.num})"></span>　　　
-						<span class="glyphicon glyphicon-remove" style="font-size: 25px; cursor: pointer;" onclick="reviewDelete(${vo.num})"></span>
+						<span id="modifyIcon" class="glyphicon glyphicon-edit" style="font-size: 25px; cursor: pointer; visibility: hidden;" onclick="reviewModify(${vo.num})"></span>　　　
+						<span id="deleteIcon" class="glyphicon glyphicon-remove" style="font-size: 25px; cursor: pointer; visibility: hidden;" onclick="reviewDelete(${vo.num})"></span>
 						</div>
 					</div>
 					

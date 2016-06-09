@@ -186,10 +186,5 @@ public class ReviewService {
 	    
 	    return "review/write";
 	}
-
-	/*public BoardVO modify(HttpServletRequest request) {
-		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
-		return null;
-	}*/
 	
 }
