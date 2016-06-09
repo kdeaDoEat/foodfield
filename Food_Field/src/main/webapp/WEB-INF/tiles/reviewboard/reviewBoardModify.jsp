@@ -1,10 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<script type="text/javascript" src="/FoodField/resources/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
+    
+<script type="text/javascript" src="/FoodField/resources/ckeditor/ckeditor.js" charset="utf-8"></script>
 <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	var oEditors = [];
 		$(function() {
+
+			CKEDITOR.replace('editor',{
+				filebrowserImageUploadUrl: 'uploadPhoto?${_csrf.parameterName}=${_csrf.token}'
+			});
+			CKEDITOR.instances.editor.setData('${vo.contents}');
+			
 			$('#searchmap').on('click',function(){
 				if($('#place').val() == ''){
 					alert('검색단어를 입력해주세요!');
@@ -18,99 +25,95 @@
 			$('#submit').on('click',function(){
 				var result = confirm('내용을 확인하셨습니까?');
 				if(result){
+					var con = CKEDITOR.instances.editor.getData().replace(/\r\n/g, '');
+					if(charByteSize(con)>4000) {
+						alert('4000byte 이하로 입력해주세요! 현재 : '+charByteSize(con));
+						return;
+					}
 					$.ajax({
-						url:'reviewModify',
+						url:'wSubmit?${_csrf.parameterName}=${_csrf.token}',
 						type:'post',
 						data:{title:$('input[name="title"]').val(),
 								shop_name:$('input[name="shop_name"]').val(),
 								shop_add:$('input[name="shop_add"]').val(),
-								contents:oEditors.getById["ir1"].getIR()
+								contents:con
 						},
 						dataType:'json',
 						success:function(result){
-							location.href="/FoodField/review/read?num=${vo.num}";
+							alert(result.ok);
+						},error:function(request,status,error){
+							alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 						}
 					});
 				}
 			});
-			
-			nhn.husky.EZCreator.createInIFrame({
-				oAppRef: oEditors,
-				elPlaceHolder: "ir1",
-				//SmartEditor2Skin.html 파일이 존재하는 경로
-				sSkinURI: "/FoodField/resources/editor/SmartEditor2Skin.html",	
-				htParams : {
-					// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-					bUseToolbar : true,				
-					// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-					bUseVerticalResizer : true,		
-					// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-					bUseModeChanger : true,			
-					fOnBeforeUnload : function(){
-						
-					}
-				}, 
-				fOnAppLoad : function(){
-					//기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용
-					oEditors.getById["ir1"].exec("PASTE_HTML", ['${vo.contents}']);
-				},
-				fCreator: "createSEditor2"
-			});
+			window.parent.CKEDITOR.tools.callFunction('${CKEditorFuncNum}', '${file_path}', '파일 전송 완료.');
 		})
-		
+		function charByteSize(msg) {
+		if (msg == null || msg.length == 0)
+			return 0;
+		var i, size = 0;
+		var charCode, chr = null;
+		for (i = 0; i < msg.length; i++)
+		{
+			chr = msg.charAt(i);
+			charCode = chr.charCodeAt(0);
+			if (charCode <= 0x00007F)	size += 1;
+			else if (charCode <= 0x0007FF)	size += 2;
+			else if (charCode <= 0x00FFFF)  size += 3;
+			else  size += 4;
+		}
+		return size;
+	}
 	</script>
     
 <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-            	<!-- 입력 박스  -->
-				<form class="form-horizontal" role="form" method="post" name="inputForm" id="inputForm">
-					<!--  제목 부분  -->
-					<div class="form-group">
-						<label for="name" class="col-sm-2 control-label">제목</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" name="title"
-								placeholder="input title" value="${vo.title }">
-						</div>
-					</div>
-					<!-- 장소검색부분 -->
-					<div class="form-group">
-						<label for="human" class="col-sm-2 control-label">장소</label>
-						<div class="col-sm-10">
-							<div class="input-group">
-								<input type="text" class="form-control" id="place"><span class="input-group-btn">
-									<button class="btn btn-default" type="button" id="searchmap">검색</button>
-								</span>
-							</div>
-						</div>
-					</div>
-					<!-- 장소 뜨는 부분 -->
-					<div class="form-group">
-						<label for="email" class="col-sm-2 control-label">SHOPNAME</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" name="shop_name" placeholder="가게이름" readonly="readonly" value="${vo.shop_name }">
-						</div>
-						<label for="email" class="col-sm-2 control-label">SHOPADD</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" name="shop_add" placeholder="가게주소" readonly="readonly" value="${vo.shop_add }">
-						</div>
-					</div>
-					<!-- 내용 부분 -->
-					<div class="form-group">
-						<label for="message" class="col-sm-2 control-label">내용</label>
-						<div class="col-sm-10">
-							<textarea rows="10" cols="30" id="ir1" name="contents"
-								style="width: 95%; height: 412px; min-width:260px; display:none;"></textarea>
-						</div>
-					</div>
-					<!-- 전송버튼  -->
-					<div class="form-group">
-						<div class="col-sm-10 col-sm-offset-2" style="text-align: center;">
-								<button class="btn icon-btn btn-primary" type="button" id="submit"><span class="glyphicon btn-glyphicon glyphicon-pencil img-circle text-muted"></span>　수정완료</button>
-								
-						</div>
-					</div>
-				</form>
-            </div>
-        </div>
+        <form class="form-horizontal" role="form" method="post" name="inputForm" id="inputForm">
+		<!--  제목 부분  -->
+		<div class="form-group">
+		<label class="col-xs-12 col-md-1 col-md-offset-1 control-label">제목　</label>
+			<div class="col-xs-10 col-md-9">
+				<input type="text" class="form-control" name="title"
+					placeholder="input title" value="${vo.title }">
+			</div>
+		</div>
+		
+		<!-- 장소검색부분 -->
+		<div class="form-group">
+			<label class="col-xs-12 col-md-1 col-md-offset-1 control-label">장소　</label>
+			<div class="col-xs-10 col-md-9">
+				<div class="input-group">
+					<input type="text" class="form-control" id="place"><span class="input-group-btn">
+						<button class="btn btn-default" type="button" id="searchmap">검색</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 장소 뜨는 부분 -->
+		<div class="form-group">
+			<label class="col-xs-12 col-md-1 col-md-offset-1 control-label">SHOPNAME　</label>
+			<div class="col-xs-10 col-md-9">
+				<input type="text" class="form-control" name="shop_name" placeholder="가게이름" readonly="readonly" value="${vo.shop_name }">
+			</div>
+			<label class="col-xs-12 col-md-1 col-md-offset-1 control-label">SHOPADD　</label>
+			<div class="col-xs-10 col-md-9">
+				<input type="text" class="form-control" name="shop_add" placeholder="가게주소" readonly="readonly" value="${vo.shop_add }">
+			</div>
+		</div>
+		
+		<!-- 내용 부분 -->
+		<div class="form-group">
+			<label class="col-xs-12 col-md-1 col-md-offset-1 control-label">내용　</label>
+			<div class="col-xs-10 col-md-9">
+				<textarea id="editor" style="width:100%; height:400px;"></textarea>
+			</div>
+		</div>
+		<!-- 전송버튼  -->
+		<div class="form-group">
+			<div class="col-xs-10 col-sm-offset-2" style="text-align: center;">
+					<button class="btn icon-btn btn-default" type="button" id="submit"><span class="glyphicon btn-glyphicon glyphicon-pencil img-circle text-muted"></span>　저장</button>
+			</div>
+		</div>
+	</form>
   </div>

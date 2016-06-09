@@ -13,6 +13,7 @@
 	<context:annotation-config />
 
 	<context:component-scan base-package="org.kdea.main" />
+	<context:component-scan base-package="org.kdea.doit" />
 	<context:component-scan base-package="org.kdea.chatting" />
 	<context:component-scan base-package="org.kdea.freeboard" />
 	<context:component-scan base-package="org.kdea.noticeboard" />
@@ -69,8 +70,8 @@
 		</beans:property>
 	</beans:bean>
 
-
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	
 	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"  />
 
 

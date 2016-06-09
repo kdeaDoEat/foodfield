@@ -51,6 +51,10 @@
         <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
     </definition>
     
+    <definition name="doitTemplate" extends="reviewBoardTemplate">
+        <put-attribute name="body" value="/WEB-INF/tiles/doit/doit.jsp" />
+    </definition>
+        
     <definition name="noticeBoardViewTemplate" template="/WEB-INF/tiles/noticeboard/noticeBoardViewTemplate.jsp">
         <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
         <put-attribute name="notice_view" value="/WEB-INF/tiles/noticeboard/boardView.jsp" />
