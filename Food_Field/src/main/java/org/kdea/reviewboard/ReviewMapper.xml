@@ -5,29 +5,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="org.kdea.reviewboard.ReviewDAO"> <!--이 sql 문장과 매핑될 인터페이스의 완전한 경로-->
 	<select id="getList" resultType="org.kdea.vo.BoardVO">
 			select t3.num,t3.title,t3.nickname,t3.w_date,t3.hit,t3.recommend from(
-						select trunc((rn-1)/5+1) as page,t2.* from(
+						select trunc((rn-1)/10+1) as page,t2.* from(
 							select rownum rn,t1.* from(
-					  			 select num,LPAD('└',(LEVEL-1)*2,'　')||title as title,contents,nickname,w_date,hit,recommend from reviewboard start with ref=0 connect by prior num=ref order siblings by num desc
+					  			 select num,LPAD('└',(LEVEL-1)*2,'　')||title as title,nickname,w_date,hit,recommend from reviewBoard start with ref=0 connect by prior num=ref order siblings by num desc
 					  		) t1
 						 )t2
 					)t3 where page=#{page}
     </select>
     
 	<insert id="write" parameterType="org.kdea.vo.BoardVO">
-        insert into reviewboard (num, w_date, title, contents, shop_name, shop_add, hit, ref, recommend) 
-        	values ( reviewboard_num.NEXTVAL, sysdate, #{title}, #{contents}, #{shop_name}, #{shop_add}, 0, 0, 0 )
+        insert into reviewBoard (num, w_date, title, contents, shop_name, shop_add, hit, ref, recommend) 
+        	values ( reviewBoard_num.NEXTVAL, sysdate, #{title}, #{contents}, #{shop_name}, #{shop_add}, 0, 0, 0 )
     </insert>
     
     <select id="read" resultType="org.kdea.vo.BoardVO">
-        select * from reviewboard where num=#{num}
+        select * from reviewBoard where num=#{num}
     </select>
     
 	<select id="page" resultType="java.lang.Integer" >
-        select ceil(COUNT(num)/5) as page from reviewboard
+        select ceil(COUNT(num)/10) as page from reviewBoard
     </select>
     
     <update id="updateHit">
-        update reviewboard set hit=hit+1 where num=#{num}
+        update reviewBoard set hit=hit+1 where num=#{num}
     </update>
     
     <insert id="commentWrite" parameterType="org.kdea.vo.CommentVO">
@@ -36,11 +36,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
     
     <select id="getCommentList" resultType="org.kdea.vo.CommentVO">
-        select c.num, c.cnum, c.contents, c.w_date from reviewboard r INNER JOIN reviewComment c on r.num=c.num where r.num=#{num} order by c.cnum
+        select c.num, c.cnum, c.contents, c.w_date from reviewBoard r INNER JOIN reviewComment c on r.num=c.num where r.num=#{num} order by c.cnum
     </select>
     
     <select id="getCommentCount"  resultType="java.lang.Integer" >
-        select count(cnum) from reviewboard r INNER JOIN reviewComment c on r.num=c.num where r.num=#{num}
+        select count(cnum) from reviewBoard r INNER JOIN reviewComment c on r.num=c.num where r.num=#{num}
     </select>
     
     <update id="commentModify" parameterType="org.kdea.vo.CommentVO">
@@ -52,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
     
     <delete id="reviewDelete" parameterType="org.kdea.vo.BoardVO">
-        delete from reviewboard where num=#{num}
+        delete from reviewBoard where num=#{num}
     </delete>
     
     <delete id="reviewBoardCommentDelete">
@@ -60,7 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
     
     <update id="reviewModify" parameterType="org.kdea.vo.BoardVO">
-        update reviewboard set title=#{title} shop_name=#{shop_name} shop_add=#{shop_add} contents=#{contents} where num=#{num}
+        update reviewBoard set title=#{title} shop_name=#{shop_name} shop_add=#{shop_add} contents=#{contents} where num=#{num}
     </update>
     
     <!-- <select id="list" resultType="org.kdea.mybatis.EmpVO">

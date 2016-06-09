@@ -35,10 +35,4 @@ public class LoginController {
 		System.out.println("로그인 실패 !");
 		return "false";
 	}
-	
-	/*@RequestMapping("logout")
-	public String logout(HttpSession session) {
-		session.invalidate();
-		return "main";
-	}*/
 }

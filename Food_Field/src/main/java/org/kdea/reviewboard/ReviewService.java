@@ -1,9 +1,17 @@
 package org.kdea.reviewboard;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.plaf.synth.SynthSplitPaneUI;
 
 import org.json.simple.JSONObject;
@@ -12,6 +20,8 @@ import org.kdea.vo.CommentVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import net.sf.json.JSONArray;
 
@@ -30,7 +40,9 @@ public class ReviewService {
 		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
 		JSONObject jobj = new JSONObject();
 		boolean result = false;
-		if(dao.write(vo)>0){
+		BoardVO nvo = vo;
+		nvo.setContents(vo.getContents().replaceAll("\n", ""));
+		if(dao.write(nvo)>0){
 			result=true;
 		}
 		jobj.put("ok", result);
@@ -41,6 +53,7 @@ public class ReviewService {
 	public BoardVO read(HttpServletRequest request) {
 		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
 		int page = Integer.parseInt(request.getParameter("num"));
+		
 		BoardVO vo = dao.read(page);
 		vo.setCmtnum(dao.getCommentCount(page));
 		return vo;
@@ -68,7 +81,7 @@ public class ReviewService {
 					pageList.add(i);
 				}
 			}else if(fullPage<=10){
-				for(int i=1;i<=nowPage;i++){
+				for(int i=1;i<=fullPage;i++){
 					pageList.add(i);
 				}
 			}
@@ -140,6 +153,32 @@ public class ReviewService {
 		}
 		jobj.put("ok", check);
 		return jobj.toJSONString();
+	}
+
+
+	public String uploadPhoto(FileBean fileBean, Model model) {
+	    String root_path = "C:/img/"; // 웹서비스 root 경로
+
+	    MultipartFile upload = fileBean.getUpload();
+	    String filename = "";
+	    String CKEditorFuncNum = "";
+	    if (upload != null) {
+	        filename = upload.getOriginalFilename();
+	        fileBean.setFilename(filename);
+	        CKEditorFuncNum = fileBean.getCKEditorFuncNum();
+	        try {
+	            File file = new File(root_path + filename);
+	            upload.transferTo(file);
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    String file_path = filename;
+	    model.addAttribute("file_path", "http://192.168.8.28:8088/img/"+file_path);
+	    model.addAttribute("CKEditorFuncNum", CKEditorFuncNum);
+	    
+	    return "review/write";
 	}
 
 	/*public BoardVO modify(HttpServletRequest request) {
