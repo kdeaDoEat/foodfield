@@ -181,7 +181,7 @@ public class ReviewService {
 	    }
 
 	    String file_path = filename;
-	    model.addAttribute("file_path", "http://192.168.8.28:8088/img/"+file_path);
+	    model.addAttribute("file_path", "http://192.168.8.43:8088/img/"+file_path);
 	    model.addAttribute("CKEditorFuncNum", CKEditorFuncNum);
 	    
 	    return "review/write";

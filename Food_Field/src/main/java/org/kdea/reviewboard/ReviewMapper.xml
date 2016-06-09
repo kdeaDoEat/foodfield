@@ -36,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
     
     <select id="getCommentList" resultType="org.kdea.vo.CommentVO">
-        select c.num, c.cnum, c.contents, c.w_date from reviewBoard r INNER JOIN reviewComment c on r.num=c.num where r.num=#{num} order by c.cnum
+        select c.num, c.cnum, c.nickname, c.contents, c.w_date from reviewBoard r INNER JOIN reviewComment c on r.num=c.num where r.num=#{num} order by c.cnum
     </select>
     
     <select id="getCommentCount"  resultType="java.lang.Integer" >
