@@ -34,7 +34,7 @@
 			username-parameter="email"
 			password-parameter="pwd"
 			authentication-failure-url="/loginFailure" />
-		<sec:logout logout-url="/FoodField/logout"
+		<sec:logout logout-url="/logout"
 			invalidate-session="true"
 			logout-success-url="/main" />
 		<sec:csrf disabled="true"/>
