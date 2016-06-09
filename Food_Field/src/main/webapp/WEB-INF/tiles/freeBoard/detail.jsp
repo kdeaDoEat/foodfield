@@ -89,9 +89,9 @@ function commentRead(cnum){
 		type:'post',
 		dataType:'json',
 		success:function(result){
-			console.log('코멘트 성공'+result.commentsuc+',최신번호: '+result.cnum);
+			console.log('코멘트 내용: '+result.Ccontent+',최신번호: '+result.Cnum);
 			//$('#cmt').load("/FoodField/commentList?num=${wvalue.num}");
-			commentRead(result.cnum);
+			
 		},error:function(er){
 			alert('에러 : '+er);
 		}

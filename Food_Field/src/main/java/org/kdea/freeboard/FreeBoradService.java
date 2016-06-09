@@ -142,7 +142,7 @@ public class FreeBoradService {
 		if(comment!=null){
 			JSONObject jobj= new JSONObject();
 			jobj.put("Ccontent", comment.getContents());
-			jobj.put("Cnum", comment.getNum());
+			jobj.put("Cnum", comment.getCnum());
 			jobj.put("cdate", comment.getW_date());
 			jobj.put("nickname", comment.getNickname());
 			jobj.put("ref", comment.getNum());
