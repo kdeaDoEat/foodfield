@@ -6,7 +6,7 @@
 <script type="text/javascript">
 		$(function() {
 			CKEDITOR.replace('editor',{
-				filebrowserImageUploadUrl: 'uploadPhoto?${_csrf.parameterName}=${_csrf.token}'
+				filebrowserImageUploadUrl: 'uploadPhoto?${_csrf.parameterName}=${_csrf.token}',
 			});
 			
 			$('#searchmap').on('click',function(){

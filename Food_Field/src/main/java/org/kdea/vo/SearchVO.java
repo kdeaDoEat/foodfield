@@ -9,8 +9,6 @@ public class SearchVO {
 	private String word;
 	private String type;
 	
-	
-	
 	public String getWord() {
 		return word;
 	}

@@ -120,6 +120,25 @@ function reviewDelete(num) {
 	}
 }
 
+function recommend() {
+	$.ajax({
+		url:'recommend',
+		type:'post',
+		data:{num:"${vo.num}",
+				nickname:"${sessionScope.userInfo.nickname}"},
+		dataType:'json',
+		success:function(result){
+			if(result.ok){
+				alert('추천 완료!');
+			}else{
+				alert('이미 추천한 게시물입니다.');
+			}
+		},error:function(er){
+			alert('에러 : '+er);
+		}
+	});
+}
+
 </script>
 <div class="container">
         <div class="row">
@@ -168,7 +187,7 @@ function reviewDelete(num) {
 					
 					<div class="form-group">
 						<div class="col-sm-10 col-sm-offset-2" style="text-align: center; margin-top: 3%;margin-bottom: 3%">
-							<a class="btn icon-btn btn-primary" href="/FoodField/review">
+							<a class="btn icon-btn btn-primary" onclick="recommend()">
             				<span class="glyphicon btn-glyphicon glyphicon-thumbs-up img-circle text-muted" style="color: white; font: bold;">
             				</span>　추천</a>
             				<a class="btn icon-btn btn-primary" href="/FoodField/review">
