@@ -65,45 +65,54 @@
 	$(function() {
 		
 		var ws = new WebSocket(
-				"ws://192.168.8.53:8080/FoodField/chat?${_csrf.parameterName}=${_csrf.token}");
+				"ws://192.168.8.53:8080/FoodField/chat");/* ?${_csrf.parameterName}=${_csrf.token} */
 
 		ws.onopen = function() {
 			$('#chatStatus').text('');
 			//getUsers();
 			//채팅의 session과 thread를 이용해야 할듯
-			ws.send("/userrequest");
+			var jsonmsg = {};
+			jsonmsg.status="userrequest";
+			var jsonstr = JSON.stringify(jsonmsg);
+			ws.send(jsonstr);
+			
 			$('input[name=chatInput]').on('keydown', function(evt) {
 				if (evt.keyCode == 13) {
 
 					var msg = $('input[name=chatInput]').val();
-					var sustr = "";
+					var userlist = [];
 
 					$("input:checkbox:checked").each(function(index) {
-						sustr += $(this).val() + "/";
+						userlist[index] = $(this).val();
 					});
-					//alert(sustr);
-					ws.send(sustr + msg);
+					jsonmsg.status="sendrequest";
+					jsonmsg.recievers=userlist;
+					jsonmsg.msg=msg;
+					
+					var jsonstr = JSON.stringify(jsonmsg);					
+					ws.send(jsonstr);
 					$('input[name=chatInput]').val('');
 				}
 			});
 		};
 		ws.onmessage = function(event) {
-			var resultarray = event.data.split("/");
-			var usrstr = "";
-			if (resultarray[1] == "userrequest") {
 
-				for (var i = 2; i < resultarray.length - 1; i++) {
+            var object = eval('('+event.data+')');
+			var usrstr = '';
+			if (object.status == "userrequest") {
+                var userlist = object.recievers;
+				for (var i = 0; i < userlist.length; i++) {
 
-					usrstr += "<input type='checkbox' class='"+resultarray[i]+"' value='"+resultarray[i]+"'>"
-							+ "<span class='"+resultarray[i]+"'>"
-							+ resultarray[i] + "</span><br>";
+					usrstr += "<input type='checkbox' class='"+userlist[i]+"' value='"+userlist[i]+"'>"
+							+ "<span class='"+userlist[i]+"'>"
+							+ userlist[i] + "</span><br>";
 
 				}
 				$("#users").html(usrstr);
 
-			} else {
+			} else if(object.status == "sendrequest"){
 
-				$('textarea').eq(0).prepend(event.data + '\n');
+				$('textarea').eq(0).prepend(object.msg + '\n');
 
 			}
 		};
@@ -120,23 +129,7 @@
 
 	});
 
-	function getMouseEventTarget(e) {
-
-		var targ;
-		if (!e) {
-			var e = window.event;
-		}
-		if (e.target) {
-			targ = e.target;
-		} else if (e.srcElement) {
-			targ = e.srcElement;
-		}
-		var tname;
-		tname = targ.tagName;
-		/* 		alert("event발생한 target의 태그이름은 " + tname + "입니다. 좌표는 " + e.clientX
-		 + ", " + e.clientY); */
-
-	}
+	
 </script>
 
 <style>
