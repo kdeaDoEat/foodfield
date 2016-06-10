@@ -18,15 +18,18 @@ public class ChattingService {
 
 		try {
 
+			Map<String, Object> mymap = session.getAttributes();
+			String myId = (String) mymap.get("usrId");
+			String content = message.getPayload();
+			JSONParser jp = new JSONParser();
+			JSONObject jo = (JSONObject) jp.parse(content);
+			String status = (String) jo.get("status");
+
 			for (WebSocketSession s : users.values()) {
 				Map<String, Object> map = s.getAttributes();
 				String userId = (String) map.get("usrId");
 				System.out.println("message 보내는 중인 interceptor에서 건너온 ID " + userId);
 
-				String content = message.getPayload();
-				JSONParser jp = new JSONParser();
-				JSONObject jo = (JSONObject) jp.parse(content);
-				String status = (String) jo.get("status");
 				if (status.equals("userrequest")) {
 
 					List<String> userlist = new ArrayList<String>();
@@ -34,9 +37,7 @@ public class ChattingService {
 
 					while (usernames.hasNext()) {
 
-						System.out.println("userlist while문");
 						String user = (String) usernames.next();
-						System.out.println(user);
 						userlist.add(user);
 
 					}
@@ -44,13 +45,14 @@ public class ChattingService {
 
 					s.sendMessage(new TextMessage(jo.toJSONString()));
 
+					if (session != s) {
+						JSONObject obj = new JSONObject();
+						obj.put("status", "sendrequest");
+						obj.put("msg", myId + "님께서 접속하셨습니다~");
+						s.sendMessage(new TextMessage(obj.toJSONString()));
+					}
 				} else if (status.equals("sendrequest")) {
 
-					Map<String, Object> mymap = session.getAttributes();
-					String myId = (String) mymap.get("usrId");
-
-					// session.sendMessage(new
-					// TextMessage(myId+":"+msgarray[msgarray.length - 1]));
 					List<String> userlist = (List<String>) jo.get("recievers");
 					Iterator usernames = users.keySet().iterator();
 					while (usernames.hasNext()) {
@@ -72,6 +74,21 @@ public class ChattingService {
 				}
 			}
 
+			if (status.equals("userrequest")) {
+				
+				JSONObject obj = new JSONObject();
+				obj.put("status", "sendrequest");
+				obj.put("msg", myId + "님께서 접속하셨습니다~");
+				session.sendMessage(new TextMessage(jo.toJSONString()));
+				
+			}
+			if (status.equals("sendrequest")) {
+
+				jo.put("msg", (String) jo.get("msg"));
+				session.sendMessage(new TextMessage(jo.toJSONString()));
+
+			}
+
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -81,6 +98,8 @@ public class ChattingService {
 
 	public void leaveBroadcast(WebSocketSession session, Map<String, WebSocketSession> users) {
 		try {
+			Map<String, Object> mymap = session.getAttributes();
+			String myId = (String) mymap.get("usrId");
 			for (WebSocketSession s : users.values()) {
 				List<String> userlist = new ArrayList<String>();
 				Iterator usernames = users.keySet().iterator();
@@ -95,7 +114,18 @@ public class ChattingService {
 				jo.put("recievers", userlist);
 
 				s.sendMessage(new TextMessage(jo.toJSONString()));
+				if (session != s) {
+					
+					JSONObject obj = new JSONObject();
+					obj.put("status", "sendrequest");
+					obj.put("msg", myId + "님께서 퇴장하셨습니다~");
+					s.sendMessage(new TextMessage(obj.toJSONString()));
+					
+				}
+				
 			}
+
+			
 		} catch (Exception e) {
 
 			e.printStackTrace();
