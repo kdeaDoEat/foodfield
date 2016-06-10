@@ -28,6 +28,12 @@ public class ChattingInterceptor extends HttpSessionHandshakeInterceptor{
         System.out.println("param, id:"+ ((UserVO)req.getSession().getAttribute("userInfo")).getNickname());
         System.out.println(req.getParameter("_csrf"));
          
+        if(req.getSession().getAttribute("userInfo")==null){
+        	
+        	System.out.println("채팅: 로그인 안하셨습니다.");
+        	return false;
+        }
+        
         String usrId = ((UserVO)req.getSession().getAttribute("userInfo")).getNickname();
         attributes.put("usrId", usrId);
         
