@@ -99,6 +99,7 @@ public class ChattingService {
 
 	public void leaveBroadcast(WebSocketSession session, Map<String, WebSocketSession> users) {
 		try {
+			
 			Map<String, Object> mymap = session.getAttributes();
 			String myId = (String) mymap.get("usrId");
 			for (WebSocketSession s : users.values()) {
