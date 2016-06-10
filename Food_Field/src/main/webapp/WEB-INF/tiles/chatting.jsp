@@ -96,7 +96,7 @@
 
 		<div id='chatStatus'></div>
 		<textarea name="chatMsg" rows="5" cols="40"
-			style="width: 100%; border: 1px solid #333; padding: 4px;"></textarea>
+			style="width: 100%; border: 1px solid #333; padding: 4px;" readonly></textarea>
 		<p>
 			메시지 입력 : <input type="text" name="chatInput">
 		<div>
