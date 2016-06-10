@@ -23,6 +23,7 @@ public class ChattingService {
 			String content = message.getPayload();
 			JSONParser jp = new JSONParser();
 			JSONObject jo = (JSONObject) jp.parse(content);
+			jo.put("msg", myId + ":" + (String) jo.get("msg"));
 			String status = (String) jo.get("status");
 
 			for (WebSocketSession s : users.values()) {
@@ -51,6 +52,7 @@ public class ChattingService {
 						obj.put("msg", myId + "´Ô²²¼­ Á¢¼ÓÇÏ¼Ì½À´Ï´Ù~");
 						s.sendMessage(new TextMessage(obj.toJSONString()));
 					}
+					
 				} else if (status.equals("sendrequest")) {
 
 					List<String> userlist = (List<String>) jo.get("recievers");
@@ -63,7 +65,7 @@ public class ChattingService {
 
 								if (s != ss) {
 
-									jo.put("msg", myId + ":" + (String) jo.get("msg"));
+									
 									ss.sendMessage(new TextMessage(jo.toJSONString()));
 
 								}
@@ -79,12 +81,11 @@ public class ChattingService {
 				JSONObject obj = new JSONObject();
 				obj.put("status", "sendrequest");
 				obj.put("msg", myId + "´Ô²²¼­ Á¢¼ÓÇÏ¼Ì½À´Ï´Ù~");
-				session.sendMessage(new TextMessage(jo.toJSONString()));
+				session.sendMessage(new TextMessage(obj.toJSONString()));
 				
 			}
 			if (status.equals("sendrequest")) {
-
-				jo.put("msg", (String) jo.get("msg"));
+				
 				session.sendMessage(new TextMessage(jo.toJSONString()));
 
 			}
