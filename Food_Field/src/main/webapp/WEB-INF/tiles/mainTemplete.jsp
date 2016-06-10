@@ -63,11 +63,12 @@
 </script>
 <script type="text/javascript">
 	$(function() {
+		
 		var ws = new WebSocket(
 				"ws://192.168.8.53:8080/FoodField/chat?${_csrf.parameterName}=${_csrf.token}");
 
 		ws.onopen = function() {
-			$('#chatStatus').text('Info: connection opened.');
+			$('#chatStatus').text('');
 			//getUsers();
 			//채팅의 session과 thread를 이용해야 할듯
 			ws.send("/userrequest");
@@ -107,12 +108,13 @@
 			}
 		};
 		ws.onclose = function(event) {
-			$('#chatStatus').text('Info: connection closed.');
+			$('#chatStatus').text('로그인 해주세요');
 		};
-
+		
 		/* chat */
 		$("#chatbtn").click(function() {
 			//$("#chat").toggleClass("newClass", 1000);
+			
 			$("#chat").toggle("slow");
 		});
 
@@ -137,6 +139,15 @@
 	}
 </script>
 
+<style>
+ 
+  #chat{
+  
+     display:none;
+  
+  }
+ 
+</style>
 
 </head>
 <body>
@@ -148,10 +159,10 @@
 	<div id="chatArea"
 		style="position: fixed; right: 20px; bottom: 20px; z-index: 1000;">
 		<div id="cbnt">
-			<button type="button" id="chatbtn" style="width: 100px;">chat</button>
+			<button type="button" id="chatbtn" style="width: 100px;">채팅하기</button>
 		</div>
 		<div id="chat"
-			style="width: 400px; height: 400px; background-color: skyblue;">
+			style="width: 400px; height: 400px; background-color: skyblue; display:none;">
 
 			<div id='chatStatus'></div>
 			<textarea name="chatMsg" rows="5" cols="40" style="width: 100%; border: 1px solid #333; padding: 4px;"></textarea>
