@@ -16,6 +16,8 @@ public class ChattingService {
 	
 	public void broadcast(WebSocketSession session, TextMessage message, Map<String,WebSocketSession> users){
 		
+		try{
+		
         for (WebSocketSession s : users.values()) {
             Map<String, Object> map = s.getAttributes();
             String userId = (String) map.get("usrId");
@@ -34,12 +36,8 @@ public class ChattingService {
                   newsend += user + "/";
 
                }
-               try {
+              
 				s.sendMessage(new TextMessage(newsend));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 
             } else {
 
@@ -62,12 +60,9 @@ public class ChattingService {
                           if (user.equals(msgarray[i])) {
                         WebSocketSession ss = users.get(user);
                         if(s!=ss){
-                        try {
+                        
 							ss.sendMessage(new TextMessage(myId+":"+msgarray[msgarray.length - 1]));
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+						
                         }
                      }
                   }
@@ -77,6 +72,11 @@ public class ChattingService {
         }
 		
 		
+	}catch(Exception e){
+		
+		e.printStackTrace();
+		
+	}
 	}
 	
 }
