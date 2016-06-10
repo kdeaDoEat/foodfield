@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.kdea.vo.UserVO;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
@@ -23,11 +24,11 @@ public class ChattingInterceptor extends HttpSessionHandshakeInterceptor{
         System.out.println("URI:"+request.getURI());
  
         HttpServletRequest req =  ssreq.getServletRequest();
-                                /*session에서 id 가져오기 전*/
-        System.out.println("param, id:"+"접속자"/*req.getSession().getAttribute("ID")*/);
+                               
+        System.out.println("param, id:"+ ((UserVO)req.getSession().getAttribute("userInfo")).getNickname());
         System.out.println(req.getParameter("_csrf"));
          
-        String usrId = "접속자";/*(String)req.getSession().getAttribute("ID");*/
+        String usrId = ((UserVO)req.getSession().getAttribute("userInfo")).getNickname();
         attributes.put("usrId", usrId);
         
         return super.beforeHandshake(request, response, wsHandler, attributes);
@@ -40,7 +41,7 @@ public class ChattingInterceptor extends HttpSessionHandshakeInterceptor{
             Exception ex) {
     	ServletServerHttpRequest ssreq = (ServletServerHttpRequest) request;
     	HttpServletRequest req = ssreq.getServletRequest();
-        System.out.println("After Handshake, id: 접속자"/*+req.getSession().getAttribute("ID")*/);
+        System.out.println("After Handshake, id: 접속자 : "+((UserVO)req.getSession().getAttribute("userInfo")).getNickname());
         super.afterHandshake(request, response, wsHandler, ex);
     }
   

@@ -19,10 +19,6 @@ public class ChattingHandler extends TextWebSocketHandler {
 	
     @Autowired
     private ChattingService chatsvc;
-        
-	/*session에서 id 가져오기 전*/
-	public static int playerCnt=0;
-	/*session에서 id 가져오기 전*/
     
     // 웹소켓 서버측에 텍스트 메시지가 접수되면 호출되는 메소드
     @Override
@@ -92,10 +88,7 @@ public class ChattingHandler extends TextWebSocketHandler {
         String userId = (String) map.get("usrId");
         System.out.println("afterconn interceptor에서 건너온 ID " + userId);
         
-        //session에서 id가져오기 전
-        playerCnt++;
-        
-        users.put(userId+playerCnt, session);
+        users.put(userId, session);
         
     }
  
@@ -109,7 +102,7 @@ public class ChattingHandler extends TextWebSocketHandler {
 
         //session에서 id가져오기 전
         
-        users.remove(userId+playerCnt);
+        users.remove(userId);
         System.out.println("클라이언트 접속해제");
     }
  
