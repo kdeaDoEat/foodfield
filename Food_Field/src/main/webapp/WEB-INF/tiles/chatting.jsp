@@ -87,23 +87,23 @@
 </script>
 
 <div id="chatArea"
-	style="position: fixed; right: 20px; bottom: 20px; z-index: 1000;">
+	style="position: fixed; right: 5px; bottom: 5px; z-index: 1000; border-radius: 20em 20em 20em 20em;">
 	<div id="cbnt">
 		<button type="button" id="chatbtn" class="btn btn-warning btn-xm"><span class="glyphicon glyphicon-comment"></span></button>
 	</div>
 	<div id="chat"
-		style="width: 400px; height: 400px; background-color: gray; display: none;">
+		style="width: 400px; height: 400px; background-color: #f1f2f2; display: none;">
 
 		<div id='chatStatus'></div>
 		<textarea name="chatMsg" rows="5" cols="40"
 			style="width: 100%; border: 0px; padding: 4px; resize:none;" readonly></textarea>
 		<p>
 			<div class="input-group" style="width:90%; margin:auto;">
-				<span class="input-group-addon input-sm" style="background-color:white;">message</span>
+				<span class="input-group-addon input-sm" style="background-color:#d1d2d4;">message</span>
 				<input type="text" name="chatInput" class="form-control input-sm">
 			</div>
-		<div>
-			유저리스트 :
+		<div><!-- userList -->
+			<label><h4>User List</h4></label>
 			<div id="users"></div>
 		</div>
 
