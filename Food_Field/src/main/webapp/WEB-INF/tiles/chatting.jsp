@@ -14,7 +14,7 @@
 <script type="text/javascript">
 	$(function() {
 
-		var ws = new WebSocket("ws://192.168.8.53:8080/FoodField/chat");/*?${_csrf.parameterName}=${_csrf.token} */
+		var ws = new WebSocket("ws://192.168.8.105:8088/FoodField/chat");/*?${_csrf.parameterName}=${_csrf.token} */
 
 		ws.onopen = function() {
 			$('#chatStatus').text('');
@@ -89,16 +89,19 @@
 <div id="chatArea"
 	style="position: fixed; right: 20px; bottom: 20px; z-index: 1000;">
 	<div id="cbnt">
-		<button type="button" id="chatbtn" style="width: 100px;">채팅하기</button>
+		<button type="button" id="chatbtn" class="btn btn-warning btn-xm"><span class="glyphicon glyphicon-comment"></span></button>
 	</div>
 	<div id="chat"
-		style="width: 400px; height: 400px; background-color: skyblue; display: none;">
+		style="width: 400px; height: 400px; background-color: gray; display: none;">
 
 		<div id='chatStatus'></div>
 		<textarea name="chatMsg" rows="5" cols="40"
-			style="width: 100%; border: 1px solid #333; padding: 4px;" readonly></textarea>
+			style="width: 100%; border: 0px; padding: 4px; resize:none;" readonly></textarea>
 		<p>
-			메시지 입력 : <input type="text" name="chatInput">
+			<div class="input-group" style="width:90%; margin:auto;">
+				<span class="input-group-addon input-sm" style="background-color:white;">message</span>
+				<input type="text" name="chatInput" class="form-control input-sm">
+			</div>
 		<div>
 			유저리스트 :
 			<div id="users"></div>
