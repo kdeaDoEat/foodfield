@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
 
-<footer onmousedown="getMouseEventTarget(event)" id="fh5co-footer">
+<footer id="fh5co-footer">
 	<div class="container">
 		<div class="row fh5co-row-padded fh5co-copyright">
 			<div class="col-md-5">

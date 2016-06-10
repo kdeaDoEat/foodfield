@@ -40,6 +40,7 @@ public class ChattingService {
 						userlist.add(user);
 
 					}
+					jo.put("sender", myId);
 					jo.put("recievers", userlist);
 
 					s.sendMessage(new TextMessage(jo.toJSONString()));
@@ -110,6 +111,8 @@ public class ChattingService {
 					userlist.add(user);
 
 				}
+				
+				jo.put("sender", myId);
 				jo.put("status", "userrequest");
 				jo.put("recievers", userlist);
 
