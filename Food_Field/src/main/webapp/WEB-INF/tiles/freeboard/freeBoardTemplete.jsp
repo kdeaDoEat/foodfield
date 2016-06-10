@@ -48,6 +48,7 @@
 	<body>
 	
 	<tiles:insertAttribute name="header" />
+	<tiles:insertAttribute name="chatting" />
 	<tiles:insertAttribute name="footer" />
 
 	<!-- jQuery -->

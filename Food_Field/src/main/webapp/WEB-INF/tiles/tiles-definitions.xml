@@ -9,45 +9,55 @@
         <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
         <put-attribute name="main_slider" value="/WEB-INF/tiles/slider.jsp" />
         <put-attribute name="main_body" value="/WEB-INF/tiles/mainbody.jsp" />
+        <put-attribute name="chatting" value="/WEB-INF/tiles/chatting.jsp" />
         <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
     </definition>
     
     <definition name="freeBoardTemplate" template="/WEB-INF/tiles/freeBoard/freeBoardTemplate.jsp">
      	 <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
         <put-attribute name="body" value="/WEB-INF/tiles/freeBoard/freeBoard.jsp" />
+        <put-attribute name="chatting" value="/WEB-INF/tiles/chatting.jsp" />
         <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
     </definition>
     
  	<definition name="writeTemplate" extends="freeBoardTemplate" >
         <put-attribute name="body" value="/WEB-INF/tiles/freeBoard/write.jsp" />
+        <put-attribute name="chatting" value="/WEB-INF/tiles/chatting.jsp" />
     </definition>
  	<definition name="detailTemplate" extends="freeBoardTemplate" >
         <put-attribute name="body" value="/WEB-INF/tiles/freeBoard/detail.jsp" />
+        <put-attribute name="chatting" value="/WEB-INF/tiles/chatting.jsp" />
     </definition>
     <definition name="modifyTemplate" extends="freeBoardTemplate" >
         <put-attribute name="body" value="/WEB-INF/tiles/freeBoard/modify.jsp" />
+        <put-attribute name="chatting" value="/WEB-INF/tiles/chatting.jsp" />
     </definition>
     <definition name="reviewBoardTemplate" template="/WEB-INF/tiles/reviewboard/reviewBoardTemplete.jsp">
         <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
         <put-attribute name="body" value="/WEB-INF/tiles/reviewboard/reviewBoardList.jsp" />
+        <put-attribute name="chatting" value="/WEB-INF/tiles/chatting.jsp" />
         <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
     </definition>
     
     <definition name="reviewBoardRead" extends="reviewBoardTemplate">
         <put-attribute name="body" value="/WEB-INF/tiles/reviewboard/reviewBoardRead.jsp" />
+        <put-attribute name="chatting" value="/WEB-INF/tiles/chatting.jsp" />
     </definition>
     
     <definition name="reviewBoardWrite" extends="reviewBoardTemplate">
         <put-attribute name="body" value="/WEB-INF/tiles/reviewboard/reviewBoardWrite.jsp" />
+        <put-attribute name="chatting" value="/WEB-INF/tiles/chatting.jsp" />
     </definition>
     
     <definition name="reviewBoardModify" extends="reviewBoardTemplate">
         <put-attribute name="body" value="/WEB-INF/tiles/reviewboard/reviewBoardModify.jsp" />
+        <put-attribute name="chatting" value="/WEB-INF/tiles/chatting.jsp" />
     </definition>
 
     <definition name="noticeBoardListTemplate" template="/WEB-INF/tiles/noticeboard/noticeBoardListTemplate.jsp">
         <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
         <put-attribute name="notice_list" value="/WEB-INF/tiles/noticeboard/boardList.jsp" />
+        <put-attribute name="chatting" value="/WEB-INF/tiles/chatting.jsp" />
         <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
     </definition>
     
@@ -58,18 +68,21 @@
     <definition name="noticeBoardViewTemplate" template="/WEB-INF/tiles/noticeboard/noticeBoardViewTemplate.jsp">
         <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
         <put-attribute name="notice_view" value="/WEB-INF/tiles/noticeboard/boardView.jsp" />
+        <put-attribute name="chatting" value="/WEB-INF/tiles/chatting.jsp" />
         <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
     </definition>
     
     <definition name="noticeWriteFormTemplate" template="/WEB-INF/tiles/noticeboard/noticeWriteFormTemplate.jsp">
         <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
         <put-attribute name="notice_write" value="/WEB-INF/tiles/noticeboard/writeForm.jsp" />
+        <put-attribute name="chatting" value="/WEB-INF/tiles/chatting.jsp" />
         <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
     </definition>
     
     <definition name="noticeModFormTemplate" template="/WEB-INF/tiles/noticeboard/noticeModFormTemplate.jsp">
         <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
         <put-attribute name="notice_mod" value="/WEB-INF/tiles/noticeboard/modForm.jsp" />
+        <put-attribute name="chatting" value="/WEB-INF/tiles/chatting.jsp" />
         <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
     </definition>
     
@@ -77,6 +90,7 @@
 	<definition template="/WEB-INF/tiles/qnaboard/qnaBoardTemplate.jsp"	name="qnaBoardTemplate">
 		<put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
 		<put-attribute name="list"	value="/WEB-INF/tiles/qnaboard/qnaBoardList.jsp" />
+		<put-attribute name="chatting" value="/WEB-INF/tiles/chatting.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
 	</definition>
 	
@@ -84,18 +98,21 @@
 		<definition template="/WEB-INF/tiles/qnaboard/qnaWriteTemplate.jsp"	name="qnaWriteTemplate">
 			<put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
 			<put-attribute name="write"	value="/WEB-INF/tiles/qnaboard/qnaBoardWrite.jsp" />
+			<put-attribute name="chatting" value="/WEB-INF/tiles/chatting.jsp" />
 			<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
 		</definition>
 	
 		<definition template="/WEB-INF/tiles/qnaboard/qnaViewTemplate.jsp"	name="qnaViewTemplate">	
 			<put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
 			<put-attribute name="view" value="/WEB-INF/tiles/qnaboard/qnaBoardView.jsp" />
+			<put-attribute name="chatting" value="/WEB-INF/tiles/chatting.jsp" />
 			<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
 		</definition>
 		
 		<definition template="/WEB-INF/tiles/qnaboard/qnaModifyTemplate.jsp" name="qnaModifyTemplate">
 			<put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
 			<put-attribute name="modify" value="/WEB-INF/tiles/qnaboard/qnaBoardModify.jsp" />
+			<put-attribute name="chatting" value="/WEB-INF/tiles/chatting.jsp" />
 			<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
 		</definition>
     
