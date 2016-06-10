@@ -57,7 +57,6 @@ public class ReviewService {
 	public BoardVO read(HttpServletRequest request) {
 		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
 		int page = Integer.parseInt(request.getParameter("num"));
-		
 		BoardVO vo = dao.read(page);
 		vo.setCmtnum(dao.getCommentCount(page));
 		return vo;
