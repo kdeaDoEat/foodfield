@@ -29,13 +29,11 @@ public class ChattingService {
 			for (WebSocketSession s : users.values()) {
 				Map<String, Object> map = s.getAttributes();
 				String userId = (String) map.get("usrId");
-				System.out.println("message 보내는 중인 interceptor에서 건너온 ID " + userId);
 
 				if (status.equals("userrequest")) {
 
 					List<String> userlist = new ArrayList<String>();
 					Iterator usernames = users.keySet().iterator();
-
 					while (usernames.hasNext()) {
 
 						String user = (String) usernames.next();
@@ -62,9 +60,7 @@ public class ChattingService {
 						for (int i = 0; i < userlist.size(); i++) {
 							if (user.equals((String) userlist.get(i))) {
 								WebSocketSession ss = users.get(user);
-
 								if (s != ss) {
-
 									
 									ss.sendMessage(new TextMessage(jo.toJSONString()));
 
@@ -102,7 +98,9 @@ public class ChattingService {
 			
 			Map<String, Object> mymap = session.getAttributes();
 			String myId = (String) mymap.get("usrId");
+			
 			for (WebSocketSession s : users.values()) {
+				
 				List<String> userlist = new ArrayList<String>();
 				Iterator usernames = users.keySet().iterator();
 				JSONObject jo = new JSONObject();
@@ -126,7 +124,6 @@ public class ChattingService {
 				}
 				
 			}
-
 			
 		} catch (Exception e) {
 

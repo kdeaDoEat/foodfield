@@ -54,6 +54,7 @@
             var object = eval('('+event.data+')');
 			var usrstr = '';
 			if (object.status == "userrequest") {
+				
                 var userlist = object.recievers;
 				for (var i = 0; i < userlist.length; i++) {
 
@@ -76,9 +77,9 @@
 		
 		/* chat */
 		$("#chatbtn").click(function() {
-			//$("#chat").toggleClass("newClass", 1000);
 			
 			$("#chat").toggle("slow");
+			
 		});
 
 	});
