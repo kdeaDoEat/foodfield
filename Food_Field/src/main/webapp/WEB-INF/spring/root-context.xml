@@ -27,13 +27,13 @@
 		<sec:intercept-url pattern="/manager/**" access="hasRole('ROLE_MANAGER')" />
 		<sec:intercept-url pattern="/member/**" access="isAuthenticated()" />
 		<sec:intercept-url pattern="/**" access="permitAll" />
-		<sec:form-login login-page="/login"
+		<sec:form-login login-page="/main"
 			login-processing-url="/loginProcess"
 			default-target-url="/loginSuccess" 
 			username-parameter="email"
 			password-parameter="pwd"
 			authentication-failure-url="/loginFailure" />
-		<sec:logout logout-url="/logout"
+		<sec:logout logout-url="/**/logout"
 			invalidate-session="true"
 			logout-success-url="/main" />
 		<sec:csrf disabled="true"/>

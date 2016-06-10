@@ -94,7 +94,8 @@
 						<li><a href="#joinModal" data-toggle="modal"><span>sign up<span class="border"></span></span></a></li>
 						</sec:authorize>
 						<sec:authorize access="isAuthenticated()">
-						<li><a><span>${sessionScope.userInfo.nickname}님 환영합니다 !<span class="border"></span></span></a></li>
+						<li><a><span>${sessionScope.userInfo.nickname}님 환영합니다 !</span></a></li>
+						<li><a><span><span class="glyphicon glyphicon-user"></span> MyPage<span class="border"></span></span></a></li>
 						<li><a href="<c:url value='logout'/>"><span>logout<span class="border"></span></span></a></li>
 						</sec:authorize>
 						<!-- <li><a href="left-sidebar.html"><span>Left Sidebar <span class="border"></span></span></a></li>
