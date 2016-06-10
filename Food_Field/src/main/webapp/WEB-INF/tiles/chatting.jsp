@@ -66,9 +66,10 @@
 				$("#users").html(usrstr);
 
 			} else if (object.status == "sendrequest") {
-				$('textarea').focus(); // 포커스를 먼저 해준다음에.... 
+				
 				$('textarea').eq(0).append(object.msg + '\n');
-
+				$('textarea').focus();
+				$('input[name=chatInput]').focus();
 			}
 		};
 		ws.onclose = function(event) {
