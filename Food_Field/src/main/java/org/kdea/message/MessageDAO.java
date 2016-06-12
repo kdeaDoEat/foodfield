@@ -12,5 +12,6 @@ public interface MessageDAO {
 	public List<UserVO> getMemberInfo(UserVO vo);
 	public int sendMsg(MessageVO vo);
 	public MessageVO getMessageContents(MessageVO vo);
+	public int readOk(MessageVO vo);
 
 }

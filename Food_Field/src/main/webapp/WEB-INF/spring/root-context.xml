@@ -8,9 +8,9 @@
 
 	<bean id="dataSource" class="oracle.jdbc.pool.OracleDataSource"> 
 	    <property name="dataSourceName" value="ds"/>
-	    <property name="URL" value="jdbc:oracle:thin:@192.168.8.28:1521:xe"/>
+	    <property name="URL" value="jdbc:oracle:thin:@192.168.0.68:1521:xe"/>
 	    <property name="user" value="scott"/>
-	    <property name="password" value="TIGER"/>
+	    <property name="password" value="tiger"/>
     </bean>
 	
 	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"  />

@@ -23,8 +23,8 @@ public class MessageController {
 		return new ModelAndView("message/message","vo",msvc.getMessageList(session));
 	}
 	@RequestMapping(value="/write")
-	public String write(){
-		return "message/messageWrite";
+	public ModelAndView write(MessageVO vo){
+		return new ModelAndView("message/messageWrite","receiver",vo.getReceiver());
 	}
 	@RequestMapping(value="/count")
 	public ModelAndView messageCount(HttpSession session){

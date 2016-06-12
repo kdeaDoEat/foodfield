@@ -76,7 +76,7 @@ function msgRead(num) {
 	                                    <tbody>
 	                                    	<c:forEach var="l" items="${vo }">
 	                                    		<c:choose>
-	                                    			<c:when test="${l.enabled == 1}">
+	                                    			<c:when test="${l.enabled == '1'}">
 		                                    			<tr class="success">
 				                                            <td onclick="msgRead('${l.num}')" style="cursor: pointer;">${l.title }</td>
 				                                            <td>${l.sender}</td>

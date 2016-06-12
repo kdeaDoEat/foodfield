@@ -55,6 +55,7 @@ public class MessageService {
 
 	public MessageVO getMessageContents(MessageVO vo) {
 		MessageDAO dao = sqlSessionTemplate.getMapper(MessageDAO.class);
+		dao.readOk(vo);
 		return dao.getMessageContents(vo);
 	}
 	

@@ -57,6 +57,10 @@ $(function(){
     });
     
 })
+
+function reply() {
+	location.href="/FoodField/message/write?receiver=${vo.sender }";
+}
 </script>
 <body>
     <div id="wrapper">
@@ -103,7 +107,7 @@ $(function(){
 		                        </div>
 		                        <div class="panel-body" style="text-align: center;">${vo.contents }</div>
 		                        <div class="panel-footer" style="text-align: right;">
-		                        	<span class="btn btn-primary" style="cursor: pointer;"><i class="fa fa-envelope" aria-hidden="true"></i>　답장하기</span>
+		                        	<span class="btn btn-primary" style="cursor: pointer;" onclick="reply()"><i class="fa fa-envelope" aria-hidden="true"></i>　답장하기</span>
 		                        </div>
                     		</div>
     					</div>

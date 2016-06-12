@@ -9,7 +9,7 @@ public class MessageVO {
 	private String title;
 	private String contents;
 	private Date w_date;
-	private char enabled;
+	private String enabled;
 	public int getNum() {
 		return num;
 	}
@@ -46,12 +46,13 @@ public class MessageVO {
 	public void setW_date(Date w_date) {
 		this.w_date = w_date;
 	}
-	public char getEnabled() {
+	public String getEnabled() {
 		return enabled;
 	}
-	public void setEnabled(char enabled) {
+	public void setEnabled(String enabled) {
 		this.enabled = enabled;
 	}
+	
 	
 	
 

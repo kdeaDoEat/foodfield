@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kdea.message.MessageDAO"> <!--이 sql 문장과 매핑될 인터페이스의 완전한 경로-->
 	<select id="getMessageCount" resultType="java.lang.Integer" parameterType="org.kdea.vo.UserVO">
-		select count(num) from message where receiver=#{nickname}
+		select count(num) from message where receiver=#{nickname} and enabled = 1
 	</select>
 	
 	<select id="getMessageList" parameterType="org.kdea.vo.UserVO" resultType="org.kdea.vo.MessageVO" >
@@ -22,6 +22,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getMessageContents" parameterType="org.kdea.vo.MessageVO" resultType="org.kdea.vo.MessageVO">
 		select * from message where num=#{num}
 	</select>
+	
+	<update id="readOk" parameterType="org.kdea.vo.MessageVO" >
+		update message set enabled=0 where num=#{num}
+	</update>
+	
     <!-- <select id="list" resultType="org.kdea.mybatis.EmpVO">
         select * from emp2
     </select>
