@@ -144,15 +144,15 @@
 			type : "post",
 			success : function(obj) {
 				if (obj.parent) {
-
-					var c = confirm("자식글이어서 삭제가 가능합니다. 삭제하시겠습니까?");
+					/* confirm("아랫글이 없어서 삭제가 가능합니다. 삭제하시겠습니까?"); */
+					var c = confirm("정말 삭제하시겠습니까?");
 					if (c) {
 						location.href = "del?num="
 								+ $("input[name='num']").val();
 					}
 				} else {
 
-					alert("부모글이어서 삭제가 불가능합니다. 자식을 먼저 삭제하세요~");
+					alert("아랫글이 있어서 삭제가 불가능합니다. 아랫글을 먼저 삭제하세요~");
 
 				}
 
@@ -267,7 +267,7 @@ th {
 </style>
 </head>
 <body>
-	<div style="margin-left: 20% !important; margin-right: auto !important; width: 60%; margin-top: 50px !important; margin-bottom: 50px;">
+	<div style="margin-left: 20% !important; margin-right: auto !important; width: 60%; margin-top: 150px !important; margin-bottom: 50px;">
 		<article class="post" style="margin-top:100px;">
 		<h2 class="title">${board.title}</h2>
 		<div class="meta">

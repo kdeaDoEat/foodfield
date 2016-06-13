@@ -38,6 +38,7 @@
 				+ "&word=" + $("#search").val();
 
 	}
+	
 </script>
 <style>
 #belownavi {
@@ -59,10 +60,15 @@ a {
 </style>
 </head>
 <body>
+    <div id="noticeList" style="margin-top:150px;">
+    <div id="noticeTitle" style="margin-left:auto; margin-right:auto; width:80%; text-align:center;">
+    <h1>공지게시판</h1>
+    <hr>
+    </div>
     <div class="table-responsive" style="margin-left: auto;
-	margin-right: auto; width:70%; margin-top:150px;">
+	margin-right: auto; width:80%;">
 	<table class="table table-hover">
-		<output id="pageoutput">${page.currpage}/${page.totalpage}</output>
+		<output id="pageoutput" style="float:right; margin-right:5%; margin-bottom:10px;"><c:if test="${page.totalpage eq 0}">0</c:if><c:if test="${page.totalpage != 0}">${page.currpage}</c:if>/${page.totalpage}</output>
 		<tr>
 			<th>글 번호</th>
 			<th>글 제목</th>
@@ -78,6 +84,7 @@ a {
 			</tr>
 		</c:forEach>
 	</table>	
+	</div>
 	</div>
 	<button type="button" id="writebtn" class="btn btn-warning" style="margin-left:15%;"><span class="glyphicon glyphicon-pencil"></span> 글쓰기</button>
 	<div id="belownavi">
