@@ -53,7 +53,7 @@ public class ChattingHandler extends TextWebSocketHandler {
 		String userId = (String) map.get("usrId");
 		System.out.println("afterclose interceptor에서 건너온 ID " + userId);
 		users.remove(userId);
-		chatsvc.leaveBroadcast(session, users);
+		chatsvc.leaveBroadcast(session, users, usersConnStatus);
 		System.out.println("클라이언트 접속해제");
 	}
 

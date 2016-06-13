@@ -101,7 +101,7 @@ public class ChattingService {
 		}
 	}
 
-	public void leaveBroadcast(WebSocketSession session, Map<String, WebSocketSession> users) {
+	public void leaveBroadcast(WebSocketSession session, Map<String, WebSocketSession> users, Map<String, String> usersConnStatus) {
 		try {
 
 			Map<String, Object> mymap = session.getAttributes();
@@ -130,7 +130,7 @@ public class ChattingService {
 					obj.put("status", "sendrequest");
 					obj.put("msg", myId + "¥‘≤≤º≠ ≈¿Â«œºÃΩ¿¥œ¥Ÿ~");
 					s.sendMessage(new TextMessage(obj.toJSONString()));
-
+					usersConnStatus.remove(myId);
 				}
 
 			}
