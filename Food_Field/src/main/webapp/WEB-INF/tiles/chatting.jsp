@@ -14,55 +14,10 @@
   line-height: 1.428571429;
   border-radius: 15px;
 }
-.toggle-button {
-	background-color: white;
-	margin: 5px 0;
-	border-radius: 20px;
-	border: 2px solid #D0D0D0;
-	height: 24px;
-	cursor: pointer;
-	width: 50px;
-	position: relative;
-	display: inline-block;
-	user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
-	-moz-user-select: none;
-}
 
-.toggle-button button {
-	cursor: pointer;
-	outline: 0;
-	display: block;
-	position: absolute;
-	left: 0;
-	top: 0;
-	border-radius: 100%;
-	width: 30px;
-	height: 30px;
-	background-color: white;
-	float: left;
-	margin: -5px 0 0 -5px;
-	border: 2px solid #D0D0D0;
-	transition: left 0.3s;
-}
-
-.toggle-button-selected {
-	background-color: #83B152;
-	border: 2px solid #7DA652;
-}
-
-.toggle-button-selected button {
-	left: 26px;
-	top: 0;
-	margin: -2px 0 0 -2px;
-	border: none;
-	width: 24px;
-	height: 24px;
-	box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-}
 </style>
-
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-2.2.2.min.js">
 	
@@ -89,7 +44,7 @@
 					var msg = $('input[name=chatInput]').val();
 					var userlist = [];
 
-					if (entire == 'off') {
+					if (!$("#togglebtn").is(":checked")) {
 
 						$("input:checkbox:checked").each(function(index) {
 							userlist[index] = $(this).val();
@@ -151,12 +106,6 @@
 
 		});
 
-		$(document).on('click', '.toggle-button', function() {
-			$(this).toggleClass('toggle-button-selected');
-			$(".toggle-button #entireMsgOption").val('off');
-			$(".toggle-button-selected #entireMsgOption").val('on');
-		});
-
 		$("#userlistbtn").click(function() {
 			$("#userlist").toggle("slow");
 		});
@@ -185,12 +134,11 @@
 				</button>
 			</div>
 			<div id="userlist" style="dispay: none; background-color: white;">
-				<label><h4>User List</h4></label> 전체메세지
-				<div class="toggle-button" style="top: 10px;">
-					<input type="hidden" id="entireMsgOption" type="text" value="off"/>
-					<button></button>
-				</div>
-				<div id="users" style="overflow-y:scroll; height:60px;"></div>
+				<label><h4>User List</h4></label>
+				<span style="float:right; margin-top:6px;">
+                <input type="checkbox" id="togglebtn" data-toggle="toggle" data-on="전체" data-off="개인"  data-size="mini" data-width="105" data-height="20">
+                </span>
+				<div id="users" style="overflow-y:scroll; height:60px; width:100%"></div>
 				<!-- 리스트로 사람들 뜨기 -->
 				<!-- <div style="background-color:#f1f2f2;"></div> -->
 			</div>
