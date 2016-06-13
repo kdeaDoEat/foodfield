@@ -267,7 +267,7 @@ th {
 </style>
 </head>
 <body>
-	<div style="margin-left: 20% !important; margin-right: auto !important; width: 60%; margin-top: 50px !important; margin-bottom: 50px;">
+	<div style="margin-left: 20% !important; margin-right: auto !important; width: 60%; margin-top: 150px !important; margin-bottom: 50px;">
 		<article class="post" style="margin-top:100px;">
 		<h2 class="title">${board.title}</h2>
 		<div class="meta">
