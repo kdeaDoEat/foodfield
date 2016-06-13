@@ -129,7 +129,7 @@ public class NoticeService {
 						   	} else {
 						   		
 					    		String dftFilePath = request.getSession().getServletContext().getRealPath("/");
-					    		String filePath = dftFilePath + "editor" + File.separator +"upload" + File.separator;
+					    		String filePath = dftFilePath + "resources" + File.separator +"smart_editor2" + File.separator +"sample" + File.separator + "photo_uploader" + File.separator + "multiupload" + File.separator;
 					    		
 					    		File file = null;
 					    		file = new File(filePath);
@@ -160,7 +160,7 @@ public class NoticeService {
 					    		
 					    		return3 += "&bNewLine=true";
 					    		return3 += "&sFileName="+ name;
-					    		return3 += "&sFileURL=/editor/upload/"+realFileNm;
+					    		return3 += "&sFileURL="+"resources/smart_editor2/sample/photo_uploader/multiupload/"+"/editor/upload/"+realFileNm;
 						   	}
 						}else {
 							  return3 += "&errstr=error";
