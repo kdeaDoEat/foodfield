@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(SELECT TRUNC((rn-1)/10+1)as page,ceil(count(*) over()/10) as totalPage, t2.*
 		FROM
 		(SELECT ROWNUM rn, t1.* FROM
-		(SELECT num,LPAD('ㄴ', 4*(level-1),' ')||title as title,contents,w_date,nickname,views
+		(SELECT num,LPAD('ㄴ', 4*(level-1),'　')||title as title,contents,w_date,nickname,views,ref
 		FROM FREEBOARD START WITH ref=0 CONNECT BY PRIOR num=ref
 		ORDER SIBLINGS BY w_date DESC
 		)t1
@@ -68,7 +68,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(SELECT TRUNC((rn-1)/10+1)as page,ceil(count(*) over()/10) as totalPage, t2.*
 		FROM
 		(SELECT ROWNUM rn, t1.* FROM
-		(SELECT num,LPAD('ㄴ', 4*(level-1),' ')||title as title,contents,w_date,nickname,views
+		(SELECT num,LPAD('ㄴ', 4*(level-1),'　')||title as title,contents,w_date,nickname,views,ref
 		FROM FREEBOARD START WITH ref=0 CONNECT BY PRIOR num=ref
 		ORDER SIBLINGS BY w_date DESC
 		)t1
@@ -126,7 +126,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<update id="cmtModify" parameterType="org.kdea.vo.CommentVO">
 		update fbcomment set
-		contents=#{contents} where cnum=#{num}
+		contents=#{contents} where cnum=#{cnum}
 	</update>
 	<delete id="delete">
 		delete from FREEBOARD where num=#{num}

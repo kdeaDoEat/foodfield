@@ -2,6 +2,8 @@ package org.kdea.freeboard;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.json.simple.JSONObject;
 import org.kdea.vo.BoardListPageVO;
 import org.kdea.vo.CommentVO;
@@ -22,6 +24,7 @@ public class FreeBoradService {
 	public List<FreeBoardVO> list(int page){
 		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
 		List<FreeBoardVO> list= fbdao.list(page);
+		if(list!=null){
 		BoardListPageVO pagenavi=list.get(0).getPagevo();
 		int rowsPerScreen=10;//�븳 �럹�씠吏� 寃뚯떆湲� �닔
 		int linksPerScreen=5;//�럹�씠吏��꽕鍮꾧쾶�씠�뀡 �닔
@@ -40,6 +43,8 @@ public class FreeBoradService {
 		pagenavi.setLastPage(linkEnd);
 		
 		return list;
+		}
+		return null;
 	}
 
 	public FreeBoardVO write(FreeBoardVO fbVO) {
@@ -81,7 +86,7 @@ public class FreeBoradService {
 
 	public boolean cmtWrite(CommentVO comment){
 	//코멘트달기
-		System.out.println("코멘트가 달리는 현재 글번호: "+comment.getNum());
+		//System.out.println("코멘트가 달리는 현재 글번호: "+comment.getNum());
 
 
 		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
@@ -116,7 +121,7 @@ public class FreeBoradService {
 
 		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
 		List<FreeBoardVO> list= fbdao.beforeDelete(num);
-		System.out.println("넘어온 상위 글번호: "+num+", 리스트 사이즈: "+list.size());
+		//System.out.println("넘어온 상위 글번호: "+num+", 리스트 사이즈: "+list.size());
 		if(list.size()!=0){
 			return true;
 		}else{
@@ -142,10 +147,10 @@ public class FreeBoradService {
 		if(comment!=null){
 			JSONObject jobj= new JSONObject();
 			jobj.put("Ccontent", comment.getContents());
-			jobj.put("Cnum", comment.getCnum());
-			jobj.put("cdate", comment.getW_date());
+			jobj.put("Cnum", "\""+comment.getCnum()+"\"");
+			jobj.put("cdate", "\""+comment.getW_date()+"\"");
 			jobj.put("nickname", comment.getNickname());
-			jobj.put("ref", comment.getNum());
+			jobj.put("ref", "\""+comment.getNum()+"\"");
 			String jobjStr= jobj.toJSONString();
 		System.out.println("string내용: "+jobjStr);
 			return jobjStr;
@@ -155,16 +160,18 @@ public class FreeBoradService {
 	public CommentVO getCommentDetail(String nickname) {
 		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
 		CommentVO comment=fbdao.CommentDetail(nickname);
-		System.out.println("받아온 최신 코멘트 번호: "+comment.getCnum());
+		//System.out.println("받아온 최신 코멘트 번호: "+comment.getCnum());
 		
 		return comment;
 	}
 	public String cmtModify(CommentVO comment) {
 		//코멘트 수정
 		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
+		System.out.println("수정하려고 가져온 내용: "+comment.getContents()+", 번호: "+comment.getCnum());
 		int commentModi=fbdao.cmtModify(comment);
+
 		if(commentModi>0){
-			String sucModidetail=getCommentDetail(comment.getNum());
+			String sucModidetail=getCommentDetail(comment.getCnum());
 
 			return sucModidetail;
 		}
@@ -244,7 +251,7 @@ public class FreeBoradService {
 				jobj.put("recommendsuc", true);
 				jobj.put("recommendCtn", bvo2.getRecommend());
 				jsonStr=jobj.toJSONString();
-				System.out.println("서비스에서 만들어지고 화면으로 넘어가는 문자열: "+jsonStr);
+				//System.out.println("서비스에서 만들어지고 화면으로 넘어가는 문자열: "+jsonStr);
 				return jsonStr;
 			}
 		}
@@ -274,10 +281,8 @@ public class FreeBoradService {
 		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
 		List<FreeBoardVO> bvo=fbdao.haverecommend(num);
 		if(bvo.size()!=0){
-			System.out.println("추천수가 있으니 삭제바람");
 			int deleteRecommend=fbdao.deleteRecommend(num);
 			if(deleteRecommend>0){
-				System.out.println("추천수 삭제완료");
 				return true;
 			}
 		}
@@ -286,13 +291,13 @@ public class FreeBoradService {
 	}
 
 	public boolean haveComment(int num) {
-		// 해당글번호에 코멘트가 달려있는가
-		System.out.println("코멘트삭제를 위한 상위 부모 글번호:"+num);
+		// 해당글번호에 코멘트가 달려있는가(왜 확인하냐면 테이블끼리 왜래키,기본키가 연결되어잇ㅇ)
+	
 		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
 		List<FreeBoardVO> bvo=fbdao.haveComment(num);
 		System.out.println("리스트 사이즈: "+bvo.size());
 		if(bvo.size()!=0){
-			System.out.println("코멘트가 있으니 삭제바람");
+			
 			int deleteAllComment=fbdao.deleteAllComment(num);
 			if(deleteAllComment>0){
 				return true;
@@ -300,6 +305,13 @@ public class FreeBoradService {
 			return false;
 		}
 		return true;
+	}
+
+	public List<CommentVO> commentList(int num) {
+
+		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
+		List<CommentVO> list= fbdao.cmtList(num);
+		return list;
 	}
 
 

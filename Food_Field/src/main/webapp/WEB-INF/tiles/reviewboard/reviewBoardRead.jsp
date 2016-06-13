@@ -182,7 +182,7 @@ function reviewDelete(num) {
 		                        <span class="glyphicon btn-glyphicon glyphicon-list img-circle text-muted">
 	            				</span>　입력</button>
 							</div>
-	                        </div>
+	                         </div>
 	                    </div>
                 	</div>
 					<div class="form-group">

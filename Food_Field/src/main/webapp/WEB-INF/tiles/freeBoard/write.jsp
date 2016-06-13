@@ -4,6 +4,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String cp = request.getContextPath();
+	String pref= (String)request.getParameter("num");
+	if(pref==""){
+		pref="0";
+	}else{
+		int ref= Integer.parseInt(pref);
+		System.out.print("ref: "+ref);
+		session.setAttribute("ref", ref);
+	}
 %>
 <%--ContextPath 선언 --%>
 <script type="text/javascript"
@@ -26,7 +34,6 @@
 
 			switch (dialogName) {
 			case 'image': //Image Properties dialog
-				//dialogDefinition.removeContents('info');
 				dialogDefinition.removeContents('Link');
 				dialogDefinition.removeContents('advanced');
 				break;
@@ -38,7 +45,8 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<form class="form-horizontal" method="post" action="winput">
-				<input type="hidden" name="nickname" value="jung">
+				<input type="hidden" name="nickname" value="${sessionScope.userInfo.nickname }">
+				<input type="hidden" name="ref" value="${ref}">
 				<p>
 					<!--  제목 부분  -->
 				<div class="form-group">
@@ -49,7 +57,6 @@
 				</div>
 
 				<!-- 내용 부분 -->
-
 				<div class="form-group">
 					<label for="message" class="col-sm-2 control-label">내용</label>
 					<div class="col-sm-10">

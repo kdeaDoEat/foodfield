@@ -12,6 +12,7 @@ import org.springframework.stereotype.*;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
@@ -26,11 +27,18 @@ public class FreeBoardController {
 		String spage= request.getParameter("page");
 		int page=Integer.parseInt(spage);
 		List<FreeBoardVO> list= fbService.list(page);
+		for(int i=0;i<list.size();i++){
+			if(list.get(i).getRef()!=0){
+				String title=list.get(i).getTitle().replaceFirst("ㄴ","<img src='resources/images/re.gif'/>");
+				list.get(i).setTitle(title);
+			}
+		}
+		
 		SearchVO svo= new SearchVO();
 		svo.setBsearch(false);
 		model.addAttribute("isSearch", svo);
 		model.addAttribute("fbList", list);
-		return "freeboard";
+		return "free/freeboard";
 	}
 	
 	@RequestMapping(value="/write",method=RequestMethod.GET)
@@ -42,8 +50,6 @@ public class FreeBoardController {
 	@RequestMapping(value="/winput",method=RequestMethod.POST)
 	public String write(FreeBoardVO  fbVO, 
 			HttpSession session){
-		System.out.println("내용: "+fbVO.getContents());
-		
 		
 		FreeBoardVO fb= fbService.write(fbVO);
 	
@@ -60,7 +66,7 @@ public class FreeBoardController {
 	public String recommend(@RequestParam("num")int num,
 			@RequestParam("nickname") String nickname)
 	{
-		System.out.println("코멘트가 달리는 글번호: "+num+", 글쓰는 사람: "+nickname);
+		//System.out.println("추천이 달리는 글번호: "+num+", 글쓰는 사람: "+nickname);
 		boolean confirmrecommendCtn=fbService.confirmrecommendCtn(num, nickname);
 		//해당 글번호에 이 사용자가 글번호를 누른적이 있는가 확인
 		if(confirmrecommendCtn){
@@ -68,13 +74,11 @@ public class FreeBoardController {
 			JSONObject jobj= new JSONObject();
 			jobj.put("recommendsuc", false);
 			String jsonStr=jobj.toJSONString();
-			System.out.println("글추천이 되어있습니다."+jsonStr);
+			//System.out.println("글추천이 되어있습니다."+jsonStr);
 			return jsonStr; 
 		}
-		System.out.println("글추천이 안되어있습니다.");
-		String recommendStr=fbService.recommend(num,nickname);
-		System.out.println("성공: "+recommendStr);
 		
+		String recommendStr=fbService.recommend(num,nickname);
 		return recommendStr;
 	}
 	
@@ -142,7 +146,7 @@ public class FreeBoardController {
 	@ResponseBody
 	public String cmtWrite(@ModelAttribute("cinput") CommentVO comment,
 			 Model model){
-		System.out.println("코멘트 컨드롤로러 옴");
+		//System.out.println("코멘트 컨드롤로러 옴,닉네임: "+comment.getNickname());
 		boolean commentSuccess=fbService.cmtWrite(comment);
 	
 		if(commentSuccess){
@@ -163,11 +167,16 @@ public class FreeBoardController {
 	@ResponseBody
 	public String commentRead(@RequestParam("cnum") int cnum,
 			 Model model){
-			System.out.println("코멘트 읽기 컨드롤로러 옴");
+			//System.out.println("코멘트 읽기 컨드롤로러 옴");
 			String cmt= fbService.getCommentDetail(cnum);
 			
 		return cmt;
 
+	}
+	@RequestMapping(value="aftercomment",method=RequestMethod.GET)
+	public ModelAndView comment(@RequestParam("num") int num){
+		//System.out.println("코멘트 로드하기 옴");
+		return new ModelAndView("free/freeBoardComment","list",fbService.commentList(num));
 	}
 
 	@RequestMapping(value="commentmodi", method=RequestMethod.POST
@@ -205,7 +214,7 @@ public class FreeBoardController {
 			HttpSession session){
 		boolean deleterecommend=fbService.haverecommend(num);
 		boolean deleteComment=fbService.haveComment(num);
-		System.out.println("추천수삭제: "+deleterecommend+",코멘트삭제: "+deleteComment);
+		//System.out.println("추천수삭제: "+deleterecommend+",코멘트삭제: "+deleteComment);
 		boolean deleteSuccess=false;
 		if(deleterecommend&&deleteComment){
 		 deleteSuccess=fbService.delete(num);
@@ -227,8 +236,15 @@ public class FreeBoardController {
 	public String Search(@ModelAttribute("search") SearchVO svo,
 			Model model){
 
-		System.out.println("검색으로 넘어온것? "+svo.getSearchCategory()+", "+svo.getSearchContent()+", "+svo.getPage());
+		//System.out.println("검색으로 넘어온것? "+svo.getSearchCategory()+", "+svo.getSearchContent()+", "+svo.getPage());
 		List<FreeBoardVO> searchList= fbService.getSearchList(svo);
+		
+		for(int i=0;i<searchList.size();i++){
+			if(searchList.get(i).getRef()!=0){
+				String title=searchList.get(i).getTitle().replaceFirst("ㄴ","<img src='resources/images/re.gif'/>");
+				searchList.get(i).setTitle(title);
+			}
+		}
 		svo.setBsearch(true);
 		model.addAttribute("fbList",searchList);
 		model.addAttribute("isSearch", svo);
@@ -240,7 +256,7 @@ public class FreeBoardController {
 	  (HttpServletRequest request, HttpServletResponse response,
 		@RequestParam MultipartFile upload)
 	{
-		System.out.println("여기로 넘어오긴 하냐?");
+		
         OutputStream out = null;
         PrintWriter printWriter = null;
         response.setCharacterEncoding("utf-8");
@@ -250,6 +266,7 @@ public class FreeBoardController {
  
             String fileName = upload.getOriginalFilename();
             byte[] bytes = upload.getBytes();
+            
             String uploadPath = "C:/img/" + fileName;//저장경로
  
             out = new FileOutputStream(new File(uploadPath));
