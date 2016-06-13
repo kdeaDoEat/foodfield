@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.kdea.message.MessageDAO"> <!--이 sql 문장과 매핑될 인터페이스의 완전한 경로-->
+	<select id="getMessageCount" resultType="java.lang.Integer" parameterType="org.kdea.vo.UserVO">
+		select count(num) from message where receiver=#{nickname} and enabled = 1
+	</select>
+	
+	<select id="getMessageList" parameterType="org.kdea.vo.UserVO" resultType="org.kdea.vo.MessageVO" >
+		select * from (select * from message where RECEIVER=#{nickname} order by enabled desc) order by w_date desc
+	</select>
+	
+	<select id="getMemberInfo" resultType="org.kdea.vo.UserVO" parameterType="org.kdea.vo.UserVO" >
+		select email, nickname, gender from users where nickname like '%'|| #{nickname} ||'%'
+	</select>
+	
+	<insert id="sendMsg" parameterType="org.kdea.vo.MessageVO">
+		insert into message values ( message_num.NEXTVAL, #{title}, #{sender}, #{receiver}, #{contents}, sysdate, 1 )
+	</insert>
+	
+	<select id="getMessageContents" parameterType="org.kdea.vo.MessageVO" resultType="org.kdea.vo.MessageVO">
+		select * from message where num=#{num}
+	</select>
+	
+	<update id="readOk" parameterType="org.kdea.vo.MessageVO" >
+		update message set enabled=0 where num=#{num}
+	</update>
+	
+    <!-- <select id="list" resultType="org.kdea.mybatis.EmpVO">
+        select * from emp2
+    </select>
+    <insert id="insert" parameterType="org.kdea.mybatis.EmpVO">
+        insert into emp2 (empno, ename, deptno, job, sal) 
+        	values ( #{empno}, #{ename}, #{deptno}, #{job}, #{sal} )
+    </insert>
+    <select id="info" resultType="org.kdea.mybatis.EmpVO">
+        select * from emp2 where empno=#{empno}
+    </select>
+    <update id="update" parameterType="org.kdea.mybatis.EmpVO">
+        update emp2 set deptno=#{deptno}, sal=#{sal} where empno=#{empno}
+    </update>
+    <delete id="delete" >
+        delete from emp2 where empno=#{empno}
+    </delete> -->
+</mapper>

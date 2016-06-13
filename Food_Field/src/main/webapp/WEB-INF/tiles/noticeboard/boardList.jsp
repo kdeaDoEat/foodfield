@@ -59,9 +59,7 @@ a {
 </style>
 </head>
 <body>
-
-
-    <div style="margin-left: auto;
+    <div class="table-responsive" style="margin-left: auto;
 	margin-right: auto; width:70%; margin-top:150px;">
 	<table class="table table-hover">
 		<output id="pageoutput">${page.currpage}/${page.totalpage}</output>
@@ -79,10 +77,9 @@ a {
 				<td>${board.w_date}</td>
 			</tr>
 		</c:forEach>
-	</table>
-	<button type="button" id="writebtn" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span> 글쓰기</button>
+	</table>	
 	</div>
-	
+	<button type="button" id="writebtn" class="btn btn-warning" style="margin-left:15%;"><span class="glyphicon glyphicon-pencil"></span> 글쓰기</button>
 	<div id="belownavi">
 		<ul class="pagination">
 			<fmt:parseNumber var="currdivppp" type="number"

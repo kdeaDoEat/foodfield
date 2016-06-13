@@ -4,6 +4,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script src="/FoodField/resources/bootstrap/js/login.js"></script>
+<script type="text/javascript">
+$(function() {
+	if('${sessionScope.userInfo}' != ''){
+		$('#messageIcon').load("/FoodField/message/count?nickname=${sessionScope.userInfo.nickname}");
+	}
+})
+</script>
 <!-- Login Modal -->
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
@@ -89,12 +96,14 @@
 					</ul>
 					
 					<ul class="nav navbar-nav navbar-right">
+						<li id="messageIcon"></li>
 						<sec:authorize access="isAnonymous()">
 						<li><a href="#loginModal" data-toggle="modal"><span>login<span class="border"></span></span></a></li>
 						<li><a href="#joinModal" data-toggle="modal"><span>sign up<span class="border"></span></span></a></li>
 						</sec:authorize>
 						<sec:authorize access="isAuthenticated()">
-						<li><a><span>${sessionScope.userInfo.nickname}님 환영합니다 !<span class="border"></span></span></a></li>
+						<li><a><span>${sessionScope.userInfo.nickname}님 환영합니다 !</span></a></li>
+						<li><a><span><span class="glyphicon glyphicon-user"></span> MyPage<span class="border"></span></span></a></li>
 						<li><a href="<c:url value='logout'/>"><span>logout<span class="border"></span></span></a></li>
 						</sec:authorize>
 						<!-- <li><a href="left-sidebar.html"><span>Left Sidebar <span class="border"></span></span></a></li>

@@ -10,7 +10,7 @@ public class ListVO {
 	private int nowpage;
 	private String type;
 	private String searchType;
-	private String searchOption;
+	private String searchWord;
 	
 	public List<BoardVO> getList() {
 		return list;
@@ -48,11 +48,11 @@ public class ListVO {
 	public void setSearchType(String searchType) {
 		this.searchType = searchType;
 	}
-	public String getSearchOption() {
-		return searchOption;
+	public String getSearchWord() {
+		return searchWord;
 	}
-	public void setSearchOption(String searchOption) {
-		this.searchOption = searchOption;
+	public void setSearchWord(String searchWord) {
+		this.searchWord = searchWord;
 	}
 	
 }

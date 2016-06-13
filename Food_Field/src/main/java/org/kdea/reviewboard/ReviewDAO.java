@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.kdea.vo.BoardVO;
 import org.kdea.vo.CommentVO;
+import org.kdea.vo.SearchVO;
 
 public interface ReviewDAO {
 	
@@ -20,5 +21,10 @@ public interface ReviewDAO {
 	public int reviewDelete(BoardVO vo);
 	public int reviewModify(BoardVO vo);
 	public int reviewBoardCommentDelete(int num);
+	public int spage(SearchVO vo);
+	public List<BoardVO> search(SearchVO vo);
+	public int checkRecommend(BoardVO vo);
+	public int updateRecommend(BoardVO vo);
+	public int updateUserRecommend(BoardVO vo);
 
 }

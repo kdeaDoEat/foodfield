@@ -49,6 +49,7 @@
 <body>	
 	<tiles:insertAttribute name="header" />
 	<tiles:insertAttribute name="notice_write" />
+	<tiles:insertAttribute name="chatting" />
 	<tiles:insertAttribute name="footer" />
 	<!-- jQuery -->
 	<script src="/FoodField/resources/bootstrap/js/jquery.min.js"></script>

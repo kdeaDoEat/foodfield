@@ -74,7 +74,7 @@
 							<div class="fh5co-feature-text">
 								<h3>내 주위 맛집!</h3>
 								<p>자신의 위치기반으로 주위 맛집을 찾아준다</p>
-								<p><a href="#">Read more</a></p>
+								<p><a href="/FoodField/doit">Read more</a></p>
 							</div>
 						</div>
 						<div class="fh5co-feature no-border">
@@ -96,7 +96,7 @@
 							<div class="fh5co-feature-text">
 								<h3>나만의 후기!</h3>
 								<p>나의 방문기를 여러사람들과 공유 추천을 받으며 포인트를 모은다</p>
-								<p><a href="#">Read more</a></p>
+								<p><a href="/FoodField/review">Read more</a></p>
 							</div>
 						</div>
 						<div class="fh5co-feature no-border">

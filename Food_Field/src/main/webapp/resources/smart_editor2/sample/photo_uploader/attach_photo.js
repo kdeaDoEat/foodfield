@@ -376,7 +376,7 @@
 			timeout : 3,
 			onerror :  jindo.$Fn(onAjaxError, this).bind()
 		});
-    	oAjax.header(header,token);
+    	/*oAjax.header(header,token);*///csrf무효화 시킨 버전
 		oAjax.header("contentType","multipart/form-data");
 		oAjax.header("file-name",encodeURIComponent(tempFile.name));
 		oAjax.header("file-size",tempFile.size);

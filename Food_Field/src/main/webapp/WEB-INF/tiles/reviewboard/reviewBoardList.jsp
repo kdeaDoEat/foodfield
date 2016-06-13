@@ -10,6 +10,20 @@ function view(num) {
 function search_Option(evt) {
 	$('#search_concept').text(evt);
 }
+function search() {
+	var text = '';
+	if($('#search_concept').text() == 'Option'){
+		alert('검색 옵션을 설정해주세요!');
+	}else if($('#searchContent').val() == ''){
+		alert('검색 내용을 입력해주세요!');
+	}else{
+		if($('#search_concept').text() == '제목')		text='title';
+		else if($('#search_concept').text() == '내용')	text='contents';
+		else if($('#search_concept').text() == '작성자')	text='nickname';
+		
+		location.href="review/search?type="+text+"&word="+$('#searchContent').val()+"&page=1";
+	}
+}
 </script>
 <div class="container">
 	<div class="row">
@@ -57,7 +71,7 @@ function search_Option(evt) {
 								&laquo;</a>
 							</c:when>
 							<c:when test="${vo.type eq 'search'}">
-								<a href="search?option=${vo.searchType }&con=${vo.searchOption }&page=${vo.nowpage-1 }">
+								<a href="search?type=${vo.searchType }&word=${vo.searchWord }&page=${vo.nowpage-1 }">
 					  			&laquo;</a>
 							</c:when>
 						</c:choose>
@@ -84,12 +98,12 @@ function search_Option(evt) {
 									<c:choose>
 										<c:when test="${p eq vo.nowpage }">
 											<li class="current">
-											<a href="search?option=${vo.searchType }&con=${vo.searchOption }&page=${p }" style="font-weight: bold;">${p }</a>
+											<a href="search?type=${vo.searchType }&word=${vo.searchWord }&page=${p }" style="font-weight: bold;">${p }</a>
 											</li>
 										</c:when>
 										<c:otherwise>
 											<li class="current">
-											<a href="search?option=${vo.searchType }&con=${vo.searchOption }&page=${p }">${p }</a>
+											<a href="search?type=${vo.searchType }&word=${vo.searchWord }&page=${p }">${p }</a>
 											</li>
 										</c:otherwise>
 									</c:choose>
@@ -103,7 +117,7 @@ function search_Option(evt) {
 								<a href="review?page=${vo.nowpage+1 }">&raquo;</a>
 							</c:when>
 							<c:when test="${vo.type eq 'search'}">
-								<a href="search?option=${vo.searchType }&con=${vo.searchOption }&page=${vo.nowpage+1 }">&raquo;</a>
+								<a href="search?type=${vo.searchType }&word=${vo.searchWord }&page=${vo.nowpage+1 }">&raquo;</a>
 							</c:when>
 						</c:choose>
 						</li>
@@ -124,9 +138,9 @@ function search_Option(evt) {
 	                    </ul>
 	                </div>
 	                <input type="hidden" name="search_param" value="all" id="search_param">         
-	                <input type="text" class="form-control" name="x" placeholder="Search">
+	                <input id="searchContent" type="text" class="form-control" placeholder="Search">
 	                <span class="input-group-btn">
-	                    <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search"></span></button>
+	                    <button class="btn btn-primary" type="button" onclick="search();"><span class="glyphicon glyphicon-search"></span></button>
 	                </span>
 	            </div>
 			</div>

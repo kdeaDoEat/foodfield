@@ -6,11 +6,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONObject;
-import org.kdea.noticeboard.NoticeDAO;
 import org.kdea.vo.BoardVO;
 import org.kdea.vo.CommentVO;
 import org.kdea.vo.PageVO;
 import org.kdea.vo.SearchVO;
+import org.kdea.vo.UserVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,7 +65,9 @@ public class NoticeService {
 
 	public BoardVO insertBoard(BoardVO board, HttpServletRequest request) {
 
-		board.setNickname("tempuser");
+		UserVO user = (UserVO)request.getSession().getAttribute("userInfo");
+		board.setNickname(user.getNickname());
+		//board.setNickname("tempuser");
 		dao = sqlSessionTemplate.getMapper(NoticeDAO.class);
 		if (dao.insertBoard(board)) {
 
@@ -109,7 +111,9 @@ public class NoticeService {
 
 	public Object replyBoard(CommentVO comment, HttpServletRequest request) {
 
-		comment.setNickname("tempuser");
+		UserVO user = (UserVO)request.getSession().getAttribute("userInfo");
+		comment.setNickname(user.getNickname());
+		//comment.setNickname("tempuser");
 		JSONObject object = new JSONObject();
 
 		dao = sqlSessionTemplate.getMapper(NoticeDAO.class);

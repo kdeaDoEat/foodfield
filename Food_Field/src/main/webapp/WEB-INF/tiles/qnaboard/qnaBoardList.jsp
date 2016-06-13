@@ -2,6 +2,26 @@
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
+
+<style>
+/* 매우 작은 기기들 (모바일폰, 768px 보다 작은) */
+/* 부트스트랩에서 이것은 기본이므로 미디어쿼리가 없습니다. */
+
+/* 작은 기기들 (태블릿, 768px 이상) */
+@media (min-width: @screen-sm-min) { ... }
+#tb{width:100%; margin:auto;}
+#tb .w_date{font-size:12px;}
+
+@media (min-width: @screen-md-min) { ... }
+
+/* 큰 기기들 (큰 데스크탑, 1200px 이상) */
+@media (min-width: @screen-lg-min) {
+#tb{width:80%; margin:auto;}
+
+
+}
+</style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.2.min.js"></script>
 <script>
  	$(function() {
@@ -44,18 +64,19 @@
 <!-- body -->
 <div>
 	<!-- title -->
-	<div style="width:70%; margin:auto;">
-		<h2>Q & A BOARD</h2>	
+	<div style="width:80%; margin:auto;">
+		<h2>[ Q&A BOARD ]</h2>
+		<hr>	
 	</div>
 	<!-- table -->
-	<div style="width:70%; margin:auto;">
-		<table class="table table-striped table-hover">
+	<div style="width:80%; margin:auto; id="qnatable" class="table-responsive">
+		<table id="tb" class="table table-striped table-hover">
 			<thead>
 				<tr>
-					<th>글 번호</th>
-					<th>글 제목</th>
-					<th>글쓴이</th>
-					<th>글쓴 날짜</th>
+					<th style="width:20%;">글 번호</th>
+					<th style="width:40%;">글 제목</th>
+					<th style="width:20%;">글쓴이</th>
+					<th class="w_date" style="width:20%;">글쓴 날짜</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -64,16 +85,16 @@
 						<td>${board.num}</td>
 						<td><a href="qnaview?num=${board.num}">${board.title}</a></td>
 						<td>${board.nickname}</td>
-						<td>${board.w_date}</td>
+						<td class="w_date">${board.w_date}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 	</div>
 	<!-- navi -->
-	<div style="width:70%; height:50px; margin:auto;">
+	<div class="col-md-12 col-xs-12 col-sm-12" style="width:70%; height:50px; margin:auto;">
 		<!-- Pagination -->
-		<div style="width:50%; height:50px; float:left; ">
+		<div class="col-md-4 col-xs-12 col-sm-12" style="width:50%; height:50px; float:left; ">
 			<ul class = "pagination pagination-sm">
 			<fmt:parseNumber var="currdivppp" type="number"	value="${page.currpage/page.ppp}" integerOnly="true" />
 		
@@ -126,29 +147,31 @@
 		</div>
 		
 	
-		<div style="width:50%; height:50px; float:right; text-align: right;">
+		<div class="col-md-8 col-xs-12 col-sm-12">
+		<!-- style="width:50%; height:50px; float:right; text-align: right;" -->
 			<!-- Search -->
-			<div style="float:left;width:90%;">
-				<div style="float:left;width:30%;">
+			<div class="col-md-4 col-xs-12 col-sm-12"><!-- style="float:left;width:90%;" -->
+				<div class="col-md-2 col-xs-12 col-sm-12"><!-- style="float:left;width:30%;" -->
 					<select name="type" id="type" class="form-control input-sm">
 						<option value="제목">제목</option>
 						<option value="내용">내용</option>
 						<option value="작성자">작성자</option>
 					</select>
 				</div>
-				<div style="float:left;width:50%;">
+				<div class="col-md-2 col-xs-12 col-sm-12"> <!-- style="float:left;width:50%;" -->
 					<input type="text" id="word" class="form-control input-sm"/>
 				</div>
-				<div style="float:right;width:20%;">
+				<div class="col-md-2 col-xs-12 col-sm-12"><!--  style="float:right;width:20%;" -->
 					<button type="button" id="searchbtn" class="btn btn-default btn-sm">
 						<span class="glyphicon glyphicon-search"></span>
 					</button>
 				</div>
-				
 			</div>
 			<!-- Write -->
-			<div style="float:right;width:10%;">
+			<div class="col-md-2 col-xs-12 col-sm-12"><!-- style="float:right;width:10%;" -->
+				<sec:authorize access="isAuthenticated()">
 				<button type="button" id="writebtn" class="btn btn-warning btn-sm">글쓰기</button>
+				</sec:authorize>
 			</div>
 		</div>
 	</div>	

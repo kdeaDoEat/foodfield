@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <table class = "table">
 	<!--  닉네임 , 내용 , 날짜 -->
    <tbody>
@@ -14,9 +15,16 @@
 						</td>
 					<td style="width: 10%">${list.w_date }</td>
 					<td style="width: 10%;">
-						<span id="${list.cnum }editIcon" class="glyphicon glyphicon-edit" onclick="edit(${list.cnum});" style="cursor: pointer; display: inline-block; visibility: visible;"></span>
-						<span id="${list.cnum }okIcon" class="glyphicon glyphicon-ok" onclick="editok(${list.cnum});" style="cursor: pointer; display: none; visibility: hidden;"></span>
-						　<span id="${list.cnum }delIcon" class="glyphicon glyphicon-remove" onclick="del(${list.cnum});" style="cursor: pointer; display: inline-block; visibility: visible;"></span>
+						<c:choose>
+							<c:when test="${list.nickname eq sessionScope.userInfo.nickname}">
+									<span id="${list.cnum }editIcon" class="glyphicon glyphicon-edit" onclick="edit(${list.cnum});" style="cursor: pointer; display: inline-block; visibility: visible;"></span>
+									<span id="${list.cnum }okIcon" class="glyphicon glyphicon-ok" onclick="editok(${list.cnum});" style="cursor: pointer; display: none; visibility: hidden;"></span>
+									<span id="${list.cnum }delIcon" class="glyphicon glyphicon-remove" onclick="del(${list.cnum});" style="cursor: pointer; display: inline-block; visibility: visible;"></span>
+							</c:when>
+							<c:otherwise>
+								<span>　</span>
+							</c:otherwise>
+						</c:choose>
 					</td>
 				</tr>
 		</c:forEach>

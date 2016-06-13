@@ -18,6 +18,8 @@ import javax.swing.plaf.synth.SynthSplitPaneUI;
 import org.json.simple.JSONObject;
 import org.kdea.vo.BoardVO;
 import org.kdea.vo.CommentVO;
+import org.kdea.vo.ListVO;
+import org.kdea.vo.SearchVO;
 import org.kdea.vo.UserVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +57,6 @@ public class ReviewService {
 	public BoardVO read(HttpServletRequest request) {
 		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
 		int page = Integer.parseInt(request.getParameter("num"));
-		
 		BoardVO vo = dao.read(page);
 		vo.setCmtnum(dao.getCommentCount(page));
 		return vo;
@@ -187,9 +188,65 @@ public class ReviewService {
 	    return "review/write";
 	}
 
-	/*public BoardVO modify(HttpServletRequest request) {
+	public ListVO getSearchList(SearchVO vo) {
+		ListVO lvo = new ListVO();
+		lvo.setList(boardsearch(vo));
+		lvo.setPage(searchPage(vo));
+		lvo.setAllpage(searchPagecount(vo));
+		lvo.setNowpage(vo.getPage());
+		lvo.setType("search");
+		lvo.setSearchType(vo.getType());
+		lvo.setSearchWord(vo.getWord());
+		return lvo;
+	}
+
+	private int searchPagecount(SearchVO vo) {
 		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
-		return null;
-	}*/
+		SearchVO svo = new SearchVO();
+		svo.setType(vo.getType());
+		svo.setWord(vo.getWord());
+		return dao.spage(svo);
+	}
+
+	private List<Integer> searchPage(SearchVO vo) {
+		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
+		int fullPage = dao.spage(vo);
+		List<Integer> pageList = new ArrayList<Integer>();
+		if(vo.getPage()>10){
+			String tmp = Integer.toString(vo.getPage()).substring(0,Integer.toString(vo.getPage()).length()-1)+0;	// 앞자리+0
+			int firstPage = Integer.parseInt(tmp);
+			for(int i=1;i<=10;i++){
+				pageList.add(firstPage+i);
+			}
+		}else{
+			if(fullPage>10){
+				for(int i=1;i<=10;i++){
+					pageList.add(i);
+				}
+			}else if(fullPage<=10){
+				for(int i=1;i<=fullPage;i++){
+					pageList.add(i);
+				}
+			}
+		}
+		return pageList;
+	}
+
+	private List<BoardVO> boardsearch(SearchVO vo) {
+		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
+		List<BoardVO> list = dao.search(vo);
+		return list;
+	}
+
+	public String recommend(BoardVO vo) {
+		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
+		JSONObject jobj = new JSONObject(); 
+		if(dao.checkRecommend(vo) > 0){
+			jobj.put("ok", false);
+		}else if(dao.updateRecommend(vo) > 0 && dao.updateUserRecommend(vo) > 0){   // 게시물 추천 올리기 && 추천 테이블에 추가하기
+			jobj.put("ok", true);
+		}
+		return jobj.toJSONString();
+	}
 	
 }
