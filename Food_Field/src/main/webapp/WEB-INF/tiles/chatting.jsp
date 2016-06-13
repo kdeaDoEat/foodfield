@@ -77,10 +77,10 @@
 				for (var i = 0; i < userlist.length; i++) {
 
 					if ("${sessionScope.userInfo.nickname}" == userlist[i]) {
-						usrstr += "<span class='"+userlist[i]+"'><b>"
+						usrstr += "<span class='"+userlist[i]+"' style=\"margin-left:5%\"><b>"
 								+ userlist[i] + "</b></span><br>";
 					} else {
-						usrstr += "<input type='checkbox' class='"+userlist[i]+"' value='"+userlist[i]+"'>"
+						usrstr += "<input type='checkbox' class='"+userlist[i]+"' value='"+userlist[i]+"' style=\"margin-left:5%\">"
 								+ "<span class='"+userlist[i]+"'>"
 								+ userlist[i] + "</span><br>";
 					}
@@ -134,7 +134,7 @@
 				</button>
 			</div>
 			<div id="userlist" style="dispay: none; background-color: white;">
-				<label><h4>User List</h4></label>
+				<label style="margin-left:2.5%"><h4>UserList</h4></label>
 				<span style="float:right; margin-top:6px;">
                 <input type="checkbox" id="togglebtn" data-toggle="toggle" data-on="전체" data-off="개인"  data-size="mini" data-width="105" data-height="20">
                 </span>
