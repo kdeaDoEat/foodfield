@@ -71,7 +71,8 @@ public class QnaController {
 	@RequestMapping(value="qnamodifyForm",method=RequestMethod.GET)
 	public ModelAndView ModifyForm(@ModelAttribute("board") BoardVO board){
 		System.out.println("ModifyForm :: Controller");
-		return new ModelAndView("qna/qnamodify");
+		BoardVO vo = service.selectBoard(board);
+		return new ModelAndView("qna/qnamodify","board",vo);
 	}
 	
 	@RequestMapping(value="qnamodify",method=RequestMethod.POST)

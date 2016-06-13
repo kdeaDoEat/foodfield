@@ -45,7 +45,8 @@
     
     function modify(){
     	//alert("Script 01");
-    	$("#infoform").submit();
+    	//$("#infoform").submit();
+    	location.href="qnamodifyForm?num="+${board.num};
     }
 </script>
 
@@ -75,7 +76,7 @@
 	</div>
 	
 	<br><br><br><br><br>
-
+<%-- 
 	<!-- Now Page Info submit ModifyForm -->
 	<form action="qnamodifyForm" style="margin-left: 25%; display:inline;" id="infoform">
 		<input type="hidden" name="num" value="${board.num}" /> 
@@ -83,6 +84,7 @@
 		<input type="hidden" name="w_date" value="${board.w_date}" /> 
 		<input type="hidden" name="contents" value="${board.contents}" />
 	</form>
+--%>
 </div>
 
 

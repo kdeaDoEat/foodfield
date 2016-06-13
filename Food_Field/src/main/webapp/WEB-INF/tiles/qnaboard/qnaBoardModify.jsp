@@ -46,7 +46,7 @@ $(function() {
 });
 
 function modsubmitgo(){
-	alert($("#title").val()+"/"+$("#contents").val());
+	//alert($("#title").val()+"/"+$("#contents").val());
 	var result = confirm("이대로 수정하시겠습니까?");
 	if(result){
 		$("#modform").submit();
