@@ -14,7 +14,8 @@ public class ChattingService {
 
 	/* ¸É¹öº¯¼ö·Î ¿¬°á ÈÄ autowired ÇÏ¸é °»½Å ¾ÈµÊ */
 
-	public void broadcast(WebSocketSession session, TextMessage message, Map<String, WebSocketSession> users) {
+	public void broadcast(WebSocketSession session, TextMessage message, Map<String, WebSocketSession> users,
+			Map<String, String> usersConnStatus) {
 
 		try {
 
@@ -25,7 +26,7 @@ public class ChattingService {
 			JSONObject jo = (JSONObject) jp.parse(content);
 			jo.put("msg", myId + ":" + (String) jo.get("msg"));
 			String status = (String) jo.get("status");
-
+			
 			for (WebSocketSession s : users.values()) {
 				Map<String, Object> map = s.getAttributes();
 				String userId = (String) map.get("usrId");
@@ -46,12 +47,16 @@ public class ChattingService {
 					s.sendMessage(new TextMessage(jo.toJSONString()));
 
 					if (session != s) {
-						JSONObject obj = new JSONObject();
-						obj.put("status", "sendrequest");
-						obj.put("msg", myId + "´Ô²²¼­ Á¢¼ÓÇÏ¼Ì½À´Ï´Ù~");
-						s.sendMessage(new TextMessage(obj.toJSONString()));
+						
+						if (usersConnStatus.get(myId) == null) {
+							JSONObject obj = new JSONObject();
+							obj.put("status", "sendrequest");
+							obj.put("msg", myId + "´Ô²²¼­ Á¢¼ÓÇÏ¼Ì½À´Ï´Ù~");							
+							s.sendMessage(new TextMessage(obj.toJSONString()));
+							usersConnStatus.put(myId,"Á¢¼Ó");
+						}
 					}
-					
+
 				} else if (status.equals("sendrequest")) {
 
 					List<String> userlist = (List<String>) jo.get("recievers");
@@ -62,7 +67,7 @@ public class ChattingService {
 							if (user.equals((String) userlist.get(i))) {
 								WebSocketSession ss = users.get(user);
 								if (s != ss) {
-									
+
 									ss.sendMessage(new TextMessage(jo.toJSONString()));
 
 								}
@@ -74,15 +79,17 @@ public class ChattingService {
 			}
 
 			if (status.equals("userrequest")) {
-				
-				JSONObject obj = new JSONObject();
-				obj.put("status", "sendrequest");
-				obj.put("msg", myId + "´Ô²²¼­ Á¢¼ÓÇÏ¼Ì½À´Ï´Ù~");
-				session.sendMessage(new TextMessage(obj.toJSONString()));
-				
+				if (usersConnStatus.get(myId) == null) {
+					JSONObject obj = new JSONObject();
+					obj.put("status", "sendrequest");
+					obj.put("msg", myId + "´Ô²²¼­ Á¢¼ÓÇÏ¼Ì½À´Ï´Ù~");
+					session.sendMessage(new TextMessage(obj.toJSONString()));
+					usersConnStatus.put(myId,"Á¢¼Ó");
+				}
+
 			}
 			if (status.equals("sendrequest")) {
-				
+
 				session.sendMessage(new TextMessage(jo.toJSONString()));
 
 			}
@@ -96,12 +103,12 @@ public class ChattingService {
 
 	public void leaveBroadcast(WebSocketSession session, Map<String, WebSocketSession> users) {
 		try {
-			
+
 			Map<String, Object> mymap = session.getAttributes();
 			String myId = (String) mymap.get("usrId");
-			
+
 			for (WebSocketSession s : users.values()) {
-				
+
 				List<String> userlist = new ArrayList<String>();
 				Iterator usernames = users.keySet().iterator();
 				JSONObject jo = new JSONObject();
@@ -111,23 +118,23 @@ public class ChattingService {
 					userlist.add(user);
 
 				}
-				
+
 				jo.put("sender", myId);
 				jo.put("status", "userrequest");
 				jo.put("recievers", userlist);
 
 				s.sendMessage(new TextMessage(jo.toJSONString()));
 				if (session != s) {
-					
+
 					JSONObject obj = new JSONObject();
 					obj.put("status", "sendrequest");
 					obj.put("msg", myId + "´Ô²²¼­ ÅðÀåÇÏ¼Ì½À´Ï´Ù~");
 					s.sendMessage(new TextMessage(obj.toJSONString()));
-					
+
 				}
-				
+
 			}
-			
+
 		} catch (Exception e) {
 
 			e.printStackTrace();

@@ -87,6 +87,7 @@
 							userlist[index] = $(this).val();
 						});
 						jsonmsg.msg = msg;
+						
 					} else {
 
 						$("input:checkbox").each(function(index) {
@@ -178,7 +179,7 @@
 			<div id="userlist" style="dispay: none; background-color: white;">
 				<label><h4>User List</h4></label> 전체메세지
 				<div class="toggle-button" style="top: 10px;">
-					<input type="hidden" id="entireMsgOption" type="text" />
+					<input type="hidden" id="entireMsgOption" type="text" value="off"/>
 					<button></button>
 				</div>
 				<div id="users"></div>

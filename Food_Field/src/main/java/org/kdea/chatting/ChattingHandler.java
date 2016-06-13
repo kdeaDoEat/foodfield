@@ -16,16 +16,17 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 public class ChattingHandler extends TextWebSocketHandler {
 
 	public static Map<String, WebSocketSession> users = new ConcurrentHashMap();
-
+    public static Map<String, String> usersConnStatus = new ConcurrentHashMap();
+	
 	@Autowired
 	private ChattingService chatsvc;
-
+	
 	// 웹소켓 서버측에 텍스트 메시지가 접수되면 호출되는 메소드
 	@Override
 	public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		log("WebSocketSession ID : " + session.getId() + "메세지 문자 길이:" + message.getPayloadLength());
 		// textmessage
-		chatsvc.broadcast(session, message, users);
+		chatsvc.broadcast(session, message, users, usersConnStatus);
 		log("보낸 메세지 " + message.getPayload());
 
 	}
@@ -38,7 +39,9 @@ public class ChattingHandler extends TextWebSocketHandler {
 		Map<String, Object> map = session.getAttributes();
 		String userId = (String) map.get("usrId");
 		System.out.println("afterconn interceptor에서 건너온 ID " + userId);
+		
 		users.put(userId, session);
+		
 
 	}
 
