@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.kdea.vo.BoardVO;
 import org.kdea.vo.PageVO;
 import org.kdea.vo.SearchVO;
+import org.kdea.vo.UserVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -106,10 +107,10 @@ public class QnaService {
 
 	/********************* [ Write ] *********************/ 
 	public BoardVO insertBoard(BoardVO board, HttpServletRequest request) {
-		//board.setNickname((String) request.getSession().getAttribute("ID"));
-		board.setNickname("admin");
+		UserVO user = (UserVO)request.getSession().getAttribute("userInfo");
+		board.setNickname(user.getNickname());
+		//board.setNickname("admin");
 		
-		// 
 		System.out.println("service contetns : "+board.getContents());
 		
 		dao = sqlSessionTemplate.getMapper(QnADAO.class);
