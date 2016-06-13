@@ -190,7 +190,7 @@
 					<input type="hidden" id="entireMsgOption" type="text" value="off"/>
 					<button></button>
 				</div>
-				<div id="users" style="overflow:scroll; height:60px;"></div>
+				<div id="users" style="overflow-y:scroll; height:60px;"></div>
 				<!-- 리스트로 사람들 뜨기 -->
 				<!-- <div style="background-color:#f1f2f2;"></div> -->
 			</div>
