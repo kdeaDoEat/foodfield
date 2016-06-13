@@ -62,7 +62,7 @@ a {
     <div class="table-responsive" style="margin-left: auto;
 	margin-right: auto; width:70%; margin-top:150px;">
 	<table class="table table-hover">
-		<output id="pageoutput">${page.currpage}/${page.totalpage}</output>
+		<output id="pageoutput"><c:if test="${page.totalpage eq 0}">0</c:if><c:if test="${page.totalpage != 0}">${page.currpage}</c:if>/${page.totalpage}</output>
 		<tr>
 			<th>글 번호</th>
 			<th>글 제목</th>

@@ -1,10 +1,20 @@
 package org.kdea.noticeboard;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.json.simple.JSONObject;
 import org.kdea.vo.BoardVO;
 import org.kdea.vo.CommentVO;
@@ -79,7 +89,158 @@ public class NoticeService {
 		return board;
 
 	}
+    
+	public String fileUploader(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		
+		String return1="";	
+		String return2="";
+		String return3="";
 
+		String name = "";
+		if (ServletFileUpload.isMultipartContent(request)){
+			ServletFileUpload uploadHandler = new ServletFileUpload(new DiskFileItemFactory());
+			uploadHandler.setHeaderEncoding("UTF-8");
+			List<FileItem> items = null;
+			try {
+				items = uploadHandler.parseRequest(request);
+				for (FileItem item : items) {
+					if(item.getFieldName().equals("callback")) {
+						return1 = item.getString("UTF-8");
+					} else if(item.getFieldName().equals("callback_func")) {
+						return2 = "?callback_func="+item.getString("UTF-8");
+					} else if(item.getFieldName().equals("Filedata")) {
+						if(item.getSize() > 0) {
+							
+			                
+			                name = item.getName().substring(item.getName().lastIndexOf(File.separator)+1);
+							String filename_ext = name.substring(name.lastIndexOf(".")+1);
+							filename_ext = filename_ext.toLowerCase();
+						   	String[] allow_file = {"jpg","png","bmp","gif"};
+						   	int cnt = 0;
+						   	for(int i=0; i<allow_file.length; i++) {
+						   		if(filename_ext.equals(allow_file[i])){
+						   			cnt++;
+						   		}
+						   	}
+						   	if(cnt == 0) {
+						   		return3 = "&errstr="+name;
+						   	} else {
+						   		
+					    		String dftFilePath = request.getSession().getServletContext().getRealPath("/");
+					    		String filePath = dftFilePath + "editor" + File.separator +"upload" + File.separator;
+					    		
+					    		File file = null;
+					    		file = new File(filePath);
+					    		if(!file.exists()) {
+					    			file.mkdirs();
+					    		}
+					    		
+					    		String realFileNm = "";
+					    		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+								String today= formatter.format(new java.util.Date());
+								realFileNm = today+UUID.randomUUID().toString() + name.substring(name.lastIndexOf("."));
+								
+								String rlFileNm = filePath + realFileNm;
+								
+								InputStream is = item.getInputStream();
+								OutputStream os=new FileOutputStream(rlFileNm);
+								int numRead;
+								byte b[] = new byte[(int)item.getSize()];
+								while((numRead = is.read(b,0,b.length)) != -1){
+									os.write(b,0,numRead);
+								}
+								if(is != null) {
+									is.close();
+								}
+								os.flush();
+								os.close();
+								
+					    		
+					    		return3 += "&bNewLine=true";
+					    		return3 += "&sFileName="+ name;
+					    		return3 += "&sFileURL=/editor/upload/"+realFileNm;
+						   	}
+						}else {
+							  return3 += "&errstr=error";
+						}
+					}
+				}
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return "redirect:"+return1+return2+return3;
+		
+		
+	}
+	
+	
+	public String fileUploaderHTML5(HttpServletRequest request) {
+		
+		String sFileInfo = "";
+		String filename = request.getHeader("file-name");
+		String filename_ext = filename.substring(filename.lastIndexOf(".")+1);
+		filename_ext = filename_ext.toLowerCase();
+			
+		String[] allow_file = {"jpg","png","bmp","gif"};
+
+		int cnt = 0;
+		for(int i=0; i<allow_file.length; i++) {
+			if(filename_ext.equals(allow_file[i])){
+				cnt++;
+			}
+		}
+
+		if(cnt == 0) {
+			System.out.println("NOTALLOW_"+filename);
+			return "NOTALLOW_"+filename;
+		} else {
+			
+		String dftFilePath = request.getSession().getServletContext().getRealPath("/");
+
+		String filePath = dftFilePath + "resources" + File.separator +"smart_editor2" + File.separator +"sample" + File.separator + "photo_uploader" + File.separator + "multiupload" + File.separator;
+		System.out.println("uploadhtml5 ÇÔ¼ö filePath" + filePath);
+		File file = new File(filePath);
+		if(!file.exists()) {
+			file.mkdirs();
+		}
+		String realFileNm = "";
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+		String today= formatter.format(new java.util.Date());
+		realFileNm = today+UUID.randomUUID().toString() + filename.substring(filename.lastIndexOf("."));
+		String rlFileNm = filePath + realFileNm;
+
+		try{
+		InputStream is = request.getInputStream();
+		OutputStream os=new FileOutputStream(rlFileNm);
+		int numRead;
+		byte b[] = new byte[Integer.parseInt(request.getHeader("file-size"))];
+		while((numRead = is.read(b,0,b.length)) != -1){
+			os.write(b,0,numRead);
+		}
+		if(is != null) {
+			is.close();
+		}
+		os.flush();
+		os.close();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+
+		sFileInfo += "&bNewLine=true";
+		sFileInfo += "&sFileName="+ filename;;
+		sFileInfo += "&sFileURL="+"resources/smart_editor2/sample/photo_uploader/multiupload/"+realFileNm;
+		System.out.println(sFileInfo);
+		}
+		return sFileInfo;
+		
+	}
+	
+	
 	public Object recommend(BoardVO board) {
 
 		dao = sqlSessionTemplate.getMapper(NoticeDAO.class);

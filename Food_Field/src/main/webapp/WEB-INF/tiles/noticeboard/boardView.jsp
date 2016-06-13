@@ -144,15 +144,15 @@
 			type : "post",
 			success : function(obj) {
 				if (obj.parent) {
-
-					var c = confirm("자식글이어서 삭제가 가능합니다. 삭제하시겠습니까?");
+					/* confirm("아랫글이 없어서 삭제가 가능합니다. 삭제하시겠습니까?"); */
+					var c = confirm("정말 삭제하시겠습니까?");
 					if (c) {
 						location.href = "del?num="
 								+ $("input[name='num']").val();
 					}
 				} else {
 
-					alert("부모글이어서 삭제가 불가능합니다. 자식을 먼저 삭제하세요~");
+					alert("아랫글이 있어서 삭제가 불가능합니다. 아랫글을 먼저 삭제하세요~");
 
 				}
 
