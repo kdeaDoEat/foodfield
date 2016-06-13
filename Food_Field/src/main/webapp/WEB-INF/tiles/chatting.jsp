@@ -62,7 +62,7 @@
 <script type="text/javascript">
 	$(function() {
 
-		var ws = new WebSocket("ws://192.168.25.20:7777/FoodField/chat");/*?${_csrf.parameterName}=${_csrf.token} */
+		var ws = new WebSocket("ws://192.168.8.53:8080/FoodField/chat");/*?${_csrf.parameterName}=${_csrf.token} */
 
 		ws.onopen = function() {
 			$('#chatStatus').text('');
@@ -77,7 +77,7 @@
 				if (evt.keyCode == 13) {
 
 					var entire = $("#entireMsgOption").val();
-                    
+
 					var msg = $('input[name=chatInput]').val();
 					var userlist = [];
 
@@ -92,11 +92,10 @@
 						$("input:checkbox").each(function(index) {
 							userlist[index] = $(this).val();
 						});
-						jsonmsg.msg = '[전체] '+msg;
+						jsonmsg.msg = '[전체] ' + msg;
 					}
 					jsonmsg.status = "sendrequest";
 					jsonmsg.recievers = userlist;
-					
 
 					var jsonstr = JSON.stringify(jsonmsg);
 					ws.send(jsonstr);
@@ -142,25 +141,52 @@
 			$("#chat").toggle("slow");
 
 		});
+
 		$(document).on('click', '.toggle-button', function() {
 			$(this).toggleClass('toggle-button-selected');
 			$(".toggle-button #entireMsgOption").val('off');
 			$(".toggle-button-selected #entireMsgOption").val('on');
 		});
+
+		$("#userlistbtn").click(function() {
+			$("#userlist").toggle("slow");
+		});
+
 	});
 </script>
 
 <div id="chatArea"
-	style="position: fixed; right: 5px; bottom: 5px; z-index: 1000; border-radius: 20em 20em 20em 20em;">
-	<div id="cbnt">
+	style="position: fixed; right: 5px; bottom: 5px; z-index: 1000;">
+	<div id="cbnt" style="margin: 0px;">
 		<button type="button" id="chatbtn" class="btn btn-warning btn-xm">
 			<span class="glyphicon glyphicon-comment"></span>
 		</button>
 	</div>
-	<div id="chat"
-		style="width: 400px; height: 400px; background-color: #f1f2f2; display: none;">
 
+	<div id="chat"
+		style="width: 400px; height: 400px; background-color: #f1f2f2; display: none; border: 3px solid white; -moz-border-radius: 15px; -webkit-border-radius: 15px; -o-border-radius: 15px;">
+		<br>
 		<div id='chatStatus'></div>
+		<!-- 로그인 여부 출력  -->
+		<div id="userlistArea">
+			<div>
+				<button type="button" id="userlistbtn"
+					style="margin: 0px; width: 100%; background-color: white; border: 0px;">
+					<span class="glyphicon glyphicon-menu-down"></span>
+				</button>
+			</div>
+			<div id="userlist" style="dispay: none; background-color: white;">
+				<label><h4>User List</h4></label> 전체메세지
+				<div class="toggle-button" style="top: 10px;">
+					<input type="hidden" id="entireMsgOption" type="text" />
+					<button></button>
+				</div>
+				<div id="users"></div>
+				<!-- 리스트로 사람들 뜨기 -->
+				<!-- <div style="background-color:#f1f2f2;"></div> -->
+			</div>
+		</div>
+
 		<textarea name="chatMsg" rows="5" cols="40"
 			style="width: 100%; border: 0px; padding: 4px; resize: none;"
 			readonly></textarea>
@@ -170,16 +196,7 @@
 				style="background-color: #d1d2d4;">message</span> <input type="text"
 				name="chatInput" class="form-control input-sm">
 		</div>
-		<div>
-			<!-- userList -->
-			<label><h4>User List</h4></label> 전체메세지:
-			<div class="toggle-button" style="top: 10px;">
-				<input type="hidden" id="entireMsgOption" type="text" />
-				<button></button>
-			</div>
-
-			<div id="users"></div>
-		</div>
-
 	</div>
 </div>
+
+
