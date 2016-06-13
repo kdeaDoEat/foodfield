@@ -5,7 +5,15 @@
 #chat {
 	display: none;
 }
-
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
 .toggle-button {
 	background-color: white;
 	margin: 5px 0;
@@ -158,11 +166,11 @@
 
 <div id="chatArea"
 	style="position: fixed; right: 5px; bottom: 5px; z-index: 1000;">
-	<div id="cbnt" style="margin: 0px;">
-		<button type="button" id="chatbtn" class="btn btn-warning btn-xm">
-			<span class="glyphicon glyphicon-comment"></span>
-		</button>
-	</div>
+ <div id="cbnt" style="margin: 0px;">
+      <button type="button" id="chatbtn" class="btn btn-warning btn-circle" style="margin: 5px;">
+         <span class="glyphicon glyphicon-comment"></span>
+      </button>
+   </div>
 
 	<div id="chat"
 		style="width: 400px; height: 400px; background-color: #f1f2f2; display: none; border: 3px solid white; -moz-border-radius: 15px; -webkit-border-radius: 15px; -o-border-radius: 15px;">
@@ -182,7 +190,7 @@
 					<input type="hidden" id="entireMsgOption" type="text" value="off"/>
 					<button></button>
 				</div>
-				<div id="users"></div>
+				<div id="users" style="overflow:scroll; height:60px;"></div>
 				<!-- 리스트로 사람들 뜨기 -->
 				<!-- <div style="background-color:#f1f2f2;"></div> -->
 			</div>
