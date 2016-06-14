@@ -4,24 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
 
-<style>
-/* 매우 작은 기기들 (모바일폰, 768px 보다 작은) */
-/* 부트스트랩에서 이것은 기본이므로 미디어쿼리가 없습니다. */
-
-/* 작은 기기들 (태블릿, 768px 이상) */
-@media (min-width: @screen-sm-min) { ... }
-#tb{width:100%; margin:auto;}
-#tb .w_date{font-size:12px;}
-
-@media (min-width: @screen-md-min) { ... }
-
-/* 큰 기기들 (큰 데스크탑, 1200px 이상) */
-@media (min-width: @screen-lg-min) {
-#tb{width:80%; margin:auto;}
-
-
-}
-</style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.2.min.js"></script>
 <script>
  	$(function() {
@@ -50,26 +32,20 @@
 			$('.input-group #search_param').val(param);
 		});
 	});
-	
-	
 </script>
 
 
-
-
-
-
-
-<div style="height:100px;">겹치는부분</div>
 <!-- body -->
-<div>
+<div style="margin-top:100px; margin-bottom:100px;" class="container">
 	<!-- title -->
-	<div style="width:80%; margin:auto;">
-		<h2>[ Q&A BOARD ]</h2>
+	<div class="col-md-11 center-block" style="text-align:center;">
+		<h2>Q&A BOARD</h2>
 		<hr>	
 	</div>
+	
 	<!-- table -->
-	<div style="width:80%; margin:auto; id="qnatable" class="table-responsive">
+
+	<div style="margin:auto;" id="qnatable" class="col-md-11 center-block table-responsive">
 		<table id="tb" class="table table-striped table-hover">
 			<thead>
 				<tr>
@@ -91,10 +67,11 @@
 			</tbody>
 		</table>
 	</div>
-	<!-- navi -->
-	<div class="col-md-12 col-xs-12 col-sm-12" style="width:70%; height:50px; margin:auto;">
+	
+	<!-- bottom Menu -->
+	<div style="height:50px;" class="col-md-11 center-block">
 		<!-- Pagination -->
-		<div class="col-md-4 col-xs-12 col-sm-12" style="width:50%; height:50px; float:left; ">
+		<div style="height:50px;" class="col-md-3 col-xs-12 center-block">
 			<ul class = "pagination pagination-sm">
 			<fmt:parseNumber var="currdivppp" type="number"	value="${page.currpage/page.ppp}" integerOnly="true" />
 		
@@ -146,33 +123,29 @@
 			</ul>
 		</div>
 		
-	
-		<div class="col-md-8 col-xs-12 col-sm-12">
-		<!-- style="width:50%; height:50px; float:right; text-align: right;" -->
-			<!-- Search -->
-			<div class="col-md-4 col-xs-12 col-sm-12"><!-- style="float:left;width:90%;" -->
-				<div class="col-md-2 col-xs-12 col-sm-12"><!-- style="float:left;width:30%;" -->
-					<select name="type" id="type" class="form-control input-sm">
-						<option value="제목">제목</option>
-						<option value="내용">내용</option>
-						<option value="작성자">작성자</option>
-					</select>
-				</div>
-				<div class="col-md-2 col-xs-12 col-sm-12"> <!-- style="float:left;width:50%;" -->
-					<input type="text" id="word" class="form-control input-sm"/>
-				</div>
-				<div class="col-md-2 col-xs-12 col-sm-12"><!--  style="float:right;width:20%;" -->
-					<button type="button" id="searchbtn" class="btn btn-default btn-sm">
-						<span class="glyphicon glyphicon-search"></span>
-					</button>
-				</div>
-			</div>
+		<!-- Search & Button -->
+		<div class="col-md-9 col-xs-12" style="height:50px; text-align:right; float:right; margin-top:20px;">
 			<!-- Write -->
-			<div class="col-md-2 col-xs-12 col-sm-12"><!-- style="float:right;width:10%;" -->
+			<span class="col-md-2 col-md-offset-5 col-xs-12"><!-- style="float:right;width:10%;" -->
 				<sec:authorize access="isAuthenticated()">
 				<button type="button" id="writebtn" class="btn btn-warning btn-sm">글쓰기</button>
 				</sec:authorize>
-			</div>
+			</span>
+			
+			<!-- Search Group -->
+			<span class="input-group col-md-5 col-xs-12">
+				<span class="input-group-btn">
+					<select name="type" id="type" class="btn btn-warning btn-sm" style="height:30px; border:2px solid #ccc;">
+						<option value="제목">제목</option>
+						<option value="내용">내용</option>
+						<option value="작성자">작성자</option>
+					</select>					
+				</span>
+				<input type="text" id="word" style="height:30px;" class="form-control input-sm">
+				<span class="input-group-btn">
+					<button id="searchbtn" class="btn btn-warning btn-sm" type="button"><span class="glyphicon glyphicon-search"></span>검색</button>
+				</span>
+			</span>
 		</div>
 	</div>	
 </div>
