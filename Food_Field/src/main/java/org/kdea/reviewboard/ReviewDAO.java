@@ -9,6 +9,7 @@ import org.kdea.vo.SearchVO;
 public interface ReviewDAO {
 	
 	public List<BoardVO> getList(int page);
+	public List<BoardVO> list();
 	public int write(BoardVO vo);
 	public BoardVO read(int num);
 	public int page();
