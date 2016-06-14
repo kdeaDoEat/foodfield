@@ -16,8 +16,6 @@ public class MainService {
 	public List<BoardVO> bestreview() {
 		// 리뷰중 최고 4개를 뽑는것
 		List<BoardVO> list= reviewsvc.getList();
-		System.out.println("전체 리스트 글 개수: "+list.size());
-		
 		return null;
 	}
 	
