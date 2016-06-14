@@ -1,6 +1,8 @@
 package org.kdea.vo;
 
 public class UserVO {
+	
+	private int rank;
 	private String email;
 	private String nickname;
 	private String pwd;
@@ -8,8 +10,16 @@ public class UserVO {
 	private String phone;
 	private String gender;
 	private int point = 0;
-	private String authority = "ROLE_USER";
-	
+	private String authority = "ROLE_USER";	
+		
+	public int getRank() {
+		return rank;
+	}
+
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
+
 	public String getAuthority() {
 		return authority;
 	}
