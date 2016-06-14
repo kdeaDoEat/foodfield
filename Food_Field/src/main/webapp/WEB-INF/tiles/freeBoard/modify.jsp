@@ -36,14 +36,14 @@ $(function(){
 <form class="form-horizontal" method="post" 
 action="modifycontent?${_csrf.parameterName}=${_csrf.token}">
 	<input type="hidden" name="nickname" value="${modi.nickname }">
-	<input type="hidden" name="num" value=" ${modi.num }">
+	<input type="hidden" name="num" value=" ${modi.num}">
 	<p>
 	<!--  제목 부분  -->
 	<div class="form-group">
 	<label for="name" class="col-sm-2 control-label">제목</label>
 	<div class="col-sm-10">
 	<input type="text" class="form-control" name="title" 
-	 value="${modi.title }">
+	 value="${modi.title}">
 	 </div>
 	</div>
 		
