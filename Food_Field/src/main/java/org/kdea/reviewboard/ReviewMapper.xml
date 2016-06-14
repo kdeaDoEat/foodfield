@@ -12,10 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						 )t2
 					)t3 where page=#{page}
     </select>
-    	<select id="list" resultType="org.kdea.vo.BoardVO">
-			select num, title,nickname,w_date,hit,recommend from reviewBoard 
-					
-    </select>
+    
 	<insert id="write" parameterType="org.kdea.vo.BoardVO">
         insert into reviewBoard (num, w_date, title, nickname, contents, shop_name, shop_add, hit, ref, recommend) 
         	values ( reviewBoard_num.NEXTVAL, sysdate, #{title}, #{nickname}, #{contents}, #{shop_name}, #{shop_add}, 0, 0, 0 )

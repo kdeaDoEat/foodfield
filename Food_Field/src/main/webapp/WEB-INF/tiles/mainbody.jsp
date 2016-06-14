@@ -9,7 +9,8 @@
 		<div class="container" id="fh5co-products">
 			<div class="row text-left">
 				<div class="col-md-8">
-					<h2 class="fh5co-section-lead">best of review</h2>
+					<h2 class="fh5co-section-lead">최고 평가</h2>
+					<h3 class="fh5co-section-sub-lead">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</h3>
 				</div>
 				<div class="fh5co-spacer fh5co-spacer-md"></div>
 			</div>
@@ -17,14 +18,17 @@
 				<div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-mb30">
 					<div class="fh5co-product">
 						<img src="/FoodField/resources/bootstrap/images/slide_1.jpg" alt="FREEHTML5.co Free HTML5 Template Bootstrap" class="img-responsive img-rounded to-animate">
-						
+						<h4>Lorem ipsum</h4>
+						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+						<p><a href="#">Read more</a></p>
 					</div>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-mb30">
 					<div class="fh5co-product">
 						<img src="/FoodField/resources/bootstrap/images/slide_2.jpg" alt="FREEHTML5.co Free HTML5 Template Bootstrap" class="img-responsive img-rounded to-animate">
 						<h4>Architecto nihil</h4>
-						
+						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+						<p><a href="#">Read more</a></p>
 					</div>
 				</div>
 				<div class="visible-sm-block visible-xs-block clearfix"></div>
@@ -32,14 +36,16 @@
 					<div class="fh5co-product">
 						<img src="/FoodField/resources/bootstrap/images/slide_3.jpg" alt="FREEHTML5.co Free HTML5 Template Bootstrap" class="img-responsive img-rounded to-animate">
 						<h4>Animi earum</h4>
-						
+						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+						<p><a href="#">Read more</a></p>
 					</div>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-mb30">
 					<div class="fh5co-product">
 						<img src="/FoodField/resources/bootstrap/images/slide_4.jpg" alt="FREEHTML5.co Free HTML5 Template Bootstrap" class="img-responsive img-rounded to-animate">
 						<h4>Recusandae iste</h4>
-						
+						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+						<p><a href="#">Read more</a></p>
 					</div>
 				</div>
 				

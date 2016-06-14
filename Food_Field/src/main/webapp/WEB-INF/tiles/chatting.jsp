@@ -81,7 +81,7 @@
 								+ userlist[i] + "</b></span><br>";
 					} else {
 						usrstr += "<input type='checkbox' class='"+userlist[i]+"' value='"+userlist[i]+"' style=\"margin-left:5%\">"
-								+ "<span class='"+userlist[i]+"'>"
+								+ "<span class='"+userlist[i]+"' style=\"margin-left:10px;\">"
 								+ userlist[i] + "</span><br>";
 					}
 
@@ -135,7 +135,7 @@
 			</div>
 			<div id="userlist" style="dispay: none; background-color: white;">
 				<label style="margin-left:2.5%"><h4>UserList</h4></label>
-				<span style="float:right; margin-top:6px;">
+				<span style="float:right; margin-top:7px;">
                 <input type="checkbox" id="togglebtn" data-toggle="toggle" data-on="전체" data-off="개인"  data-size="mini" data-width="105" data-height="20">
                 </span>
 				<div id="users" style="overflow-y:scroll; height:60px; width:100%"></div>

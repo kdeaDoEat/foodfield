@@ -46,6 +46,7 @@ public class NoticeService {
 	}
 
 	public int getTotalPage(String option, String search) {
+		
 		int allpage;
 		int allrecords = dao.getAllCount(option, search);
 
