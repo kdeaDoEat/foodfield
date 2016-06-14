@@ -16,10 +16,12 @@
 	<context:component-scan base-package="org.kdea.doit" />
 	<context:component-scan base-package="org.kdea.message" />
 	<context:component-scan base-package="org.kdea.chatting" />
+	<context:component-scan base-package="org.kdea.ranking" />
 	<context:component-scan base-package="org.kdea.freeboard" />
 	<context:component-scan base-package="org.kdea.noticeboard" />
 	<context:component-scan base-package="org.kdea.reviewboard" />
 	<context:component-scan base-package="org.kdea.qnaboard" />
+	<context:component-scan base-package="org.kdea.ranking" />
 	<context:component-scan base-package="org.kdea.login" />
 	<context:component-scan base-package="org.kdea.join" />
 	<context:component-scan base-package="org.kdea.vo" />
@@ -60,7 +62,7 @@
 		</beans:property>
 		<beans:property name="order" value="1" />
 	</beans:bean>
-	 
+
 	<!-- Tiles configuration -->
 	<beans:bean id="tilesConfigurer"
 		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
@@ -71,16 +73,18 @@
 		</beans:property>
 	</beans:bean>
 
-	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"  />
-	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	<beans:bean id="passwordEncoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 
-	<!-- <beans:bean id="ChattingHandler" class="org.kdea.chatting.ChattingHandler" />
+	<beans:bean id="ChattingHandler" class="org.kdea.chatting.ChattingHandler" />
 	<beans:bean id="ChattingService" class="org.kdea.chatting.ChattingService" />
 	<websocket:handlers>
 		<websocket:mapping path="/chat" handler="ChattingHandler" />
 		<websocket:handshake-interceptors>
 			<beans:bean class="org.kdea.chatting.ChattingInterceptor" />
 		</websocket:handshake-interceptors>
-	</websocket:handlers> -->
+	</websocket:handlers>
 
 </beans:beans>

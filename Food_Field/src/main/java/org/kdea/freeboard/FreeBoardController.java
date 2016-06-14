@@ -97,7 +97,7 @@ public class FreeBoardController {
 			if(viewsctn){
 			FreeBoardVO fb= fbService.read(num);
 			List<CommentVO> fcomment= fbService.cmtList(num);
-			request.getSession().setAttribute("cvalue", fcomment);
+			model.addAttribute("cvalue", fcomment);
 			model.addAttribute("wvalue", fb);
 			return "detail";
 			}

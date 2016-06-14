@@ -89,9 +89,9 @@ $(function() {
 		              				<li class="dropdown-header">Nav header</li> -->
 		            			</ul>
          				</li>
-         				<li><a href="right-sidebar.html"><span>미사용 <span class="border"></span></span></a></li>
-						<li><a href="/FoodField/review"><span>맛집리뷰 <span class="border"></span></span></a></li>
-						<li><a href="/FoodField/doit"><span>오늘의 메뉴 <span class="border"></span></span></a></li>
+         				<li><a href="/FoodField/rank/list"><span>회원 랭킹<span class="border"></span></span></a></li>
+						<li><a href="/FoodField/review"><span>맛집 리뷰<span class="border"></span></span></a></li>
+						<li><a href="/FoodField/doit"><span>오늘의 메뉴<span class="border"></span></span></a></li>
 					
 					</ul>
 					
