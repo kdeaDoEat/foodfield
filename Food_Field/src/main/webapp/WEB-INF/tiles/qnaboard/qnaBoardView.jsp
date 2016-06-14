@@ -25,7 +25,7 @@
     function delAjax(){
     	var data = $("#infoform").serialize();
     	$.ajax({
-    		url:"delConfirm",
+    		url:"qnadelConfirm",
     		data:data,
     		dataType:"json",
     		type:"post",
@@ -33,7 +33,7 @@
     			if(obj.parent){
     				var c = confirm("부모글이어서 삭제가 가능합니다. 삭제하시겠습니까?");
     				if(c){
-    				  location.href="del?num="+$("input[name='num']").val();
+    				  location.href="qnadel?num="+$("input[name='num']").val();
     				}
     			}else{	
     				alert("부모글이어서 삭제가 불가능합니다. 자식을 먼저 삭제하세요~");
@@ -44,7 +44,9 @@
     }
     
     function modify(){
-    	$("#infoform").submit();
+    	//alert("Script 01");
+    	//$("#infoform").submit();
+    	location.href="qnamodifyForm?num="+${board.num};
     }
 </script>
 
@@ -56,7 +58,7 @@
 	<table id="view">
 		<tr><th colspan="2"><h1>${board.title}</h1></th></tr>
 		<tr>
-			<th style="text-align: left;"><h6><span class="glyphicon glyphicon-user"> admin / <span class="glyphicon glyphicon-calendar"> ${board.w_date}</h6></th>
+			<th style="text-align: left;"><h6><span class="glyphicon glyphicon-user"> ${board.nickname} / <span class="glyphicon glyphicon-calendar"> ${board.w_date}</h6></th>
 			<th style="text-align: right;"><h6><span class="glyphicon glyphicon-eye-open"></span> | ${board.hit}</h6></th>
 		</tr>
 		<tr><td colspan="2"><hr></td></tr>
@@ -74,7 +76,7 @@
 	</div>
 	
 	<br><br><br><br><br>
-
+<%-- 
 	<!-- Now Page Info submit ModifyForm -->
 	<form action="qnamodifyForm" style="margin-left: 25%; display:inline;" id="infoform">
 		<input type="hidden" name="num" value="${board.num}" /> 
@@ -82,6 +84,7 @@
 		<input type="hidden" name="w_date" value="${board.w_date}" /> 
 		<input type="hidden" name="contents" value="${board.contents}" />
 	</form>
+--%>
 </div>
 
 
