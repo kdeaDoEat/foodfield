@@ -45,6 +45,7 @@ $(function(){
 					success:function(result){
 						if(result.ok==true){
 							alert('전송완료!');
+							location.href="http://192.168.8.43:8088/FoodField/message/list?page=1";
 						}else{
 							alert('전송실패');
 						}
@@ -78,13 +79,13 @@ $(function(){
                 <ul class="nav" id="main-menu" style="text-align: center;">
 					<li class="text-center"></li>
                     <li>
-                        <a  href="list?page=1"><i class="fa fa-dashboard fa-3x"></i> 나의 쪽지함</a>
+                        <a  href="list?page=1"><i class="fa fa-folder-o" aria-hidden="true"></i> 나의 쪽지함</a>
                     </li>
                       <li>
-                        <a  href="write"><i class="fa fa-desktop fa-3x"></i> 쪽지 쓰기</a>
+                        <a  href="write"><i class="fa fa-folder-open-o" aria-hidden="true"></i> 쪽지 쓰기</a>
                     </li>
                       <li>
-                        <a  href="sendBox?page=1"><i class="fa fa-desktop fa-3x"></i> 보낸 쪽지함</a>
+                        <a  href="sendBox?page=1"><i class="fa fa-folder-o" aria-hidden="true"></i> 보낸 쪽지함</a>
                     </li>
                 </ul>
 			</div>
