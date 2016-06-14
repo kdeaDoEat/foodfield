@@ -48,7 +48,8 @@
 </head>
 <body>
 	<div style="margin-top: 150px; width: 100%;">
-		<table style="margin-left: auto; margin-right: auto;" class="table-responsive">
+	   <div class="table-responsive">
+		<table style="margin-left: auto; margin-right: auto;" class="table">
 			<tr>
 				<th style="text-align: center;">순위</th>
 				<th style="text-align: center;">이메일</th>
@@ -66,6 +67,7 @@
 				</tr>
 			</c:forEach>
 		</table>
+		</div>
 	<div id="belownavi">
 		<ul class="pagination">
 			<fmt:parseNumber var="currdivppp" type="number"
