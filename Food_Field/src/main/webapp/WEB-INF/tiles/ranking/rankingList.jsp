@@ -47,7 +47,7 @@
 </style>
 </head>
 <body>
-	<div style="margin-top: 150px; width: 100%;">
+	<div style="margin-top: 150px; width: 80%; margin-left:auto; margin-right:auto;">
 	   <div class="table-responsive">
 		<table style="margin-left: auto; margin-right: auto;" class="table">
 			<tr>
