@@ -9,7 +9,7 @@
 	<bean id="dataSource" class="oracle.jdbc.pool.OracleDataSource"> 
 	    <property name="dataSourceName" value="ds"/>
 
-	    <property name="URL" value="jdbc:oracle:thin:@192.168.8.53:1521:xe"/>
+	    <property name="URL" value="jdbc:oracle:thin:@192.168.8.28:1521:xe"/>
 
 	    <property name="user" value="scott"/>
 	    <property name="password" value="TIGER"/>
