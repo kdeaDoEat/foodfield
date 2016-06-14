@@ -19,7 +19,7 @@
     </tr>
 	<c:forEach var="user" items="${userlist}" varStatus="status">
 		<tr>
-		    <td style="text-align:center;">${status.index+1}</td>
+		    <td style="text-align:center;">${user.rank}</td>
 			<td>${user.email}</td>
 			<td>${user.nickname}</td>
 			<td>${user.name}</td>
