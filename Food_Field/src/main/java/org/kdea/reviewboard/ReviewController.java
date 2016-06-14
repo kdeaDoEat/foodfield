@@ -78,9 +78,9 @@ public class ReviewController {
 	
 	/*글읽기*/
 	@RequestMapping(value="review/read",method=RequestMethod.GET)
-	public ModelAndView read(HttpServletRequest request){
-		rsvc.updateHit(request);
-		return new ModelAndView("review/read","vo",rsvc.read(request));
+	public ModelAndView read(BoardVO vo){
+		rsvc.updateHit(vo.getNum());
+		return new ModelAndView("review/read","vo",rsvc.read(vo));
 	}
 	
 	/*댓글수정*/
@@ -99,15 +99,14 @@ public class ReviewController {
 	
 	/*글수정폼*/
 	@RequestMapping(value="review/modify", method=RequestMethod.GET)
-	public ModelAndView modify(HttpServletRequest request){
-		return new ModelAndView("review/modify","vo",rsvc.read(request));
+	public ModelAndView modify(BoardVO vo){
+		return new ModelAndView("review/modify","vo",rsvc.read(vo));
 	}
 	
 	/*글수정완료*/
 	@ResponseBody
 	@RequestMapping(value="review/reviewModify", method=RequestMethod.POST)
 	public String reviewModify(BoardVO vo){
-		System.out.println(vo.getContents());
 		return rsvc.reviewModify(vo);
 	}
 	

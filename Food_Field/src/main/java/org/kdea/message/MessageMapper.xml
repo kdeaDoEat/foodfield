@@ -3,12 +3,65 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kdea.message.MessageDAO"> <!--이 sql 문장과 매핑될 인터페이스의 완전한 경로-->
+
 	<select id="getMessageCount" resultType="java.lang.Integer" parameterType="org.kdea.vo.UserVO">
 		select count(num) from message where receiver=#{nickname} and enabled = 1
 	</select>
 	
-	<select id="getMessageList" parameterType="org.kdea.vo.UserVO" resultType="org.kdea.vo.MessageVO" >
-		select * from (select * from message where RECEIVER=#{nickname} order by enabled desc) order by w_date desc
+	<select id="getListpage" resultType="java.lang.Integer" parameterType="org.kdea.vo.UserVO">
+		select count(num) from message where receiver=#{nickname}
+	</select>
+	
+	<select id="getSearchListpage" resultType="java.lang.Integer" parameterType="org.kdea.vo.SearchVO" >
+    	select ceil(count(t1.num)/5) as page from
+					(
+					select num,sender,title,contents from message where receiver=#{receiver}
+					) t1 
+					<where>
+						<if test="type =='sender'">
+							sender like '%'|| #{word} ||'%'
+						</if>
+						<if test="type =='title'">
+							title like '%'|| #{word} ||'%'
+						</if>
+						<if test="type =='contents'">
+							contents like '%'|| #{word} ||'%'
+						</if>
+					</where>
+    </select>
+	
+	<select id="getSearchList" resultType="org.kdea.vo.MessageVO" parameterType="org.kdea.vo.SearchVO">
+		select t3.* from
+			(
+			select trunc((rn-1)/5+1) as page,t2.* from
+				(
+				select rownum rn,t1.* from
+					(
+					select num, title, sender, contents, w_date from message where receiver=#{receiver} order by w_date desc
+					) t1 
+					<where>
+						<if test="type =='sender'">
+							sender like '%'|| #{word} ||'%'
+						</if>
+						<if test="type =='title'">
+							title like '%'|| #{word} ||'%'
+						</if>
+						<if test="type =='contents'">
+							contents like '%'|| #{word} ||'%'
+						</if>
+					</where>
+				)t2
+			)t3 where page=#{page}
+    </select>
+	
+	<select id="getMessageList" parameterType="org.kdea.vo.MessageVO" resultType="org.kdea.vo.MessageVO" >
+		select t3.* from(
+						select trunc((rn-1)/5+1) as page,t2.* from(
+							select rownum rn,t1.* from(
+					  			 select * from (select * from message where RECEIVER=#{receiver} order by enabled desc) order by w_date desc
+					  		) t1
+						 )t2
+					)t3 where page=#{page} 
 	</select>
 	
 	<select id="getMemberInfo" resultType="org.kdea.vo.UserVO" parameterType="org.kdea.vo.UserVO" >
@@ -27,20 +80,63 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update message set enabled=0 where num=#{num}
 	</update>
 	
-    <!-- <select id="list" resultType="org.kdea.mybatis.EmpVO">
-        select * from emp2
-    </select>
-    <insert id="insert" parameterType="org.kdea.mybatis.EmpVO">
-        insert into emp2 (empno, ename, deptno, job, sal) 
-        	values ( #{empno}, #{ename}, #{deptno}, #{job}, #{sal} )
-    </insert>
-    <select id="info" resultType="org.kdea.mybatis.EmpVO">
-        select * from emp2 where empno=#{empno}
-    </select>
-    <update id="update" parameterType="org.kdea.mybatis.EmpVO">
-        update emp2 set deptno=#{deptno}, sal=#{sal} where empno=#{empno}
-    </update>
-    <delete id="delete" >
-        delete from emp2 where empno=#{empno}
-    </delete> -->
+	<select id="getsendList" parameterType="org.kdea.vo.MessageVO" resultType="org.kdea.vo.MessageVO">
+		select t3.* from(
+						select trunc((rn-1)/5+1) as page,t2.* from(
+							select rownum rn,t1.* from(
+					  			 select num, title, receiver, w_date from message where sender=#{sender} order by w_date desc
+					  		) t1
+						 )t2
+					)t3 where page=#{page} 
+	</select>
+	
+	<select id="getsendListpage" resultType="java.lang.Integer" parameterType="org.kdea.vo.UserVO" >
+		select count(num) from message where sender=#{nickname}
+	</select>
+	
+	<select id="getSendSearchListpage" resultType="java.lang.Integer" parameterType="org.kdea.vo.SearchVO" >
+		select ceil(count(t1.num)/5) as page from
+					(
+					select num,sender,title,contents from message where sender=#{sender}
+					) t1 
+					<where>
+						<if test="type =='receiver'">
+							receiver like '%'|| #{word} ||'%'
+						</if>
+						<if test="type =='title'">
+							title like '%'|| #{word} ||'%'
+						</if>
+						<if test="type =='contents'">
+							contents like '%'|| #{word} ||'%'
+						</if>
+					</where>
+	</select>
+	
+	<select id="getSendSearchList" resultType="org.kdea.vo.MessageVO" parameterType="org.kdea.vo.SearchVO">
+		select t3.* from
+			(
+			select trunc((rn-1)/5+1) as page,t2.* from
+				(
+				select rownum rn,t1.* from
+					(
+					select num, title, sender, contents, w_date from message where sender=#{sender} order by w_date desc
+					) t1 
+					<where>
+						<if test="type =='receiver'">
+							receiver like '%'|| #{word} ||'%'
+						</if>
+						<if test="type =='title'">
+							title like '%'|| #{word} ||'%'
+						</if>
+						<if test="type =='contents'">
+							contents like '%'|| #{word} ||'%'
+						</if>
+					</where>
+				)t2
+			)t3 where page=#{page}
+	</select>
+	
+	<delete id="deleteMessage" parameterType="org.kdea.vo.MessageVO">
+		delete from message where num = #{num}
+	</delete>
 </mapper>

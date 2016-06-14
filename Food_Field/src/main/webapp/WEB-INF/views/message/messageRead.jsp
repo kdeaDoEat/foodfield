@@ -61,6 +61,28 @@ $(function(){
 function reply() {
 	location.href="/FoodField/message/write?receiver=${vo.sender }";
 }
+
+function del() {
+	var result = confirm('정말 삭제하시겠습니까?');
+	if(result){
+		$.ajax({
+			url:'del?${_csrf.parameterName}=${_csrf.token}',
+			type:'post',
+			data:{num:"${vo.num }"},
+			dataType:'json',
+			success:function(result){
+				if(result.ok==true){
+					alert('삭제완료!');
+					location.href="/FoodField/message/list?page=1";
+				}else{
+					alert('삭제실패');
+				}
+			},error:function(request,status,error){
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});
+	}
+}
 </script>
 <body>
     <div id="wrapper">
@@ -82,10 +104,13 @@ function reply() {
                 <ul class="nav" id="main-menu" style="text-align: center;">
 					<li class="text-center"></li>
                     <li>
-                        <a  href="list"><i class="fa fa-dashboard fa-3x"></i> 쪽지함</a>
+                        <a  href="list?page=1"><i class="fa fa-dashboard fa-3x"></i> 나의 쪽지함</a>
                     </li>
                       <li>
                         <a  href="write"><i class="fa fa-desktop fa-3x"></i> 쪽지 쓰기</a>
+                    </li>
+                      <li>
+                        <a  href="sendBox?page=1"><i class="fa fa-desktop fa-3x"></i> 보낸 쪽지함</a>
                     </li>
                 </ul>
 			</div>
@@ -106,8 +131,9 @@ function reply() {
 		                            <i class="fa fa-user" aria-hidden="true"></i>　　${vo.sender }
 		                        </div>
 		                        <div class="panel-body" style="text-align: center;">${vo.contents }</div>
-		                        <div class="panel-footer" style="text-align: right;">
+		                        <div class="panel-footer" style="text-align: right;">	
 		                        	<span class="btn btn-primary" style="cursor: pointer;" onclick="reply()"><i class="fa fa-envelope" aria-hidden="true"></i>　답장하기</span>
+		                        	　<span class="btn btn-primary" style="cursor: pointer;" onclick="del()"><i class="fa fa-envelope" aria-hidden="true"></i>　삭제</span>
 		                        </div>
                     		</div>
     					</div>

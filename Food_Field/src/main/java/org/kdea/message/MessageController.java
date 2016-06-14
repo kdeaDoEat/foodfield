@@ -1,8 +1,10 @@
 package org.kdea.message;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.kdea.vo.MessageVO;
+import org.kdea.vo.SearchVO;
 import org.kdea.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,8 +21,13 @@ public class MessageController {
 	private MessageService msvc;
 	
 	@RequestMapping(value="/list",method=RequestMethod.GET)
-	public ModelAndView messageList(HttpSession session){
-		return new ModelAndView("message/message","vo",msvc.getMessageList(session));
+	public ModelAndView messageList(HttpSession session, HttpServletRequest request){
+		return new ModelAndView("message/message","vo",msvc.getMessageList(session,request));
+	}
+	
+	@RequestMapping(value="/mSearch")
+	public ModelAndView searchMessage(HttpSession session, SearchVO vo){
+		return new ModelAndView("message/message","vo",msvc.getSearchMessageList(session, vo));
 	}
 	@RequestMapping(value="/write")
 	public ModelAndView write(MessageVO vo){
@@ -46,4 +53,21 @@ public class MessageController {
 	public ModelAndView read(MessageVO vo){
 		return new ModelAndView("message/messageRead","vo",msvc.getMessageContents(vo));
 	}
+	
+	@RequestMapping(value="/sendBox")
+	public ModelAndView sendBox(HttpSession session, HttpServletRequest request){
+		return new ModelAndView("message/sendBox","vo",msvc.getsendList(session,request));
+	}
+	
+	@RequestMapping(value="/sendSearch")
+	public ModelAndView sendSearch(HttpSession session, SearchVO vo){
+		return new ModelAndView("message/sendBox","vo",msvc.getsendSearchList(session, vo));
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/del")
+	public String del(MessageVO vo){
+		return msvc.deleteMessage(vo);
+	}
+	
 }

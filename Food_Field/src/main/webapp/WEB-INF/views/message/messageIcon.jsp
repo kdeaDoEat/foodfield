@@ -3,7 +3,7 @@
 <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 function message() {
-	window.open("/FoodField/message/list","","width=870, height=660, resizable=no, scrollbars=no, status=no;");
+	window.open("/FoodField/message/list?page=1","","width=870, height=660, resizable=no, scrollbars=no, status=no;");
 }
 </script>
 <a data-toggle="modal" onclick="message()" style="cursor: pointer;">

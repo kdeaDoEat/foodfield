@@ -10,6 +10,14 @@ public class MessageVO {
 	private String contents;
 	private Date w_date;
 	private String enabled;
+	private int page;
+	
+	public int getPage() {
+		return page;
+	}
+	public void setPage(int page) {
+		this.page = page;
+	}
 	public int getNum() {
 		return num;
 	}

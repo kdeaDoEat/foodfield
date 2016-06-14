@@ -26,5 +26,8 @@ public interface ReviewDAO {
 	public int checkRecommend(BoardVO vo);
 	public int updateRecommend(BoardVO vo);
 	public int updateUserRecommend(BoardVO vo);
+	public int userWritePoint(BoardVO vo);
+	public int userCommentPoint(CommentVO vo);
+	public int getMyNum(BoardVO vo);
 
 }

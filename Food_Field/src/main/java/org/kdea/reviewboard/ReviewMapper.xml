@@ -18,6 +18,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         	values ( reviewBoard_num.NEXTVAL, sysdate, #{title}, #{nickname}, #{contents}, #{shop_name}, #{shop_add}, 0, 0, 0 )
     </insert>
     
+    <select id="getMyNum" parameterType="org.kdea.vo.BoardVO" resultType="java.lang.Integer">
+    	select max(num) as num from reviewboard where nickname=#{nickname}
+    </select>
+    <update id="userWritePoint" parameterType="org.kdea.vo.BoardVO">
+    	update users set point=point+3 where nickname=#{nickname}
+    </update>
+    
     <select id="read" resultType="org.kdea.vo.BoardVO">
         select * from reviewBoard where num=#{num}
     </select>
@@ -34,6 +41,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into reviewComment (num, cnum, nickname, w_date, contents) 
         	values ( #{num}, reviewComment_num.NEXTVAL, #{nickname}, sysdate, #{contents} )
     </insert>
+    <update id="userCommentPoint" parameterType="org.kdea.vo.CommentVO">
+    	update users set point=point+1 where nickname=#{nickname}
+    </update>
     
     <select id="getCommentList" resultType="org.kdea.vo.CommentVO">
         select c.num, c.cnum, c.nickname, c.contents, c.w_date from reviewBoard r INNER JOIN reviewComment c on r.num=c.num where r.num=#{num} order by c.cnum
@@ -60,7 +70,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
     
     <update id="reviewModify" parameterType="org.kdea.vo.BoardVO">
-        update reviewBoard set title=#{title} shop_name=#{shop_name} shop_add=#{shop_add} contents=#{contents} where num=#{num}
+        update reviewBoard set title=#{title}, shop_name=#{shop_name}, shop_add=#{shop_add}, contents=#{contents}, w_date=sysdate where num=#{num}
     </update>
     
     <select id="spage" resultType="java.lang.Integer" parameterType="org.kdea.vo.SearchVO" >

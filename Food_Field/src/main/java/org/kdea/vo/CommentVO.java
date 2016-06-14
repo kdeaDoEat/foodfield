@@ -4,7 +4,6 @@ import java.sql.Date;
 
 public class CommentVO {
 
-
 	private int cnum;
 	private int num;
 	private String contents;

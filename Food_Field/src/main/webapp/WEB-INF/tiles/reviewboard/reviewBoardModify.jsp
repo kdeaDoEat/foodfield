@@ -31,18 +31,17 @@
 						return;
 					}
 					$.ajax({
-						url:'wSubmit?${_csrf.parameterName}=${_csrf.token}',
+						url:'reviewModify?${_csrf.parameterName}=${_csrf.token}',
 						type:'post',
 						data:{title:$('input[name="title"]').val(),
 								shop_name:$('input[name="shop_name"]').val(),
 								shop_add:$('input[name="shop_add"]').val(),
-								contents:con
+								contents:con,
+								num:"${vo.num}"
 						},
 						dataType:'json',
 						success:function(result){
-							alert(result.ok);
-						},error:function(request,status,error){
-							alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+							location.herf="/FoodField/review/read?num=${vo.num}";
 						}
 					});
 				}

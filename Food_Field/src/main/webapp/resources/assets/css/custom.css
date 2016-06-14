@@ -18,13 +18,14 @@ body {
 
  #wrapper {
     width: 100%;
-    background:#f5dca7;
+    background:#ffffff;
 }
 
 #page-wrapper {
     padding: 15px 15px;
     min-height: 600px;
     background:#F3F3F3;
+    border-left: 1px solid #dddddd;
    
 }
 #page-inner {
@@ -250,8 +251,8 @@ font-weight: 700;
 	padding:0;
 }
 .sidebar-collapse .nav > li > a {
-	color:#fff;
-	background:#f5dca7;
+	color:#969696;
+	background:#ffffff;
 	text-shadow:none;
 	
 }
@@ -321,10 +322,10 @@ border:0px solid black;
      
 }
 .navbar-header {
-    background: #A70303;
+    background: #f5dca7;
 }
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
-background-color: #B40101;
+background-color: #f1ca78;
 }
 .navbar-default .navbar-toggle {
 border-color: #fff;

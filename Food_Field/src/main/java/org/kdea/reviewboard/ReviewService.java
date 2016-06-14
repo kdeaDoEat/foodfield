@@ -47,19 +47,20 @@ public class ReviewService {
 		BoardVO nvo = vo;
 		nvo.setContents(vo.getContents().replaceAll("\n", ""));
 		if(dao.write(nvo)>0){
+			dao.userWritePoint(vo);
 			result=true;
 		}
 		jobj.put("ok", result);
-		
+		jobj.put("num", dao.getMyNum(vo));
 		return jobj.toJSONString();
 	}
 
-	public BoardVO read(HttpServletRequest request) {
+	public BoardVO read(BoardVO vo) {
 		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
-		int page = Integer.parseInt(request.getParameter("num"));
-		BoardVO vo = dao.read(page);
-		vo.setCmtnum(dao.getCommentCount(page));
-		return vo;
+		int page = vo.getNum();
+		BoardVO bvo = dao.read(page);
+		bvo.setCmtnum(dao.getCommentCount(page));
+		return bvo;
 	}
 
 	public int pagecount() {
@@ -92,9 +93,9 @@ public class ReviewService {
 		return pageList;
 	}
 
-	public void updateHit(HttpServletRequest request) {
+	public void updateHit(int num) {
 		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
-		dao.updateHit(Integer.parseInt(request.getParameter("num")));
+		dao.updateHit(num);
 	}
 
 	public String commentWrite(CommentVO vo) {
@@ -102,6 +103,7 @@ public class ReviewService {
 		JSONObject jobj = new JSONObject();
 		boolean check = false;
 		if(dao.commentWrite(vo) > 0){
+			dao.userCommentPoint(vo);
 			check = true;
 		}
 		jobj.put("ok", check);
@@ -139,6 +141,11 @@ public class ReviewService {
 		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
 		JSONObject jobj = new JSONObject();
 		boolean check = false;
+		System.out.println(vo.getTitle());
+		System.out.println(vo.getContents());
+		System.out.println(vo.getShop_add());
+		System.out.println(vo.getShop_name());
+		System.out.println(vo.getNum());
 		if(dao.reviewModify(vo) > 0){
 			check = true;
 		}

@@ -8,7 +8,21 @@ public class SearchVO {
 	private boolean bsearch;
 	private String word;
 	private String type;
+	private String receiver;
+	private String sender;
 	
+	public String getSender() {
+		return sender;
+	}
+	public void setSender(String sender) {
+		this.sender = sender;
+	}
+	public String getReceiver() {
+		return receiver;
+	}
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
+	}
 	public String getWord() {
 		return word;
 	}

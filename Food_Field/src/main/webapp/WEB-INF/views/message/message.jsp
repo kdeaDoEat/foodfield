@@ -23,6 +23,23 @@
 function msgRead(num) {
 	location.href="read?num="+num;
 }
+function search_Option(evt) {
+	$('#search_concept').text(evt);
+}
+function search() {
+	var text = '';
+	if($('#search_concept').text() == 'Option'){
+		alert('검색 옵션을 설정해주세요!');
+	}else if($('#searchContent').val() == ''){
+		alert('검색 내용을 입력해주세요!');
+	}else{
+		if($('#search_concept').text() == '제목')		text='title';
+		else if($('#search_concept').text() == '내용')	text='contents';
+		else if($('#search_concept').text() == '작성자')	text='sender';
+		
+		location.href="mSearch?type="+text+"&word="+$('#searchContent').val()+"&page=1";
+	}
+}
 </script>
 
 
@@ -46,10 +63,13 @@ function msgRead(num) {
                 <ul class="nav" id="main-menu" style="text-align: center;">
 					<li class="text-center"></li>
                     <li>
-                        <a  href="list"><i class="fa fa-dashboard fa-3x"></i> 쪽지함</a>
+                        <a  href="list?page=1"><i class="fa fa-dashboard fa-3x"></i> 나의 쪽지함</a>
                     </li>
                       <li>
                         <a  href="write"><i class="fa fa-desktop fa-3x"></i> 쪽지 쓰기</a>
+                    </li>
+                      <li>
+                        <a  href="sendBox?page=1"><i class="fa fa-desktop fa-3x"></i> 보낸 쪽지함</a>
                     </li>
                 </ul>
 			</div>
@@ -68,17 +88,20 @@ function msgRead(num) {
 	                                <table class="table">
 	                                    <thead>
 	                                        <tr>
-	                                            <th style="width: 60%">제목</th>
-	                                            <th style="width: 20%">보낸사람</th>
-	                                            <th style="width: 20%">보낸날짜</th>
+	                                            <th style="width: 60%; text-align: center;">제목</th>
+	                                            <th style="width: 20%; text-align: center;">보낸사람</th>
+	                                            <th style="width: 20%; text-align: center;">보낸날짜</th>
 	                                        </tr>
 	                                    </thead>
 	                                    <tbody>
-	                                    	<c:forEach var="l" items="${vo }">
+	                                    	<c:forEach var="l" items="${vo.list }">
 	                                    		<c:choose>
 	                                    			<c:when test="${l.enabled == '1'}">
-		                                    			<tr class="success">
-				                                            <td onclick="msgRead('${l.num}')" style="cursor: pointer;">${l.title }</td>
+		                                    			<tr>
+				                                            <td onclick="msgRead('${l.num}')" style="cursor: pointer;">
+				                                            <img src="http://get-xmas.com/images/new.gif">
+				                                            	　${l.title }
+				                                            </td>
 				                                            <td>${l.sender}</td>
 				                                            <td><fmt:formatDate value="${l.w_date }"
 																pattern="MM-dd HH:mm" /></td>
@@ -94,6 +117,76 @@ function msgRead(num) {
 	                                    			</c:otherwise>
 	                                    		</c:choose>
 	                                    	</c:forEach>
+	                                    	<tr>
+	                                    		<td colspan="3">
+									                <ul class="pagination" role="menubar" aria-label="Pagination">
+													<c:choose>
+														<c:when test="${vo.type eq 'list'}">
+															<li class="arrow unavailable" aria-disabled="true">
+																<a href="list?page=${vo.nowpage-1 }">&laquo;</a>
+															</li>
+															<c:forEach var="p" items="${vo.page }">
+																<c:choose>
+																	<c:when test="${p eq vo.nowpage }">
+																		<li class="current">
+																		<a href="list?page=${p }" style="font-weight: bold;">${p }</a>
+																		</li>
+																	</c:when>
+																	<c:otherwise>
+																		<li class="current">
+																		<a href="list?page=${p }">${p }</a>
+																		</li>
+																	</c:otherwise>
+																</c:choose>
+															</c:forEach>
+															<li class="arrow">
+																<a href="list?page=${vo.nowpage+1 }">&raquo;</a>
+															</li>
+														</c:when>
+														
+														<c:when test="${vo.type eq 'search'}">
+															<li class="arrow unavailable" aria-disabled="true">
+															<a href="search?type=${vo.searchType }&word=${vo.searchWord }&page=${vo.nowpage-1 }">
+												  			&laquo;</a></li>
+												  			<c:forEach var="p" items="${vo.page }">
+																<c:choose>
+																	<c:when test="${p eq vo.nowpage }">
+																		<li class="current">
+																		<a href="search?type=${vo.searchType }&word=${vo.searchWord }&page=${p }" style="font-weight: bold;">${p }</a>
+																		</li>
+																	</c:when>
+																	<c:otherwise>
+																		<li class="current">
+																		<a href="search?type=${vo.searchType }&word=${vo.searchWord }&page=${p }">${p }</a>
+																		</li>
+																	</c:otherwise>
+																</c:choose>
+															</c:forEach>
+															<li class="arrow">
+												  			<a href="search?type=${vo.searchType }&word=${vo.searchWord }&page=${vo.nowpage+1 }">&raquo;</a></li>
+														</c:when>
+													</c:choose>
+													</ul>
+							                    </td>
+	                                    	</tr>
+	                                    	<tr><td colspan="3">
+												<div class="input-group">
+	                                    	<div class="input-group-btn search-panel">
+			                                    		<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+									                    	<span id="search_concept">Option</span> <span class="caret"></span>
+									                    </button>
+									                    <ul class="dropdown-menu" role="menu">
+									                      <li><span style="cursor: pointer;" onclick="search_Option('제목');">제목</span></li>
+									                      <li><span style="cursor: pointer;" onclick="search_Option('내용');">내용</span></li>
+									                      <li><span style="cursor: pointer;" onclick="search_Option('작성자');">보낸사람</span></li>
+									                    </ul>
+								                    </div>
+								                    <input type="hidden" name="search_param" value="all" id="search_param">         
+									                <input id="searchContent" type="text" class="form-control" placeholder="Search">
+									                <span class="input-group-btn">
+									                    <button class="btn btn-primary" type="button" onclick="search();"><span class="glyphicon glyphicon-search"></span></button>
+									                </span></div>
+	                                    	</td></tr>
 	                                    </tbody>
 	                                </table>
 	                            </div>

@@ -37,9 +37,7 @@
 						},
 						dataType:'json',
 						success:function(result){
-							alert(result.ok);
-						},error:function(request,status,error){
-							alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+							location.href="/FoodField/review/read?num="+result.num;
 						}
 					});
 				}
