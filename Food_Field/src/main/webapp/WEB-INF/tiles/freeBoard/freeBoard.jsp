@@ -1,3 +1,5 @@
+<%@page import="org.kdea.vo.UserVO"%>
+<%@page import="org.springframework.web.context.request.SessionScope"%>
 <%@page import="org.kdea.vo.FreeBoardVO"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
@@ -23,11 +25,20 @@
 	<%if (pages == 1) {%>
 		$('#prev').hide();
 		
-	<%} else if (pages == lastPages)%>
-		/* $('#next').hide(); 	*/
-
-		}); 
-	<%	System.out.println("글 삭제성공: "+(String)session.getAttribute("deletesuc"));
+	<%}
+			UserVO user=(UserVO)session.getAttribute("userInfo");
+			//System.out.println(user.getNickname());
+			if(user==null){
+		%>
+	 		$('td#write').hide();
+	 		//$('#myTable tr > *:nth-child(2)').hide();
+	 	<%
+	 }else{
+	 	%>
+	 		$('td#write').show();
+	 	<%
+	 	}
+	 	//System.out.println("글 삭제성공: "+(String)session.getAttribute("deletesuc"));
 	String deletesuc=(String)session.getAttribute("deletesuc");
 	if(deletesuc!=null){
 	if(deletesuc.equals("true")){%>
@@ -76,9 +87,9 @@
 								<td class="num" style="width: 10%">${list.num}</td>
 								<td class="title" style="width: 45%; text-align: left;"
 									onmouseover="this.style.color='gray'" style="cursor: pointer"
-									onmouseout="this.style.color='black'"><a
-									href="detail?num=${list.num}">${list.title}</a></td>
-								<td class="date" style="width: 10%">${list.w_date}</td>
+									onmouseout="this.style.color='black'">
+ 									<a href="detail?num=${list.num}">${list.title}</a>
+ 								</td><td class="date" style="width: 10%">${list.w_date}</td>
 								<td class="author" style="width: 15%">${list.nickname}</td>
 								<td class="views" style="width: 10%">${list.views}</td>
 							</tr>
@@ -109,7 +120,7 @@
 							</td>
 						</tr>
 						<tr>
-						<td colspan="6" style="text-align: right;">
+						<td id="write"colspan="6" style="text-align: right;">
 						<a href="write">글쓰기</a>
 						</td>
 						</tr>

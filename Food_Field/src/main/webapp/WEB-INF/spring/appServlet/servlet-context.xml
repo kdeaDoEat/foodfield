@@ -74,13 +74,13 @@
 	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"  />
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 
-	<beans:bean id="ChattingHandler" class="org.kdea.chatting.ChattingHandler" />
+	<!-- <beans:bean id="ChattingHandler" class="org.kdea.chatting.ChattingHandler" />
 	<beans:bean id="ChattingService" class="org.kdea.chatting.ChattingService" />
 	<websocket:handlers>
 		<websocket:mapping path="/chat" handler="ChattingHandler" />
 		<websocket:handshake-interceptors>
 			<beans:bean class="org.kdea.chatting.ChattingInterceptor" />
 		</websocket:handshake-interceptors>
-	</websocket:handlers>
+	</websocket:handlers> -->
 
 </beans:beans>

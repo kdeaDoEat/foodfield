@@ -33,11 +33,15 @@ import net.sf.json.JSONArray;
 public class ReviewService {
 	
 	@Autowired
-	private SqlSessionTemplate sqlSessionTemplate; // ¼³Á¤ÆÄÀÏ¿¡ ºóÀ¸·Î µî·ÏµÇ¾ú±â ¶§¹®¿¡ »ý¼ºÀÚ³ª Setter ¾øÀÌ ÀÚµ¿À¸·Î ÁÖÀÔ
+	private SqlSessionTemplate sqlSessionTemplate; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ÏµÇ¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ú³ï¿½ Setter ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	
 	public List<BoardVO> getList(int page){
 		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
 		return dao.getList(page);
+	}
+	public List<BoardVO> getList(){
+		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
+		return dao.list();
 	}
 
 	public String write(BoardVO vo) {
@@ -72,7 +76,7 @@ public class ReviewService {
 		int fullPage = dao.page();
 		List<Integer> pageList = new ArrayList<Integer>();
 		if(nowPage>10){
-			String tmp = Integer.toString(nowPage).substring(0,Integer.toString(nowPage).length()-1)+0;	// ¾ÕÀÚ¸®+0
+			String tmp = Integer.toString(nowPage).substring(0,Integer.toString(nowPage).length()-1)+0;	// ï¿½ï¿½ï¿½Ú¸ï¿½+0
 			int firstPage = Integer.parseInt(tmp);
 			for(int i=1;i<=10;i++){
 				if(firstPage+i>fullPage) break;
@@ -160,7 +164,7 @@ public class ReviewService {
 
 
 	public String uploadPhoto(FileBean fileBean, Model model, HttpSession session) {
-	    String root_path = "C:/img/"; // À¥¼­ºñ½º root °æ·Î
+	    String root_path = "C:/img/"; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ root ï¿½ï¿½ï¿½
 
 	    MultipartFile upload = fileBean.getUpload();
 	    String filename = "";
@@ -213,7 +217,7 @@ public class ReviewService {
 		int fullPage = dao.spage(vo);
 		List<Integer> pageList = new ArrayList<Integer>();
 		if(vo.getPage()>10){
-			String tmp = Integer.toString(vo.getPage()).substring(0,Integer.toString(vo.getPage()).length()-1)+0;	// ¾ÕÀÚ¸®+0
+			String tmp = Integer.toString(vo.getPage()).substring(0,Integer.toString(vo.getPage()).length()-1)+0;	// ï¿½ï¿½ï¿½Ú¸ï¿½+0
 			int firstPage = Integer.parseInt(tmp);
 			for(int i=1;i<=10;i++){
 				pageList.add(firstPage+i);
@@ -243,7 +247,7 @@ public class ReviewService {
 		JSONObject jobj = new JSONObject(); 
 		if(dao.checkRecommend(vo) > 0){
 			jobj.put("ok", false);
-		}else if(dao.updateRecommend(vo) > 0 && dao.updateUserRecommend(vo) > 0){   // °Ô½Ã¹° ÃßÃµ ¿Ã¸®±â && ÃßÃµ Å×ÀÌºí¿¡ Ãß°¡ÇÏ±â
+		}else if(dao.updateRecommend(vo) > 0 && dao.updateUserRecommend(vo) > 0){   // ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½Ãµ ï¿½Ã¸ï¿½ï¿½ï¿½ && ï¿½ï¿½Ãµ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ß°ï¿½ï¿½Ï±ï¿½
 			jobj.put("ok", true);
 		}
 		return jobj.toJSONString();
