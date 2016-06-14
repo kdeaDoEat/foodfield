@@ -41,7 +41,7 @@
 						},
 						dataType:'json',
 						success:function(result){
-							location.herf="/FoodField/review/read?num=${vo.num}";
+							location.href="/FoodField/review/read?num=${vo.num}";
 						}
 					});
 				}
