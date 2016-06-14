@@ -3,6 +3,7 @@ package org.kdea.ranking;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.kdea.vo.PageVO;
 import org.kdea.vo.SearchVO;
 import org.kdea.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +23,18 @@ public class RankingController {
 
 	@RequestMapping(value = { "/list" }, method = RequestMethod.GET)
 	public ModelAndView goList(@ModelAttribute("search") SearchVO search, @ModelAttribute("user") UserVO user,
-			Model model) {
+			@ModelAttribute("page") PageVO page, Model model) {
 
 		List<UserVO> userlist = new ArrayList<UserVO>();
-		userlist = service.getList();
+
+		if (search.getType() == null && page.getCurrpage() == 0) {
+
+			page.setCurrpage(1);
+
+		}
+
+		userlist = service.getBoardListbyPage(page.getCurrpage(), model, search.getType(), search.getWord());
+
 		ModelAndView dest = new ModelAndView("ranking/rankingListTemp", "userlist", userlist);
 		return dest;
 

@@ -10,7 +10,6 @@
 <title>공지게시판</title>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-2.2.2.min.js">
-	
 </script>
 <script>
 
