@@ -18,7 +18,7 @@ import org.springframework.ui.Model;
 public class QnaService {
 	
 	final int rpp = 5; // RecordsPerPage server/dao 관련
-	final int ppp = 2; // PagesPerPage client 표면적 관련
+	final int ppp = 3; // PagesPerPage client 표면적 관련
 	
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
