@@ -40,10 +40,29 @@ public class FreeBoardController {
 		model.addAttribute("fbList", list);
 		return "free/freeboard";
 	}
+	@RequestMapping(value="/recommendfree", method = RequestMethod.GET)
+	public String recommendfree(Model model,HttpServletRequest request){
+		String spage= request.getParameter("page");
+		int page=Integer.parseInt(spage);
+		List<FreeBoardVO> list= fbService.recommendlist(page);
+		for(int i=0;i<list.size();i++){
+			if(list.get(i).getRef()!=0){
+				String title=list.get(i).getTitle().replaceFirst("ㄴ","<img src='resources/images/re.gif'/>");
+				list.get(i).setTitle(title);
+			}
+		}
+		
+		SearchVO svo= new SearchVO();
+		svo.setBsearch(false);
+		model.addAttribute("isSearch", svo);
+		model.addAttribute("recommendsearch",true);
+		model.addAttribute("fbList", list);
+		return "free/freeboard";
+	}
 	
 	@RequestMapping(value="/write",method=RequestMethod.GET)
 	public String WriteAndView(){
-		return "write";
+		return "redirect:write";
 	}
 	
 

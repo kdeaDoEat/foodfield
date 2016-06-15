@@ -35,7 +35,14 @@ audio:not([controls]) {
 
 a {
   background-color: transparent; }
-
+a#recommendfree:link{
+	color: gray;
+	text-decoration: none;
+}
+a#recommendfree:VISITED{
+	 color: black;
+	  text-decoration: none;
+}
 a:active, a:hover {
   outline: 0; }
 

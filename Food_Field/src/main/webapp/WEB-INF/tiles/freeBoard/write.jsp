@@ -5,8 +5,13 @@
 <%
 	String cp = request.getContextPath();
 	String pref= (String)request.getParameter("num");
-	if(pref==""){
+	System.out.println("넘어온 num값: "+pref);
+	if(pref==null){
 		pref="0";
+		System.out.println("넘어온 pref값이 널일때: "+pref);
+		int ref= Integer.parseInt(pref);
+		System.out.print("ref: "+ref);
+		session.setAttribute("ref", ref);
 	}else{
 		int ref= Integer.parseInt(pref);
 		System.out.print("ref: "+ref);

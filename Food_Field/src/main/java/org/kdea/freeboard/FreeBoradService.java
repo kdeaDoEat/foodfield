@@ -46,6 +46,32 @@ public class FreeBoradService {
 		}
 		return null;
 	}
+	public List<FreeBoardVO> recommendlist(int page) {
+		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
+		List<FreeBoardVO> list= fbdao.recommendlist(page);
+		if(list!=null){
+		BoardListPageVO pagenavi=list.get(0).getPagevo();
+		int rowsPerScreen=10;//�븳 �럹�씠吏� 寃뚯떆湲� �닔
+		int linksPerScreen=5;//�럹�씠吏��꽕鍮꾧쾶�씠�뀡 �닔
+		int totalpages=pagenavi.getTotalPage();
+		
+		int linkGroup=(page-1)/linksPerScreen+1;
+		int linkEnd=linkGroup*linksPerScreen;
+		int linkBegin= linkEnd-linksPerScreen+1;
+
+		if(linkEnd>totalpages)linkEnd=totalpages;
+		
+		pagenavi.setCurrentPage(page);
+		pagenavi.setLeftMore(linkGroup!=1?true:false);
+		pagenavi.setRightMore(linkEnd<totalpages?true:false);
+		pagenavi.setFirstPage(linkBegin);
+		pagenavi.setLastPage(linkEnd);
+		
+		return list;
+		}
+		return null;
+	}
+
 
 	public FreeBoardVO write(FreeBoardVO fbVO) {
 		FreeBoardDAO fbdao= sqlSessionTemplate.getMapper(FreeBoardDAO.class);
@@ -313,6 +339,7 @@ public class FreeBoradService {
 		List<CommentVO> list= fbdao.cmtList(num);
 		return list;
 	}
+
 
 
 }

@@ -14,6 +14,7 @@ public interface FreeBoardDAO {
 	public FreeBoardVO read(String id);
 
 	public FreeBoardVO readNum(int num);
+	
 	public int cmtWrite(CommentVO comment);
 
 	public List<CommentVO> cmtList(int num);
@@ -52,6 +53,8 @@ public interface FreeBoardDAO {
 	public int deleteAllComment(int num);
 
 	public CommentVO CommentDetail(String nickname);
+
+	public List<FreeBoardVO> recommendlist(int page);//추천수를 게시판에서 눌렀을때 추천수에 따라 눌림
 
 
 }

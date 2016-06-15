@@ -27,7 +27,7 @@
 		/* $('#next').hide(); 	*/
 
 		}); 
-	<%	System.out.println("글 삭제성공: "+(String)session.getAttribute("deletesuc"));
+	<%	//System.out.println("글 삭제성공: "+(String)session.getAttribute("deletesuc"));
 	String deletesuc=(String)session.getAttribute("deletesuc");
 	if(deletesuc!=null){
 	if(deletesuc.equals("true")){%>
@@ -68,6 +68,8 @@
 							<td style="text-align: center;">날짜</td>
 							<td style="text-align: center;">작성자</td>
 							<td style="text-align: center;">조회수</td>
+							<td style="text-align: center;">
+							<a id="recommendfree" href="recommendfree?page=1">추천수</a></td>
 						</tr>
 					</thead>
 					<tbody style="text-align: center;">
@@ -81,6 +83,7 @@
 								<td class="date" style="width: 10%">${list.w_date}</td>
 								<td class="author" style="width: 15%">${list.nickname}</td>
 								<td class="views" style="width: 10%">${list.views}</td>
+								<td class="views" style="width: 10%">${list.recommend}</td>
 							</tr>
 						</c:forEach>
 						<tr>
@@ -97,6 +100,13 @@
 													href="search?page=${i}&searchCategory=${isSearch.searchCategory}&searchContent=${isSearch.searchContent}">${i}</a></li>
 											</c:forEach>
 										</c:when>
+										<c:when test="${recommendsearch }">
+											<c:forEach var="i" begin="${fbList[0].pagevo.firstPage}"
+												end="${fbList[0].pagevo.lastPage}">
+												<li><a
+													href="recommendfree?page=${i}">${i}</a></li>
+											</c:forEach>
+										</c:when>
 										<c:otherwise>
 											<c:forEach var="i" begin="${fbList[0].pagevo.firstPage}"
 												end="${fbList[0].pagevo.lastPage}">
@@ -108,11 +118,13 @@
 								</ul>
 							</td>
 						</tr>
+						<c:if test="${sessionScope.userInfo.nickname != null }">
 						<tr>
 						<td colspan="6" style="text-align: right;">
 						<a href="write">글쓰기</a>
 						</td>
 						</tr>
+						</c:if>
 						<tr>
 							<td colspan="6" style="text-align: center;">
 								
