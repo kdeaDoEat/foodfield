@@ -30,5 +30,6 @@ public interface ReviewDAO {
 	public int userWritePoint(BoardVO vo);
 	public int userCommentPoint(CommentVO vo);
 	public int getMyNum(BoardVO vo);
+	public List<BoardVO> getRecommendList(int page);
 
 }
