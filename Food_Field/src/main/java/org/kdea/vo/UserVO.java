@@ -10,6 +10,7 @@ public class UserVO {
 	private String phone;
 	private String gender;
 	private int point = 0;
+	private char enabled = '0';
 	private String authority = "ROLE_USER";	
 	
 	public int getRank() {
@@ -27,8 +28,6 @@ public class UserVO {
 	public void setAuthority(String authority) {
 		this.authority = authority;
 	}
-
-	private char enabled = '1';
 
 	public String getEmail() {
 		return email;

@@ -35,9 +35,11 @@ public class LoginController {
 
 	@RequestMapping(value = "loginFailure", method = RequestMethod.GET)
 	@ResponseBody
-	public String loginFailure() {
+	public String loginFailure(@ModelAttribute("user") UserVO user) {
 		System.out.println("로그인 실패 !");
-		return "false";
+		return "loginFail";
+		/*if(user.getEnabled() != '0')
+			return "emailAuth";*/
 	}
 	
 	@RequestMapping("mypage")

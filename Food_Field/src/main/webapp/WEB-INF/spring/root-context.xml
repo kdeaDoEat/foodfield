@@ -27,10 +27,10 @@
 		
 		<sec:intercept-url pattern="/admin/**" access="hasAuthority('ROLE_ADMIN')" />
 		<sec:intercept-url pattern="/manager/**" access="hasRole('ROLE_MANAGER')" />
-		<sec:intercept-url pattern="/member/**" access="isAuthenticated()" />
 		<sec:intercept-url pattern="/review/*" access="isAuthenticated()" />
 		<sec:intercept-url pattern="/notice/view" access="isAuthenticated()" />
 		<sec:intercept-url pattern="/qnaview" access="isAuthenticated()" />
+		<sec:intercept-url pattern="/detail" access="isAuthenticated()" />
 		<sec:intercept-url pattern="/**" access="permitAll" />
 		<sec:form-login login-page="/reqLogin"
 			login-processing-url="/**/loginProcess"

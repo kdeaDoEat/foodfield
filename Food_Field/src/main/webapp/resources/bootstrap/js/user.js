@@ -8,8 +8,11 @@ $(function() {
 			success : function(res) {
 				if(res == 'true') {
 					location.href = '/FoodField/main';
-				} else {
+				} else if(res == 'loginFail') {
 					$('#loginMsg').text('아이디 또는 비밀번호가 틀렸습니다.');
+					$('#loginMsg').css('color', 'red');
+				} else if(res == 'emailAuth') {
+					$('#loginMsg').text('이메일 인증을 해주세요.');
 					$('#loginMsg').css('color', 'red');
 				}
 			},
@@ -68,11 +71,13 @@ $(function() {
 			type : 'post',
 			data : $('#joinForm').serialize(),
 			success : function(res) {
-				if(res == 'true') {
-					alert('회원가입에 성공했습니다 !');
-					location.href = 'main';
-				} else {
+				if(res == 'false') {
 					alert('회원가입에 실패했습니다.');
+				} else {
+					alert('회원가입에 성공했습니다 !\n이메일 인증 후 로그인하세요.');
+					location.href = 'sendMail?email=' + res;
+					self.opener = self;
+					self.close();
 				}
 			},
 			error : function(xhr, status, error) {

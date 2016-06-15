@@ -7,4 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         INSERT INTO USERS (EMAIL, PWD, NAME, NICKNAME, PHONE, GENDER, POINT, ENABLED, AUTHORITY)
          VALUES ( #{email}, #{pwd}, #{name}, #{nickname}, #{phone}, #{gender}, #{point}, #{enabled}, #{authority} )
     </insert>
+    <update id="emailAuth">
+    	UPDATE USERS SET ENABLED = '1' WHERE EMAIL = #{email}
+    </update>
 </mapper>
