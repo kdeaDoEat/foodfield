@@ -135,7 +135,7 @@
 			<!-- Search Group -->
 			<span class="input-group col-md-5 col-xs-12">
 				<span class="input-group-btn">
-					<select name="type" id="type" class="btn btn-warning btn-sm" style="height:30px; border:2px solid #ccc;">
+					<select name="type" id="type" class="btn btn-warning btn-sm" style="height:30px;">
 						<option value="제목">제목</option>
 						<option value="내용">내용</option>
 						<option value="작성자">작성자</option>
