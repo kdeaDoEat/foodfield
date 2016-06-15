@@ -134,7 +134,7 @@
    </div>
 
 	<div id="chat"
-		style="height: 400px; background-color: #f1f2f2; display: none; border: 3px solid #F0AD4E; -moz-border-radius: 15px; -webkit-border-radius: 15px; -o-border-radius: 15px;">
+		style="background-color: #f1f2f2; display: none; border: 3px solid #F0AD4E; -moz-border-radius: 15px; -webkit-border-radius: 15px; -o-border-radius: 15px;">
 		<!-- 로그인 여부 출력  -->
 		<!-- <div id='chatStatus' style="text-align:center;"></div> -->
 		<div id="userlistArea">
@@ -151,17 +151,17 @@
                 </span>
                 <!-- 경계선 -->
                 <div style="margin-left:10px; margin-right:10px; height:2px; background-color:#d1d2d4;"></div>
-				<div id="users" style="overflow-y:scroll; height:60px; width:100%"></div>
+				<div id="users" style="overflow-y:scroll; height:90px; width:100%"></div>
 				<!-- 리스트로 사람들 뜨기 -->
 				<!-- <div style="background-color:#f1f2f2;"></div> -->
 			</div>
 		</div>
 
-		<textarea name="chatMsg" rows="5" cols="40"
+		<textarea name="chatMsg" rows="10" cols="40"
 			style="width: 100%; border: 0px; padding: 4px; resize: none;"
 			readonly></textarea>
 		<p>
-		<div class="input-group" style="width: 90%; margin: auto;">
+		<div class="input-group" style="width: 90%; margin: auto; margin-bottom:10px; margin-top:10px;">
 			<span class="input-group-addon input-sm"
 				style="background-color: #d1d2d4;">message</span> 
 				<input type="text" id="msg" name="chatInput" class="form-control input-sm" placeholder="메시지를 입력하세요">
