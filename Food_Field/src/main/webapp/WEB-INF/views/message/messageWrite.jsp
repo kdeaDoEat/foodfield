@@ -45,7 +45,7 @@ $(function(){
 					success:function(result){
 						if(result.ok==true){
 							alert('전송완료!');
-							location.href="http://192.168.8.43:8088/FoodField/message/list?page=1";
+							location.href="/FoodField/message/list?page=1";
 						}else{
 							alert('전송실패');
 						}

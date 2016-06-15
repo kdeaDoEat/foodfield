@@ -11,7 +11,7 @@ public class UserVO {
 	private String gender;
 	private int point = 0;
 	private String authority = "ROLE_USER";	
-		
+	
 	public int getRank() {
 		return rank;
 	}
