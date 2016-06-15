@@ -119,7 +119,14 @@ $(function(){
                                 </div>
                                 <div class="form-group" style="text-align: left;">
                                     <label>받는이</label>
-                                    <input class="form-control" readonly="readonly" id="receiver" name="receiver">
+                                    <c:choose>
+                                    	<c:when test="${receiver eq null}">
+                                    	<input class="form-control" readonly="readonly" id="receiver" name="receiver">
+                                   		</c:when>
+                                   		<c:otherwise>
+                                    		<input class="form-control" readonly="readonly" id="receiver" name="receiver" value="${receiver }">
+                                   		</c:otherwise>
+                                    </c:choose>
                                 </div>
                                 <div class="form-group" style="text-align: left;">
                                     <label>제목</label>
