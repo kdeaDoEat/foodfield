@@ -113,13 +113,12 @@ $(function() {
 					</ul>
 					
 					<ul class="nav navbar-nav navbar-right">
-						<li id="messageIcon"></li>
 						<sec:authorize access="isAnonymous()">
 						<li><a href="#loginModal" data-toggle="modal"><span>login<span class="border"></span></span></a></li>
 						<li><a href="#joinModal" data-toggle="modal"><span>sign up<span class="border"></span></span></a></li>
 						</sec:authorize>
 						<sec:authorize access="isAuthenticated()">
-						<li><a><span>${sessionScope.userInfo.nickname}님 환영합니다 !</span></a></li>
+						<li id="messageIcon"></li>
 						<li><a href="/FoodField/mypage"><span><span class="glyphicon glyphicon-user"></span> MyPage<span class="border"></span></span></a></li>
 						<li><a href="<c:url value='logout'/>"><span>logout<span class="border"></span></span></a></li>
 						</sec:authorize>
