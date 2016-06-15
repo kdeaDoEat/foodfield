@@ -154,8 +154,6 @@ function del() {
     <script src="/FoodField/resources/assets/js/jquery.metisMenu.js"></script>
       <!-- CUSTOM SCRIPTS -->
     <script src="/FoodField/resources/assets/js/custom.js"></script>
-    
-   
 </body>
 </html>
 
