@@ -3,7 +3,8 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
-<script src="/FoodField/resources/bootstrap/js/login.js"></script>
+<!-- <script src="/FoodField/resources/bootstrap/js/login.js"></script> -->
+<script src="/FoodField/resources/bootstrap/js/user.js"></script>
 <script type="text/javascript">
 $(function() {
 	if('${sessionScope.userInfo}' != ''){
@@ -31,7 +32,8 @@ $(function() {
 				<button type="button" id="loginBtn" class="btn btn-primary" style="margin-bottom: 0px"><span class="glyphicon glyphicon-ok"></span> 로그인</button>
 				</div>
 			</div>
-			<div class="modal-footer">
+			<div class="modal-footer" style="text-align: center;">
+			<a href="#">아이디</a><a> / </a><a href="#">비밀번호 찾기</a>
 			</div>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			</form>
@@ -49,23 +51,38 @@ $(function() {
 				</button>
 				<h4 class="modal-title" id="myModalLabel">Sign Up</h4>
 			</div>
-				<form action="join" method="post">
+			<form action="join" method="post" id="joinForm">
 			<div class="modal-body">
-				아이디<input type="text" name="email" class="form-control" style="margin-bottom: 10px" placeholder="example@example.com">
+				아이디 <span id="joinIdMsg" style="padding-left: 50px"></span>
+				<div class="form-group input-group" style="margin-bottom: 0px">
+				<input type="email" id="joinId" name="email" class="form-control" placeholder="example@example.com" style="margin-bottom: 0px" required>
+				<input type="hidden" id="checkEmail" value="false">
+				<span class="input-group-btn">
+				<button class="btn btn-default" type="button" id="emailBtn" style="margin-right: 0px">
+				<i class="glyphicon glyphicon-envelope"></i></button></span>
+				</div>
 				비밀번호 <span id="joinPwdMsg" style="padding-left: 50px"></span>
-				<input type="password" name="pwd" id="pwd" class="form-control pwd" style="margin-bottom: 10px">
+				<input type="password" name="pwd" id="pwd" class="form-control pwd" style="margin-bottom: 10px" required>
+				<input type="hidden" id="checkPwd" value="false">
 				비밀번호 확인<input type="password" name="pwdCheck" id="pwdCheck" class="form-control pwd" style="margin-bottom: 10px">
 				이름<input type="text" name="name" class="form-control" style="margin-bottom: 10px">
-				닉네임<input type="text" name="nickname" class="form-control" style="margin-bottom: 10px">
+				닉네임<!-- <input type="text" name="nickname" class="form-control" style="margin-bottom: 10px"> -->
+				<div class="form-group input-group" style="margin-bottom: 0px">
+				<input type="text" class="form-control" id="nickname" name="nickname" value="${user.nickname }">
+				<input type="hidden" id="checkNick" value="false">
+				<span class="input-group-btn">
+				<button class="btn btn-default" type="button" id="nickBtn" style="margin-right: 0px">
+				<i class="glyphicon glyphicon-search"></i></button></span>
+				</div>
 				전화번호<input type="text" name="phone" class="form-control" style="margin-bottom: 10px">
-				성별  남<input type="radio" name="gender" value="man"> 여<input type="radio" name="gender" value="woman">
+				성별  남<input type="radio" name="gender" value="man" checked> 여<input type="radio" name="gender" value="woman">
 			</div>
 			<div class="modal-footer">
 				<span id="joinErrMsg" style="padding-right: 100px"></span>
-				<button type="submit" class="btn btn-primary" style="margin-bottom: 0px"><span class="glyphicon glyphicon-ok"></span> 회원가입</button>
+				<button type="button" id="joinBtn" class="btn btn-primary" style="margin-bottom: 0px"><span class="glyphicon glyphicon-ok"></span> 회원가입</button>
 			</div>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-				</form>
+			</form>
 		</div>
 	</div>
 </div>
@@ -103,7 +120,7 @@ $(function() {
 						</sec:authorize>
 						<sec:authorize access="isAuthenticated()">
 						<li><a><span>${sessionScope.userInfo.nickname}님 환영합니다 !</span></a></li>
-						<li><a><span><span class="glyphicon glyphicon-user"></span> MyPage<span class="border"></span></span></a></li>
+						<li><a href="/FoodField/mypage"><span><span class="glyphicon glyphicon-user"></span> MyPage<span class="border"></span></span></a></li>
 						<li><a href="<c:url value='logout'/>"><span>logout<span class="border"></span></span></a></li>
 						</sec:authorize>
 						<!-- <li><a href="left-sidebar.html"><span>Left Sidebar <span class="border"></span></span></a></li>

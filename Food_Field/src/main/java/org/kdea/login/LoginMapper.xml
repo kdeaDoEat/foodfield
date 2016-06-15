@@ -6,4 +6,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="login" resultType="org.kdea.vo.UserVO">
     	SELECT * FROM USERS WHERE email = #{email}
     </select>
+    
+    <update id="modifyUserInfo" parameterType="org.kdea.vo.UserVO">
+    	UPDATE USERS SET name = #{name}, nickname = #{nickname}, phone = #{phone} WHERE email = #{email}
+    </update>
+    
+    <select id="checkNick" parameterType="org.kdea.vo.UserVO" resultType="org.kdea.vo.UserVO">
+    	SELECT * FROM USERS WHERE nickname = #{nickname} and email != #{email}
+    </select>
 </mapper>

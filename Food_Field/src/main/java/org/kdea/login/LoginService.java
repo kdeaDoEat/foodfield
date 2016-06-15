@@ -1,17 +1,10 @@
 package org.kdea.login;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.servlet.http.HttpSession;
 
 import org.kdea.vo.UserVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,16 +19,32 @@ public class LoginService {
 	public UserVO login(String email) {
 		LoginDAO dao = sqlSessionTemplate.getMapper(LoginDAO.class);
 		UserVO user = dao.login(email);
-//		boolean result = passwordEncoder.matches(user.getPwd(), userDB.getPwd());
-//		if(result) {
 		return user;
-//		}
-//		return null;
 	}
 	
-	public UserVO getUser(String email) {
+	public UserVO authUser(String email, String pwd) {
 		LoginDAO dao = sqlSessionTemplate.getMapper(LoginDAO.class);
 		UserVO user = dao.login(email);
-		return user;
+		if(passwordEncoder.matches(pwd, user.getPwd()))
+			return user;
+		return null;
+	}
+	
+	public boolean modifyUserInfo(UserVO user, HttpSession session) {
+		LoginDAO dao = sqlSessionTemplate.getMapper(LoginDAO.class);
+		if(dao.modifyUserInfo(user) > 0) {
+			session.setAttribute("userInfo", dao.login(user.getEmail()));
+			return true;
+		}
+		return false;
+//		return dao.modifyUserInfo(user) > 0 ? true : false;
+	}
+	
+	public boolean checkNick(UserVO uservo) {
+		LoginDAO dao = sqlSessionTemplate.getMapper(LoginDAO.class);
+		UserVO user = dao.checkNick(uservo);
+		if(user == null)
+			return false;
+		return true;
 	}
 }
