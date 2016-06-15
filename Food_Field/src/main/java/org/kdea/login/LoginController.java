@@ -1,5 +1,6 @@
 package org.kdea.login;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.kdea.vo.UserVO;
@@ -21,11 +22,13 @@ public class LoginController {
 
 	@RequestMapping(value = "loginSuccess", method = RequestMethod.GET)
 	@ResponseBody
-	public String loginSuccess(Authentication authentication, HttpSession session) {
+	public String loginSuccess(HttpServletRequest request, Authentication authentication, HttpSession session) {
 		User user = (User) authentication.getPrincipal();
 		UserVO uservo = loginService.login(user.getUsername());
 		session.setAttribute("userInfo", uservo);
+		
 		System.out.println(user.getUsername() + "/" + user.getPassword() + "/" + user.getAuthorities());
+		System.out.println(request.getRequestURI());
 		System.out.println("로그인 성공 !");
 		return "true";
 	}
@@ -86,5 +89,10 @@ public class LoginController {
 		if(loginService.login(email) == null)
 			return "true";
 		return "false";
+	}
+	
+	@RequestMapping(value = "reqLogin")
+	public String reqLogin() {
+		return "login/reqLogin";
 	}
 }

@@ -7,7 +7,7 @@ $(function() {
 			data : $('#loginForm').serialize(),
 			success : function(res) {
 				if(res == 'true') {
-					location.href = 'main';
+					location.href = '/FoodField/main';
 				} else {
 					$('#loginMsg').text('아이디 또는 비밀번호가 틀렸습니다.');
 					$('#loginMsg').css('color', 'red');

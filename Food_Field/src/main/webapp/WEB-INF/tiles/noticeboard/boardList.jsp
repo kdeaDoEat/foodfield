@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><%--계산을 쓸려면 fmt!! --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -85,7 +86,9 @@ a {
 	</table>	
 	</div>
 	</div>
+	<sec:authorize access="hasRole('ROLE_ADMIN')">
 	<button type="button" id="writebtn" class="btn btn-warning" style="margin-left:15%;"><span class="glyphicon glyphicon-pencil"></span> 글쓰기</button>
+	</sec:authorize>
 	<div id="belownavi">
 		<ul class="pagination">
 			<fmt:parseNumber var="currdivppp" type="number"
