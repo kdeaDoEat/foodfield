@@ -25,47 +25,47 @@ public class MessageController {
 		return new ModelAndView("message/message","vo",msvc.getMessageList(session,request));
 	}
 	
-	@RequestMapping(value="/mSearch")
+	@RequestMapping(value="/mSearch",method=RequestMethod.POST)
 	public ModelAndView searchMessage(HttpSession session, SearchVO vo){
 		return new ModelAndView("message/message","vo",msvc.getSearchMessageList(session, vo));
 	}
-	@RequestMapping(value="/write")
+	@RequestMapping(value="/write",method=RequestMethod.GET)
 	public ModelAndView write(MessageVO vo){
 		return new ModelAndView("message/messageWrite","receiver",vo.getReceiver());
 	}
-	@RequestMapping(value="/count")
+	@RequestMapping(value="/count",method=RequestMethod.GET)
 	public ModelAndView messageCount(HttpSession session){
 		return new ModelAndView("message/messageIcon","messageCount",msvc.messageCount(session));
 	}
 	
-	@RequestMapping(value="/write/search")
+	@RequestMapping(value="/write/search",method=RequestMethod.GET)
 	public ModelAndView searchModal(UserVO vo){
 		return new ModelAndView("message/searchModal","vo",msvc.searchMember(vo));
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/sendMsg")
+	@RequestMapping(value="/sendMsg",method=RequestMethod.POST)
 	public String sendMsg(MessageVO vo){
 		return msvc.sendMsg(vo);
 	}
 	
-	@RequestMapping(value="/read")
+	@RequestMapping(value="/read",method=RequestMethod.GET)
 	public ModelAndView read(MessageVO vo){
 		return new ModelAndView("message/messageRead","vo",msvc.getMessageContents(vo));
 	}
 	
-	@RequestMapping(value="/sendBox")
+	@RequestMapping(value="/sendBox",method=RequestMethod.GET)
 	public ModelAndView sendBox(HttpSession session, HttpServletRequest request){
 		return new ModelAndView("message/sendBox","vo",msvc.getsendList(session,request));
 	}
 	
-	@RequestMapping(value="/sendSearch")
+	@RequestMapping(value="/sendSearch",method=RequestMethod.GET)
 	public ModelAndView sendSearch(HttpSession session, SearchVO vo){
 		return new ModelAndView("message/sendBox","vo",msvc.getsendSearchList(session, vo));
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/del")
+	@RequestMapping(value="/del",method=RequestMethod.POST)
 	public String del(MessageVO vo){
 		return msvc.deleteMessage(vo);
 	}

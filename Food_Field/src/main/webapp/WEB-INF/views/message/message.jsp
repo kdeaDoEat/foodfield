@@ -96,6 +96,8 @@ function search() {
 	                                    <tbody>
 	                                    	<c:forEach var="l" items="${vo.list }">
 	                                    		<c:choose>
+
+
 	                                    			<c:when test="${l.enabled == '1'}">
 		                                    			<tr>
 				                                            <td onclick="msgRead('${l.num}')" style="cursor: pointer;">
