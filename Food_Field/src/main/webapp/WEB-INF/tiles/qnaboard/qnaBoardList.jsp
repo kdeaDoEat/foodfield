@@ -46,20 +46,20 @@
 	<!-- table -->
 
 	<div style="margin:auto;" id="qnatable" class="col-md-11 center-block table-responsive">
-		<table id="tb" class="table table-striped table-hover">
+		<table id="tb" class="table table-hover" style="text-align:center;">
 			<thead>
 				<tr>
-					<th style="width:20%;">글 번호</th>
-					<th style="width:40%;">글 제목</th>
-					<th style="width:20%;">글쓴이</th>
-					<th class="w_date" style="width:20%;">글쓴 날짜</th>
+					<th style="width:20%; text-align:center;">글 번호</th>
+					<th style="width:40%; text-align:center;">글 제목</th>
+					<th style="width:20%; text-align:center;">글쓴이</th>
+					<th class="w_date" style="width:20%; text-align:center;">글쓴 날짜</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="board" items="${boardlist}" varStatus="status">
 					<tr>
 						<td>${board.num}</td>
-						<td><a href="qnaview?num=${board.num}">${board.title}</a></td>
+						<td style="text-align:left;"><a href="qnaview?num=${board.num}">${board.title}</a></td>
 						<td>${board.nickname}</td>
 						<td class="w_date">${board.w_date}</td>
 					</tr>
