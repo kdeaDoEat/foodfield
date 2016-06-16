@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=1024">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
 <!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 <!-- <link rel="stylesheet" type="text/css" media="screen"
 	href="//d85wutc1n854v.cloudfront.net/live/css/screen_preview.css"> -->
@@ -107,7 +107,7 @@
 
 	}
 
-	function recommendAjax() {
+/* 	function recommendAjax() {
         if(confirm("정말로 이 글을 추천하시겠습니까?")){
 		$.ajax({
 
@@ -131,7 +131,7 @@
 		})
         }
 
-	}
+	} */
 
 	function delAjax() {
 
@@ -283,7 +283,6 @@ th {
 			<p class="post-figure">
 			<div style="padding-bottom:20px;">
 			<span class="glyphicon glyphicon-eye-open" style="width:30px;"></span><span id="hit">${board.hit}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		    <span class="glyphicon glyphicon-thumbs-up" style="width:30px;"></span><span id="recommend">${board.recommend}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<span class="glyphicon glyphicon-comment" style="width:30px;"></span><span id="commentscnt"></span>
 			</div>
 			<hr>
@@ -295,7 +294,6 @@ th {
                         </p>  -->		
         <br>
         <br>
-        <div style="text-align:center;"><button onclick="recommendAjax()" class="btn btn-warning" style="margin-left:auto; margin-right:auto;"><span class="glyphicon glyphicon-thumbs-up"></span> 추천</button></div>
 		<br>
 		<br>
 		<br>

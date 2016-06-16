@@ -40,7 +40,6 @@
 	<!-- title -->
 	<div class="col-md-11 center-block" style="text-align:center;">
 		<h2>Q&A BOARD</h2>
-		<hr>	
 	</div>
 	
 	<!-- table -->
@@ -49,10 +48,10 @@
 		<table id="tb" class="table table-hover" style="text-align:center;">
 			<thead>
 				<tr>
-					<th style="width:20%; text-align:center;">글 번호</th>
-					<th style="width:40%; text-align:center;">글 제목</th>
-					<th style="width:20%; text-align:center;">글쓴이</th>
-					<th class="w_date" style="width:20%; text-align:center;">글쓴 날짜</th>
+					<th style="width:20%; text-align:center;">번호</th>
+					<th style="width:40%; text-align:center;">제목</th>
+					<th style="width:20%; text-align:center;">작성자</th>
+					<th class="w_date" style="width:20%; text-align:center;">작성일</th>
 				</tr>
 			</thead>
 			<tbody>

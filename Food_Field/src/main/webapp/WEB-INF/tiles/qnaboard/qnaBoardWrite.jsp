@@ -22,7 +22,7 @@
 		</tr>
 		<tr>
 			<th style="text-align:center;">내용</th>
-			<td><textarea name="contents" id="contents" class="ckeditor" rows="10" style="width:100%;">All of the free templates and themes on Start Bootstrap are now licensed under the MIT license instead of Apache 2.0. The MIT license is simple, and it allows you to do just about anything you want with the templates. In a nutshell, with the MIT license you can use any of the templates or themes on Start Bootstrap for commercial or private use, and you can distribute and/or modify the templates as you wish. Every template on Start Bootstrap has a custom CSS file, and some have a custom JS file, which has a comment in the first few lines of code. For example, if you open the custom CSS for the Agency theme youÃÂ¢ÃÂÃÂll find this in the first few lines: /*! * Agency v1.0.7 (http://startbootstrap.com/template-overviews/agency) * Copyright 2013-2016 Start Bootstrap * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE) */ In order to safely use the MIT license, just keep that little snippet in the CSS and JS and youÃÂ¢ÃÂÃÂre good to go! The whole point of Start Bootstrap is to remain open source, and to keep the templates and themes useable and extendable to a broad range of users. Switching to the MIT license is simply another step in this direction.</textarea></td>
+			<td><textarea name="contents" id="contents" class="ckeditor" rows="10" style="width:100%;"></textarea></td>
 		</tr>
 		<tr>
 			<td colspan="2" style="text-align:center;">
