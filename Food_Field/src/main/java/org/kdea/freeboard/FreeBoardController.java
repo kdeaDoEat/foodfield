@@ -293,7 +293,7 @@ public class FreeBoardController {
             String callback = request.getParameter("CKEditorFuncNum");
  
             printWriter = response.getWriter();
-            String fileUrl = "http://localhost:8088/img/" + fileName;//url경로
+            String fileUrl = "http://192.168.8.28:8088/img/" + fileName;//url경로
  
             printWriter.println("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction("
                     + callback
