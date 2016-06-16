@@ -60,7 +60,7 @@ a {
 </style>
 </head>
 <body>
-    <div id="noticeList" style="margin-top:120px;">
+    <div id="noticeList" class="container" style="margin-top:120px;">
     <div id="noticeTitle" style="margin-left:auto; margin-right:auto; width:80%; text-align:center;">
     <h1>공지게시판</h1>
     <hr>
