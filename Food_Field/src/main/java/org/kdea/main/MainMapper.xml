@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="org.kdea.main.MainDAO"> <!--이 sql 문장과 매핑될 인터페이스의 완전한 경로-->
 	<select id="getHighCommend" resultType="org.kdea.vo.BoardVO">
 		<![CDATA[
-		select title,contents,num from reviewboard where rownum <= 4 ORDER by recommend desc
+		select t1.* from (select title,contents,num from reviewboard ORDER by recommend desc) t1 where rownum <= 4
 		]]>
 	</select>
     
