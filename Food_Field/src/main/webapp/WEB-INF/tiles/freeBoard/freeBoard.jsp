@@ -56,20 +56,20 @@
 </script>
 <div class="container">
 	<div class="row">
-		<h1 style="margin-left: 100px; padding-bottom: 20px">자유게시판</h1>
+		<h1 class="text-center" style="margin-left: 100px; padding-bottom: 20px">자유게시판</h1>
 
 		<div class="col-lg-12">
 			<div class="table-responsive">
 				<table class="table">
 					<thead>
 						<tr>
-							<td style="text-align: center;">글번호</td>
-							<td style="text-align: center;">제목</td>
-							<td style="text-align: center;">날짜</td>
-							<td style="text-align: center;">작성자</td>
-							<td style="text-align: center;">조회수</td>
-							<td style="text-align: center;">
-							<a id="recommendfree" href="recommendfree?page=1">추천수</a></td>
+							<th style="text-align: center;">번호</th>
+							<th style="text-align: center;">제목</th>
+							<th style="text-align: center;">작성자</th>
+							<th style="text-align: center;">작성일</th>
+							<th style="text-align: center;">조회수</th>
+							<th style="text-align: center;">
+							<a id="recommendfree" href="recommendfree?page=1">추천수</a></th>
 						</tr>
 					</thead>
 					<tbody style="text-align: center;">
@@ -80,8 +80,8 @@
 									onmouseover="this.style.color='gray'" style="cursor: pointer"
 									onmouseout="this.style.color='black'"><a
 									href="detail?num=${list.num}">${list.title}</a></td>
-								<td class="date" style="width: 10%">${list.w_date}</td>
 								<td class="author" style="width: 15%">${list.nickname}</td>
+								<td class="date" style="width: 10%">${list.w_date}</td>
 								<td class="views" style="width: 10%">${list.views}</td>
 								<td class="views" style="width: 10%">${list.recommend}</td>
 							</tr>
