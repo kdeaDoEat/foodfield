@@ -43,8 +43,8 @@ function recommend() {
 						<tr>
 							<th style="text-align: center;">번호</th>
 							<th style="text-align: center;">제목</th>
-							<th style="text-align: center;">닉네임</th>
-							<th style="text-align: center;">올린날짜</th>
+							<th style="text-align: center;">작성자</th>
+							<th style="text-align: center;">작성일</th>
 							<th style="text-align: center;">조회수</th>
 							<th style="text-align: center; cursor: pointer;" onclick="recommend()">추천수</th>
 						</tr>
@@ -59,7 +59,7 @@ function recommend() {
 								</td>
 								<td class="author" style="width: 15%">${l.nickname }</td>
 								<td class="date" style="width: 10%"><fmt:formatDate value="${l.w_date }"
-										pattern="MM-dd" /></td>
+										pattern="yyyy-MM-dd" /></td>
 								<td class="hit" style="width: 10%">${l.hit }</td>
 								<td class="recommend" style="width: 10%">${l.recommend }</td>
 							</tr>
