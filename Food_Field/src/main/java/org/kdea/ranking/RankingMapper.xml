@@ -7,22 +7,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from (select rownum "rowno", dense_rank() over ( order
 		by to_number(point)
 		desc ) rank, t2.* from ( select * from users
-		<where>
+		order by point desc)t2 ) where "rowno" between (#{rpp}*#{page}-(#{rpp}-1)) and
+		#{rpp}*#{page}
+		
 			<if test="true">
 
 			</if>
 			<if test="option == '이메일'">
-				email like #{search}
+				and email like #{search}
 			</if>
 			<if test="option == '닉네임'">
-				nickname like #{search}
+				and nickname like #{search}
 			</if>
 			<if test="option == '이름'">
-				name like #{search}
+				and name like #{search}
 			</if>
-		</where>
-		order by point desc)t2 ) where "rowno" between (#{rpp}*#{page}-(#{rpp}-1)) and
-		#{rpp}*#{page}
+	
 	</select>
 
 	<select id="getAllCount" resultType="int">
