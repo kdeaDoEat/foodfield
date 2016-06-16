@@ -129,6 +129,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="updateUserRecommend" parameterType="org.kdea.vo.BoardVO">
         insert into reviewRecommend values ( #{num}, #{nickname} )
     </insert>
+    <select id="getRecommendList" resultType="org.kdea.vo.BoardVO">
+    	select t3.num,t3.title,t3.nickname,t3.w_date,t3.hit,t3.recommend from(
+						select trunc((rn-1)/10+1) as page,t2.* from(
+							select rownum rn,t1.* from(
+					  			 select num,title,nickname,w_date,hit,recommend from reviewBoard order by recommend desc
+					  		) t1
+						 )t2
+					)t3 where page=#{page}
+    </select>
     
     <!-- <select id="list" resultType="org.kdea.mybatis.EmpVO">
         select * from emp2

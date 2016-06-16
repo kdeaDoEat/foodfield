@@ -36,7 +36,11 @@ public class ReviewController {
 		if(page<=1) page=1;
 		
 		ListVO vo = new ListVO();
-		vo.setList(rsvc.getList(page));
+		if(request.getParameter("recommend")==null){
+			vo.setList(rsvc.getList(page));
+		}else if(request.getParameter("recommend").equals("high")){
+			vo.setList(rsvc.getRecommendList(page));
+		}
 		vo.setPage(rsvc.boardPage(page));
 		vo.setAllpage(rsvc.pagecount());
 		vo.setNowpage(page);

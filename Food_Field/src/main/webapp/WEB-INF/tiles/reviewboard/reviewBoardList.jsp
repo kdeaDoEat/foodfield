@@ -24,6 +24,14 @@ function search() {
 		location.href="review/search?type="+text+"&word="+$('#searchContent').val()+"&page=1";
 	}
 }
+function recommend() {
+	var url=location.href;
+	if(url == 'http://192.168.8.43:8088/FoodField/review'){
+		location.href='http://192.168.8.43:8088/FoodField/review?recommend=high';
+	}else{
+		location.href='http://192.168.8.43:8088/FoodField/review';
+	}
+}
 </script>
 <div class="container">
 	<div class="row">
@@ -38,7 +46,7 @@ function search() {
 							<th style="text-align: center;">닉네임</th>
 							<th style="text-align: center;">올린날짜</th>
 							<th style="text-align: center;">조회수</th>
-							<th style="text-align: center;">추천수</th>
+							<th style="text-align: center; cursor: pointer;" onclick="recommend()">추천수</th>
 						</tr>
 					</thead>
 					<tbody style="text-align: center;">
@@ -47,7 +55,8 @@ function search() {
 								<td class="num" style="width: 10%">${l.num }</td>
 								<td class="title" style="width: 45%; text-align: left; cursor: pointer;" onclick="view(${l.num})"
 									onmouseout="this.style.color='gray'" onmouseover="this.style.color='black'">
-									${l.title}</td>
+									${l.title}
+									</td>
 								<td class="author" style="width: 15%">${l.nickname }</td>
 								<td class="date" style="width: 10%"><fmt:formatDate value="${l.w_date }"
 										pattern="MM-dd" /></td>

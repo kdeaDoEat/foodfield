@@ -65,6 +65,7 @@ public class ReviewService {
 		int page = vo.getNum();
 		BoardVO bvo = dao.read(page);
 		bvo.setCmtnum(dao.getCommentCount(page));
+		System.out.println(bvo.getContents());
 		return bvo;
 	}
 
@@ -256,6 +257,10 @@ public class ReviewService {
 			jobj.put("ok", true);
 		}
 		return jobj.toJSONString();
+	}
+	public List<BoardVO> getRecommendList(int page) {
+		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
+		return dao.getRecommendList(page);
 	}
 	
 }
