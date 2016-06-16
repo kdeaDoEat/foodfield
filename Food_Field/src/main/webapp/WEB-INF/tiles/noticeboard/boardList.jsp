@@ -78,7 +78,7 @@ a {
 		<c:forEach var="board" items="${boardlist}" varStatus="status">
 			<tr>
 				<td style="text-align: center;">${board.num}</td>
-				<td style="text-align: center;"><a href="view?num=${board.num}" style="text-decoration:none;">${board.title}</a></td>
+				<td><a href="view?num=${board.num}" style="text-decoration:none;">${board.title}</a></td>
 				<td style="text-align: center;">${board.nickname}</td>
 				<td style="text-align: center;">${board.w_date}</td>
 			</tr>
