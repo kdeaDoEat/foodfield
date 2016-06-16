@@ -40,7 +40,6 @@
 	<!-- title -->
 	<div class="col-md-11 center-block" style="text-align:center;">
 		<h2>Q&A BOARD</h2>
-		<hr>	
 	</div>
 	
 	<!-- table -->
