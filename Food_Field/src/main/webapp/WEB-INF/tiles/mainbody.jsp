@@ -1,54 +1,49 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+	$(".mainImg").children().css("width","100%").css("height","100%").attr('class','img-responsive img-rounded to-animate').css("height","220px");
+})
+</script>
 <div id="fh5co-main">
 		<!-- Features -->
-
-
 		<div class="fh5co-spacer fh5co-spacer-lg"></div>		
 		<!-- Products -->
 		<div class="container" id="fh5co-products">
 			<div class="row text-left">
 				<div class="col-md-8">
 					<h2 class="fh5co-section-lead">최고 평가</h2>
-					<h3 class="fh5co-section-sub-lead">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</h3>
+					<h3 class="fh5co-section-sub-lead"></h3>
 				</div>
 				<div class="fh5co-spacer fh5co-spacer-md"></div>
 			</div>
 			<div class="row">
-				<div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-mb30">
-					<div class="fh5co-product">
-						<img src="/FoodField/resources/bootstrap/images/slide_1.jpg" alt="FREEHTML5.co Free HTML5 Template Bootstrap" class="img-responsive img-rounded to-animate">
-						<h4>Lorem ipsum</h4>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-						<p><a href="#">Read more</a></p>
-					</div>
-				</div>
-				<div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-mb30">
-					<div class="fh5co-product">
-						<img src="/FoodField/resources/bootstrap/images/slide_2.jpg" alt="FREEHTML5.co Free HTML5 Template Bootstrap" class="img-responsive img-rounded to-animate">
-						<h4>Architecto nihil</h4>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-						<p><a href="#">Read more</a></p>
-					</div>
-				</div>
-				<div class="visible-sm-block visible-xs-block clearfix"></div>
-				<div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-mb30">
-					<div class="fh5co-product">
-						<img src="/FoodField/resources/bootstrap/images/slide_3.jpg" alt="FREEHTML5.co Free HTML5 Template Bootstrap" class="img-responsive img-rounded to-animate">
-						<h4>Animi earum</h4>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-						<p><a href="#">Read more</a></p>
-					</div>
-				</div>
-				<div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-mb30">
-					<div class="fh5co-product">
-						<img src="/FoodField/resources/bootstrap/images/slide_4.jpg" alt="FREEHTML5.co Free HTML5 Template Bootstrap" class="img-responsive img-rounded to-animate">
-						<h4>Recusandae iste</h4>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-						<p><a href="#">Read more</a></p>
-					</div>
-				</div>
-				
+					<c:forEach var="list" items="${highCommend}">
+						<c:choose>
+							<c:when test="${list.photo eq null }">
+							<div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-mb30">
+								<div class="fh5co-product">
+									<div style="margin: 10px;"><img src="/FoodField/resources/bootstrap/images/no_img.gif" alt="FREEHTML5.co Free HTML5 Template Bootstrap" class="img-responsive img-rounded to-animate" style="width: 100%;height: 100%">
+									</div><h4>${list.title }</h4>
+									<p>${list.contents }</p>
+									<p><a href="/FoodField/review/read?num=${list.num }">Read more</a></p>
+								</div>
+							</div>
+							</c:when>
+							<c:otherwise>
+							<div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-mb30">
+								<div class="fh5co-product">
+									<div style="margin: 10px;" class="mainImg">${list.photo }
+									</div><h4>${list.title }</h4>
+									<p>${list.contents }</p>
+									<p><a href="/FoodField/review/read?num=${list.num }">Read more</a></p>
+								</div>
+							</div>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
 			</div>
 		</div>
 
@@ -60,8 +55,8 @@
 			<div class="container">
 				<div class="row text-center">
 					<div class="col-md-8 col-md-offset-2">
-						<h2 class="fh5co-section-lead">Key Features</h2>
-						<h3 class="fh5co-section-sub-lead">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</h3>
+						<h2 class="fh5co-section-lead">Point!</h2>
+						<h3 class="fh5co-section-sub-lead"></h3>
 					</div>
 					<div class="fh5co-spacer fh5co-spacer-md"></div>
 				</div>

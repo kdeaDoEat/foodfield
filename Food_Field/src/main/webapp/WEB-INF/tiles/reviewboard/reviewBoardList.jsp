@@ -54,9 +54,9 @@ function recommend() {
 							<tr>
 								<td class="num" style="width: 10%">${l.num }</td>
 								<td class="title" style="width: 45%; text-align: left; cursor: pointer;" onclick="view(${l.num})"
-									onmouseout="this.style.color='gray'" onmouseover="this.style.color='black'">
-									${l.title}
-									</td>
+								onmouseout="this.style.color='gray'" onmouseover="this.style.color='black'">
+								${l.title}
+								</td>
 								<td class="author" style="width: 15%">${l.nickname }</td>
 								<td class="date" style="width: 10%"><fmt:formatDate value="${l.w_date }"
 										pattern="MM-dd" /></td>

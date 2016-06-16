@@ -37,7 +37,17 @@ public class ReviewService {
 	
 	public List<BoardVO> getList(int page){
 		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
-		return dao.getList(page);
+		List<BoardVO> vo = dao.getList(page);
+		for(int i=0;i<vo.size();i++){
+			int first = vo.get(i).getContents().indexOf("<img");
+			int end = vo.get(i).getContents().indexOf("\" />");
+			if(first == -1){
+				vo.get(i).setPhoto(null);
+			}else{
+				vo.get(i).setPhoto(vo.get(i).getContents().substring(first,end+4));
+			}
+		}
+		return vo;
 	}
 	public List<BoardVO> getList(){
 		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
@@ -65,7 +75,9 @@ public class ReviewService {
 		int page = vo.getNum();
 		BoardVO bvo = dao.read(page);
 		bvo.setCmtnum(dao.getCommentCount(page));
-		System.out.println(bvo.getContents());
+		int first = bvo.getContents().indexOf("<img");
+		int end = bvo.getContents().indexOf("\" />");
+		String d = bvo.getContents().substring(first,end+4);
 		return bvo;
 	}
 
