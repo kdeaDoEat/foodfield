@@ -60,10 +60,10 @@
 			<c:forEach var="user" items="${userlist}" varStatus="status">
 				<tr>
 					<td style="text-align: center;">${user.rank}</td>
-					<td>${user.email}</td>
-					<td>${user.nickname}</td>
-					<td>${user.name}</td>
-					<td>${user.point}</td>
+					<td style="text-align: center;">${user.email}</td>
+					<td style="text-align: center;">${user.nickname}</td>
+					<td style="text-align: center;">${user.name}</td>
+					<td style="text-align: center;">${user.point}</td>
 				</tr>
 			</c:forEach>
 		</table>

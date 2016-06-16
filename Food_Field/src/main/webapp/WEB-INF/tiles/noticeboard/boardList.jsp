@@ -70,17 +70,17 @@ a {
 	<table class="table table-hover">
 		<output id="pageoutput" style="float:right; margin-right:5%; margin-bottom:10px;"><c:if test="${page.totalpage eq 0}">0</c:if><c:if test="${page.totalpage != 0}">${page.currpage}</c:if>/${page.totalpage}</output>
 		<tr>
-			<th>글 번호</th>
-			<th>글 제목</th>
-			<th>글쓴이</th>
-			<th>글쓴 날짜</th>
+			<th style="text-align: center;">글 번호</th>
+			<th style="text-align: center;">글 제목</th>
+			<th style="text-align: center;">글쓴이</th>
+			<th style="text-align: center;">글쓴 날짜</th>
 		</tr>
 		<c:forEach var="board" items="${boardlist}" varStatus="status">
 			<tr>
-				<td>${board.num}</td>
-				<td><a href="view?num=${board.num}" style="text-decoration:none;">${board.title}</a></td>
-				<td>${board.nickname}</td>
-				<td>${board.w_date}</td>
+				<td style="text-align: center;">${board.num}</td>
+				<td style="text-align: center;"><a href="view?num=${board.num}" style="text-decoration:none;">${board.title}</a></td>
+				<td style="text-align: center;">${board.nickname}</td>
+				<td style="text-align: center;">${board.w_date}</td>
 			</tr>
 		</c:forEach>
 	</table>	
