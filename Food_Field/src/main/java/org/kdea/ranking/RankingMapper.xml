@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getList" resultType="org.kdea.vo.UserVO">
 		select * from (select rownum "rowno", dense_rank() over ( order
 		by to_number(point)
-		desc ) rank, t2.* from ( select * from users
+		desc ) rank, t2.* from ( select * from users where authority = 'ROLE_USER'
 		order by point desc)t2 ) where "rowno" between (#{rpp}*#{page}-(#{rpp}-1)) and
 		#{rpp}*#{page}
 		
