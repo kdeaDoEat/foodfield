@@ -36,10 +36,12 @@ public class ReviewController {
 		if(page<=1) page=1;
 		
 		ListVO vo = new ListVO();
-		if(request.getParameter("recommend")==null){
+		if(request.getParameter("range")==null){
 			vo.setList(rsvc.getList(page));
-		}else if(request.getParameter("recommend").equals("high")){
+		}else if(request.getParameter("range").equals("recommend")){
 			vo.setList(rsvc.getRecommendList(page));
+		}else if(request.getParameter("range").equals("hit")){
+			vo.setList(rsvc.getHitList(page));
 		}
 		vo.setPage(rsvc.boardPage(page));
 		vo.setAllpage(rsvc.pagecount());
@@ -130,8 +132,6 @@ public class ReviewController {
 	/*글 검색*/
 	@RequestMapping(value="review/search")
 	public ModelAndView search(SearchVO vo){
-		System.out.println("타입 : "+vo.getType());
-		System.out.println("옵션 : "+vo.getWord());
 		return new ModelAndView("review/reviewboard","vo",rsvc.getSearchList(vo));
 	}
 	/*추천하기*/

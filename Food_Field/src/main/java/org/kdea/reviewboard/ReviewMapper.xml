@@ -5,17 +5,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="org.kdea.reviewboard.ReviewDAO"> <!--이 sql 문장과 매핑될 인터페이스의 완전한 경로-->
 	<select id="getList" resultType="org.kdea.vo.BoardVO">
 			select t3.num,t3.title,t3.nickname,t3.w_date,t3.hit,t3.recommend,t3.contents from(
-						select trunc((rn-1)/10+1) as page,t2.* from(
+						select trunc((rn-1)/9+1) as page,t2.* from(
 							select rownum rn,t1.* from(
 					  			 select num,LPAD('└',(LEVEL-1)*2,'　')||title as title,nickname,w_date,hit,recommend,contents from reviewBoard start with ref=0 connect by prior num=ref order siblings by num desc
 					  		) t1
 						 )t2
 					)t3 where page=#{page}
     </select>
-      <select id="list" resultType="org.kdea.vo.BoardVO">
-			select num, title,nickname,w_date,hit,recommend from reviewBoard 
-					
-    </select>
+  
 	<insert id="write" parameterType="org.kdea.vo.BoardVO">
         insert into reviewBoard (num, w_date, title, nickname, contents, shop_name, shop_add, hit, ref, recommend) 
         	values ( reviewBoard_num.NEXTVAL, sysdate, #{title}, #{nickname}, #{contents}, #{shop_name}, #{shop_add}, 0, 0, 0 )
@@ -33,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
 	<select id="page" resultType="java.lang.Integer" >
-        select ceil(COUNT(num)/10) as page from reviewBoard
+        select ceil(COUNT(num)/9) as page from reviewBoard
     </select>
     
     <update id="updateHit">
@@ -77,7 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
     
     <select id="spage" resultType="java.lang.Integer" parameterType="org.kdea.vo.SearchVO" >
-    	select ceil(count(rownum)/10) as page from
+    	select ceil(count(rownum)/9) as page from
 					(
 					select num,LPAD('└',(LEVEL-1)*2,'　')||title as title,contents,nickname,w_date from reviewBoard start with ref=0 connect by prior num=ref order siblings by num desc
 					) t1 
@@ -95,9 +92,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="search" resultType="org.kdea.vo.BoardVO" parameterType="org.kdea.vo.SearchVO">
-		select t3.num,t3.title,t3.nickname,t3.w_date from
+		select t3.num,t3.title,t3.nickname,t3.w_date,t3.contents from
 			(
-			select trunc((rn-1)/10+1) as page,t2.* from
+			select trunc((rn-1)/9+1) as page,t2.* from
 				(
 				select rownum rn,t1.* from
 					(
@@ -130,10 +127,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into reviewRecommend values ( #{num}, #{nickname} )
     </insert>
     <select id="getRecommendList" resultType="org.kdea.vo.BoardVO">
-    	select t3.num,t3.title,t3.nickname,t3.w_date,t3.hit,t3.recommend from(
-						select trunc((rn-1)/10+1) as page,t2.* from(
+    	select t3.num,t3.title,t3.nickname,t3.w_date,t3.hit,t3.recommend,t3.contents from(
+						select trunc((rn-1)/9+1) as page,t2.* from(
 							select rownum rn,t1.* from(
-					  			 select num,title,nickname,w_date,hit,recommend from reviewBoard order by recommend desc
+					  			 select num,title,nickname,w_date,hit,recommend,contents from reviewBoard order by recommend desc
+					  		) t1
+						 )t2
+					)t3 where page=#{page}
+    </select>
+    
+    <select id="getHitList" resultType="org.kdea.vo.BoardVO">
+    	select t3.num,t3.title,t3.nickname,t3.w_date,t3.hit,t3.recommend,t3.contents from(
+						select trunc((rn-1)/9+1) as page,t2.* from(
+							select rownum rn,t1.* from(
+					  			 select num,title,nickname,w_date,hit,recommend,contents from reviewBoard order by hit desc
 					  		) t1
 						 )t2
 					)t3 where page=#{page}

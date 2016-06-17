@@ -2,8 +2,13 @@
     pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+    <link href="/FoodField/resources/assets/css/hover_pack.css" rel="stylesheet">
+    <link href="/FoodField/resources/assets/css/animations.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script type="text/javascript">
+$(function() {
+	$(".mainImg").children().css("width","100%").css("height","200px");
+})
 function view(num) {
 	location.href="review/read?num="+num;
 }
@@ -26,48 +31,54 @@ function search() {
 }
 function recommend() {
 	var url=location.href;
-	if(url == 'http://192.168.8.43:8088/FoodField/review'){
-		location.href='http://192.168.8.43:8088/FoodField/review?recommend=high';
-	}else{
-		location.href='http://192.168.8.43:8088/FoodField/review';
-	}
+	location.href='http://192.168.8.43:8088/FoodField/review?range=recommend';
+}
+function numm() {
+	var url=location.href;
+	location.href='http://192.168.8.43:8088/FoodField/review';
+}
+function hitt() {
+	var url=location.href;
+	location.href='http://192.168.8.43:8088/FoodField/review?range=hit';
 }
 </script>
 <div class="container">
-	<div class="row">
-        <h1 class="text-center" style="margin-bottom: 5%">맛집을 찾자</h1>
-        <div class="col-xs-12">
-        	<div class="table-responsive">
-				<table class="table" >
-					<thead>
-						<tr>
-							<th style="text-align: center;">번호</th>
-							<th style="text-align: center;">제목</th>
-							<th style="text-align: center;">작성자</th>
-							<th style="text-align: center;">작성일</th>
-							<th style="text-align: center;">조회수</th>
-							<th style="text-align: center; cursor: pointer;" onclick="recommend()">추천수</th>
-						</tr>
-					</thead>
-					<tbody style="text-align: center;">
-						<c:forEach var="l" items="${vo.list}">
-							<tr>
-								<td class="num" style="width: 10%">${l.num }</td>
-								<td class="title" style="width: 45%; text-align: left; cursor: pointer;" onclick="view(${l.num})"
-								onmouseout="this.style.color='gray'" onmouseover="this.style.color='black'">
-								${l.title}
-								</td>
-								<td class="author" style="width: 15%">${l.nickname }</td>
-								<td class="date" style="width: 10%"><fmt:formatDate value="${l.w_date }"
-										pattern="yyyy-MM-dd" /></td>
-								<td class="hit" style="width: 10%">${l.hit }</td>
-								<td class="recommend" style="width: 10%">${l.recommend }</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
+	<div class="row mt centered ">
+		<div class="col-lg-4 col-lg-offset-4">
+      			<h1 class="text-center" style="margin-bottom: 5%">맛집을 찾자</h1>
 		</div>
+	</div><!-- /row -->
+	<div class="row mt centered ">
+		<div class="col-lg-4 col-lg-offset-11">
+			<div class="input-group-btn search-panel">
+	                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+	                    	<span id="search_concept">Option</span> <span class="caret"></span>
+	                    </button>
+	                    <ul class="dropdown-menu" role="menu">
+	                      <li><span style="cursor: pointer;" onclick="numm()">최신글 순</span></li>
+	                      <li><span style="cursor: pointer;" onclick="recommend()">추천수 순</span></li>
+	                      <li><span style="cursor: pointer;" onclick="hitt()">조회수 순</span></li>
+	                    </ul>
+	                </div>
+		</div>
+	</div><!-- /row -->
+	<div class="row mt centered">
+		<c:forEach var="l" items="${vo.list}">
+			<div class="col-lg-4 desc">
+				<a class="b-link-fade b-animate-go" onclick="view(${l.num})">
+				<div style="margin: 10px;" class="mainImg">${l.photo }</div>
+					<div class="b-wrapper">
+						<br><br><br>
+					  	<h4 class="b-from-left b-animate b-delay03">${l.title}</h4>
+					  	<p class="b-from-right b-animate b-delay03">View Details</p>
+					</div>
+				</a>
+				<p style="text-align: center;">${l.nickname }<i class="fa fa-heart-o"></i>
+				<span>　　　</span>
+				<span class="glyphicon glyphicon-eye-open">　${l.hit }　</span>
+				<span class="glyphicon glyphicon-thumbs-up">　${l.recommend}　</span></p>
+			</div>
+		</c:forEach>
 	</div>
 	<div class="row">
 		<div class="col-xs-4"></div>

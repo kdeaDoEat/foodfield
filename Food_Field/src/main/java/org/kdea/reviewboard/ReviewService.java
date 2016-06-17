@@ -49,11 +49,6 @@ public class ReviewService {
 		}
 		return vo;
 	}
-	public List<BoardVO> getList(){
-		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
-		return dao.list();
-	}
-
 
 	public String write(BoardVO vo) {
 		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
@@ -254,10 +249,20 @@ public class ReviewService {
 		return pageList;
 	}
 
-	private List<BoardVO> boardsearch(SearchVO vo) {
+	private List<BoardVO> boardsearch(SearchVO svo) {
 		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
-		List<BoardVO> list = dao.search(vo);
-		return list;
+		List<BoardVO> vo = dao.search(svo);
+		
+		for(int i=0;i<vo.size();i++){
+			int first = vo.get(i).getContents().indexOf("<img");
+			int end = vo.get(i).getContents().indexOf("\" />");
+			if(first == -1){
+				vo.get(i).setPhoto(null);
+			}else{
+				vo.get(i).setPhoto(vo.get(i).getContents().substring(first,end+4));
+			}
+		}
+		return vo;
 	}
 
 	public String recommend(BoardVO vo) {
@@ -272,7 +277,31 @@ public class ReviewService {
 	}
 	public List<BoardVO> getRecommendList(int page) {
 		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
-		return dao.getRecommendList(page);
+		List<BoardVO> vo = dao.getRecommendList(page);
+		for(int i=0;i<vo.size();i++){
+			int first = vo.get(i).getContents().indexOf("<img");
+			int end = vo.get(i).getContents().indexOf("\" />");
+			if(first == -1){
+				vo.get(i).setPhoto(null);
+			}else{
+				vo.get(i).setPhoto(vo.get(i).getContents().substring(first,end+4));
+			}
+		}
+		return vo;
+	}
+	public List<BoardVO> getHitList(int page){
+		ReviewDAO dao = sqlSessionTemplate.getMapper(ReviewDAO.class);
+		List<BoardVO> vo = dao.getHitList(page);
+		for(int i=0;i<vo.size();i++){
+			int first = vo.get(i).getContents().indexOf("<img");
+			int end = vo.get(i).getContents().indexOf("\" />");
+			if(first == -1){
+				vo.get(i).setPhoto(null);
+			}else{
+				vo.get(i).setPhoto(vo.get(i).getContents().substring(first,end+4));
+			}
+		}
+		return vo;
 	}
 	
 }
