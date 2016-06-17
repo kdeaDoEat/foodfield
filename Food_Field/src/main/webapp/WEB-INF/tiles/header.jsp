@@ -33,7 +33,7 @@ $(function() {
 				</div>
 			</div>
 			<div class="modal-footer" style="text-align: center;">
-			<a href="#">아이디</a><a> / </a><a href="#">비밀번호 찾기</a>
+			<a href="searchIdForm">아이디</a><a> / </a><a href="searchPwdForm">비밀번호 찾기</a>
 			</div>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			</form>

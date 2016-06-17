@@ -15,6 +15,7 @@ public class HomeController {
 	
 	@RequestMapping(value = "main", method = RequestMethod.GET)
 	public ModelAndView home() {
+		System.out.println("asdfasdf");
 		return new ModelAndView("main","highCommend",msvc.getHighCommend());
 	}
 	

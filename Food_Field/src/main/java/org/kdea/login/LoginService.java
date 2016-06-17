@@ -47,4 +47,20 @@ public class LoginService {
 			return false;
 		return true;
 	}
+	
+	public UserVO searchId(UserVO user) {
+		LoginDAO dao = sqlSessionTemplate.getMapper(LoginDAO.class);
+		UserVO searchUser = dao.searchId(user);
+		if(searchUser == null)
+			return null;
+		return searchUser;
+	}
+	
+	public UserVO searchPwd(UserVO user) {
+		LoginDAO dao = sqlSessionTemplate.getMapper(LoginDAO.class);
+		UserVO searchUser = dao.searchPwd(user);
+		if(searchUser == null)
+			return null;
+		return searchUser;
+	}
 }

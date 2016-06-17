@@ -2,7 +2,7 @@
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 
 <script type="text/javascript"	src="http://code.jquery.com/jquery-2.2.2.min.js"></script>
@@ -64,15 +64,19 @@
 		<tr><td colspan="2"><hr></td></tr>
 		<tr><td colspan="2">${board.contents}</td></tr>
 		<tr><td colspan="2"><br><br><br></td></tr>
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<tr><td colspan="2" style="text-align:center;"><button type="button" id="replbtn" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-comment"></span> Answer</button></td></tr>
+		</sec:authorize>
 	</table>
 	
 	<br><br><br><br><br>
 	
 	<div class="btn-group" style="float:right;">
 		<button type="button" id="listbtn" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-th-list"></span> List</button>
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<button type="button" id="modifybtn" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-edit"></span> Modify</button>
 		<button type="button" id="delete" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+		</sec:authorize>
 	</div>
 	
 	<br><br><br><br><br>

@@ -21,6 +21,7 @@ public class MainService {
 		List<BoardVO> vo = dao.getHighCommend();
 		for(int i=0;i<vo.size();i++){
 			int first = vo.get(i).getContents().indexOf("<img");
+			System.out.println(first);
 			int end = vo.get(i).getContents().indexOf("\" />");
 			if(first == -1){
 				vo.get(i).setPhoto(null);

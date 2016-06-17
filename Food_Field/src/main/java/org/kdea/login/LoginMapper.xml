@@ -14,4 +14,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="checkNick" parameterType="org.kdea.vo.UserVO" resultType="org.kdea.vo.UserVO">
     	SELECT * FROM USERS WHERE nickname = #{nickname} and email != #{email}
     </select>
+    
+    <select id="searchId" parameterType="org.kdea.vo.UserVO" resultType="org.kdea.vo.UserVO">
+    	SELECT * FROM USERS WHERE NAME = #{name} AND PHONE = #{phone}
+    </select>
+    
+    <select id="searchPwd" parameterType="org.kdea.vo.UserVO" resultType="org.kdea.vo.UserVO">
+    	SELECT * FROM USERS WHERE EMAIL = #{email} AND NAME = #{name} AND PHONE = #{phone}
+    </select>
+    
+    <update id="tempPwd" parameterType="org.kdea.vo.UserVO">
+    	UPDATE USERS SET pwd = #{pwd} WHERE email = #{email}
+    </update>
 </mapper>

@@ -3,6 +3,7 @@ package org.kdea.join;
 import org.kdea.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,8 +32,17 @@ public class JoinController {
 	
 	@RequestMapping(value = "emailAuth", method = RequestMethod.GET)
 	public String emailAuth(@ModelAttribute("email") String email) {
-		if(joinService.emailAuth(email))
-			return "main";
-		return "main";
+		boolean result = joinService.emailAuth(email);
+		if(result)
+			return "redirect:/main";
+		return "redirect:/main";
+	}
+	
+	@RequestMapping(value = "sendPwd")
+	public String sendPwd(@ModelAttribute("email") String email, @ModelAttribute("name") String name, Model model) throws Exception {
+		System.out.println(email + "//" + name);
+		joinService.sendPwd(email, name);
+		model.addAttribute("msg", "가입하신 이메일로 임시 비밀번호를 발급하였습니다.");
+		return "searchResult";
 	}
 }

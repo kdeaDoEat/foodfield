@@ -8,4 +8,7 @@ public interface LoginDAO {
 	public UserVO getUserDetails(String email);
 	public int modifyUserInfo(UserVO user);
 	public UserVO checkNick(UserVO user);
+	public UserVO searchId(UserVO user);
+	public UserVO searchPwd(UserVO user);
+	public int tempPwd(UserVO user);
 }

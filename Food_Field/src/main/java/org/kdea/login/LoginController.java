@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -96,5 +97,39 @@ public class LoginController {
 	@RequestMapping(value = "reqLogin")
 	public String reqLogin() {
 		return "login/reqLogin";
+	}
+	
+	@RequestMapping(value = "searchIdForm")
+	public String searchIdForm() {
+		return "login/searchId";
+	}
+	
+	@RequestMapping(value = "searchId", method = RequestMethod.POST)
+	public String searchId(@ModelAttribute UserVO user, Model model) {
+		String msg = "아이디가 존재하지 않습니다.";
+		String result = loginService.searchId(user).getEmail();
+		if(result != null)
+			msg = "아이디는 " + result + " 입니다.";
+		model.addAttribute("msg", msg);
+		return "login/searchResult";
+	}
+	
+	@RequestMapping(value = "searchPwdForm")
+	public String searchPwdForm() {
+		return "login/searchPwd";
+	}
+	
+	@RequestMapping(value = "searchPwd", method = RequestMethod.POST)
+	public String searchPwd(@ModelAttribute UserVO user, Model model) {
+		UserVO result = loginService.searchPwd(user);
+		if(result == null) {
+			String msg = "입력 정보가 일치하지 않습니다.";
+			model.addAttribute("msg", msg);
+			return "login/searchResult";
+		} else {
+			model.addAttribute("email", result.getEmail());
+			model.addAttribute("name", result.getName());
+			return "redirect:/sendPwd";
+		}
 	}
 }
