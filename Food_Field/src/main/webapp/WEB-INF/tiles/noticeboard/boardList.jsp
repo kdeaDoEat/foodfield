@@ -62,7 +62,6 @@ a {
 		<div id="noticeList" class="container" style="margin-top: 120px; margin-left: auto; margin-right: auto; width: 80%;">
 			<div id="noticeTitle" style="width: 100%; text-align: center;">
 				<h1>공지게시판</h1>
-				<hr>
 			</div>
 			<div class="table-responsive"
 				style="margin-left: auto; margin-right: auto; width: 100%;">
