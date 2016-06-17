@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><%--계산을 쓸려면 fmt!! --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -58,6 +60,7 @@
 				<th style="text-align: center;">포인트</th>
 			</tr>
 			<c:forEach var="user" items="${userlist}" varStatus="status">
+			<sec:authorize access="!hasRole('ROLE_ADMIN')">
 				<tr>
 					<td style="text-align: center;">${user.rank}</td>
 					<td style="text-align: center;">${user.email}</td>
@@ -65,6 +68,7 @@
 					<td style="text-align: center;">${user.name}</td>
 					<td style="text-align: center;">${user.point}</td>
 				</tr>
+			</sec:authorize>
 			</c:forEach>
 		</table>
 		</div>
