@@ -60,7 +60,7 @@
 				<th style="text-align: center;">포인트</th>
 			</tr>
 			<c:forEach var="user" items="${userlist}" varStatus="status">
-			<sec:authorize access="!hasRole('ROLE_ADMIN')">
+			
 				<tr>
 					<td style="text-align: center;">${user.rank}</td>
 					<td style="text-align: center;">${user.email}</td>
@@ -68,7 +68,7 @@
 					<td style="text-align: center;">${user.name}</td>
 					<td style="text-align: center;">${user.point}</td>
 				</tr>
-			</sec:authorize>
+			
 			</c:forEach>
 		</table>
 		</div>
