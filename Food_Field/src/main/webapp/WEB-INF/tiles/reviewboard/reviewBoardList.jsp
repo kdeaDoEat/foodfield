@@ -31,15 +31,15 @@ function search() {
 }
 function recommend() {
 	var url=location.href;
-	location.href='http://192.168.8.43:8088/FoodField/review?range=recommend';
+	location.href='/FoodField/review?range=recommend';
 }
 function numm() {
 	var url=location.href;
-	location.href='http://192.168.8.43:8088/FoodField/review';
+	location.href='/FoodField/review';
 }
 function hitt() {
 	var url=location.href;
-	location.href='http://192.168.8.43:8088/FoodField/review?range=hit';
+	location.href='/FoodField/review?range=hit';
 }
 </script>
 <div class="container">
