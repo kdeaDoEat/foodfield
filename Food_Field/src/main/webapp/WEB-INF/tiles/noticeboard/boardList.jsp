@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><%--계산을 쓸려면 fmt!! --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -11,9 +12,9 @@
 <title>공지게시판</title>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-2.2.2.min.js">
+	
 </script>
 <script>
-
 	$(function() {
 
 		$("#writebtn").on("click", writego);
@@ -38,7 +39,6 @@
 				+ "&word=" + $("#search").val();
 
 	}
-	
 </script>
 <style>
 #belownavi {
@@ -52,43 +52,47 @@
 	margin-left: auto;
 	margin-right: auto;
 }
+
 a {
-
- text-decoration:none;
-
+	text-decoration: none;
 }
 </style>
 </head>
 <body>
-    <div id="noticeList" class="container" style="margin-top:120px;">
-    <div id="noticeTitle" style="margin-left:auto; margin-right:auto; width:80%; text-align:center;">
-    <h1>공지게시판</h1>
-    <hr>
-    </div>
-    <div class="table-responsive" style="margin-left: auto;
-	margin-right: auto; width:80%;">
-	<table class="table table-hover">
-		<tr>
-			<th style="text-align: center;">글 번호</th>
-			<th style="text-align: center;">글 제목</th>
-			<th style="text-align: center;">글쓴이</th>
-			<th style="text-align: center;">글쓴 날짜</th>
-		</tr>
-		<c:forEach var="board" items="${boardlist}" varStatus="status">
-			<tr>
-				<td style="text-align: center;">${board.num}</td>
-				<td><a href="view?num=${board.num}" style="text-decoration:none;">${board.title}</a></td>
-				<td style="text-align: center;">${board.nickname}</td>
-				<td style="text-align: center;">${board.w_date}</td>
-			</tr>
-		</c:forEach>
-	</table>	
-	</div>
-	</div>
-	<sec:authorize access="hasRole('ROLE_ADMIN')">
-	<button type="button" id="writebtn" class="btn btn-warning" style="margin-left:80%; margin-top:10px;"><span class="glyphicon glyphicon-pencil"></span> 글쓰기</button>
-	</sec:authorize>
-	<div id="belownavi">
+		<div id="noticeList" class="container" style="margin-top: 120px; margin-left: auto; margin-right: auto; width: 80%;">
+			<div id="noticeTitle" style="width: 100%; text-align: center;">
+				<h1>공지게시판</h1>
+				<hr>
+			</div>
+			<div class="table-responsive"
+				style="margin-left: auto; margin-right: auto; width: 100%;">
+				<table class="table table-hover">
+					<tr>
+						<th style="text-align: center;">글 번호</th>
+						<th style="text-align: center;">글 제목</th>
+						<th style="text-align: center;">글쓴이</th>
+						<th style="text-align: center;">글쓴 날짜</th>
+					</tr>
+					<c:forEach var="board" items="${boardlist}" varStatus="status">
+						<tr>
+							<td style="text-align: center;">${board.num}</td>
+							<td><a href="view?num=${board.num}"
+								style="text-decoration: none;">${board.title}</a></td>
+							<td style="text-align: center;">${board.nickname}</td>
+							<td style="text-align: center;">${board.w_date}</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<button type="button" id="writebtn" class="btn btn-warning"
+					style="float: right; margin-top: 10px;">
+					<span class="glyphicon glyphicon-pencil"></span> 글쓰기
+				</button>
+			</sec:authorize>
+		</div>
+
+	<div id="belownavi" style="margin-top: 50px;">
 		<ul class="pagination">
 			<fmt:parseNumber var="currdivppp" type="number"
 				value="${page.currpage/page.ppp}" integerOnly="true" />
@@ -157,24 +161,27 @@ a {
 
 			</c:if>
 		</ul>
-		
-	</div>
-    <center style="margin-top:50px;">
-	<form class="navbar-form navbar" role="search" style="display:table; margin-left:auto; margin-right:auto;">
 
-		<div class="form-group">
-			<select name="type" id="searchoption" class="form-control">
-				<option value="제목">제목</option>
-				<option value="내용">내용</option>
-				<option value="작성자">작성자</option>
-			</select> 
-			<input type="text" class="form-control" id="search" name="word"
-				placeholder="검색할 내용을 입력하세요"/>
-				<button type="button" id="searchbtn" class="btn btn-info btn-warning" style="margin:0px"><span class="glyphicon glyphicon-search"></span> 검색</button>
-		</div>
-		
-	</form>	
-    </center>
-    
+	</div>
+	<center style="margin-top: 50px;">
+		<form class="navbar-form navbar" role="search"
+			style="display: table; margin-left: auto; margin-right: auto;">
+
+			<div class="form-group">
+				<select name="type" id="searchoption" class="form-control">
+					<option value="제목">제목</option>
+					<option value="내용">내용</option>
+					<option value="작성자">작성자</option>
+				</select> <input type="text" class="form-control" id="search" name="word"
+					placeholder="검색할 내용을 입력하세요" />
+				<button type="button" id="searchbtn"
+					class="btn btn-info btn-warning" style="margin: 0px">
+					<span class="glyphicon glyphicon-search"></span> 검색
+				</button>
+			</div>
+
+		</form>
+	</center>
+
 </body>
 </html>
