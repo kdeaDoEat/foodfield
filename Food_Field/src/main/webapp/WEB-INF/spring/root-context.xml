@@ -31,6 +31,8 @@
 		<sec:intercept-url pattern="/notice/view" access="isAuthenticated()" />
 		<sec:intercept-url pattern="/qnaview" access="isAuthenticated()" />
 		<sec:intercept-url pattern="/detail" access="isAuthenticated()" />
+		<sec:intercept-url pattern="/rank/**" access="isAuthenticated()" />
+		<sec:intercept-url pattern="/doit" access="isAuthenticated()" />
 		<sec:intercept-url pattern="/**" access="permitAll" />
 		<sec:form-login login-page="/reqLogin"
 			login-processing-url="/**/loginProcess"

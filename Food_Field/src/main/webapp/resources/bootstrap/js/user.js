@@ -186,7 +186,38 @@ $(function() {
 	$('#joinId').on('change', function() {
 		$('#joinIdMsg').text('');
 		$('#checkEmail').val('false');
-	})
+	});
+	
+	// 마이 페이지에서 비밀번호 변경 버튼 클릭 시 작동
+	$('#changePwdBtn').on('click', function() {
+		if(!confirm('정말 비밀번호를 변경하시겠습니까 ?'))
+			return;
+		
+		if($('#newPwd').val() != $('#newPwdCheck').val()) {
+			$('#changePwdMsg').css('color', 'red');
+			$('#changePwdMsg').text('새 비밀번호가 일치하지 않습니다.');
+			return;
+		}
+		
+		$.ajax({
+			url : 'changePwd',
+			type : 'post',
+			data : $('#changePwdForm').serialize(),
+			success : function(res) {
+				if(res == 'true') {
+					alert('비밀번호가 정상적으로 변경되었습니다.');
+					location.href = 'main';
+				} else {
+					$('#changePwdMsg').css('color', 'red');
+					$('#changePwdMsg').text('비밀번호를 정확히 입력해주세요.');
+				}
+			},
+			error : function(xhr, status, error) {
+				alert(error);
+			}
+		});
+	});
+	
 });
 
 function goMain() {

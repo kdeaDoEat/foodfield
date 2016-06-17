@@ -23,7 +23,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	SELECT * FROM USERS WHERE EMAIL = #{email} AND NAME = #{name} AND PHONE = #{phone}
     </select>
     
+    <select id="checkPwd" parameterType="org.kdea.vo.UserVO" resultType="org.kdea.vo.UserVO">
+    	SELECT * FROM USERS WHERE EMAIL = #{email} AND PWD = #{pwd}
+    </select>
+    
     <update id="tempPwd" parameterType="org.kdea.vo.UserVO">
+    	UPDATE USERS SET pwd = #{pwd} WHERE email = #{email}
+    </update>
+    
+    <update id="changePwd" parameterType="org.kdea.vo.UserVO">
     	UPDATE USERS SET pwd = #{pwd} WHERE email = #{email}
     </update>
 </mapper>

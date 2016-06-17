@@ -132,4 +132,12 @@ public class LoginController {
 			return "redirect:/sendPwd";
 		}
 	}
+	
+	@RequestMapping(value = "changePwd", method = RequestMethod.POST)
+	@ResponseBody
+	public String changePwd(@ModelAttribute("email") String email, @ModelAttribute("oldPwd") String oldPwd, @ModelAttribute("newPwd") String newPwd) {
+		if(loginService.changePwd(email, oldPwd, newPwd))
+			return "true";
+		return "false";
+	}
 }

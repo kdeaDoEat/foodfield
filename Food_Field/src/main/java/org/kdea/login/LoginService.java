@@ -63,4 +63,22 @@ public class LoginService {
 			return null;
 		return searchUser;
 	}
+	
+	public boolean changePwd(String email, String oldPwd, String newPwd) {
+		LoginDAO dao = sqlSessionTemplate.getMapper(LoginDAO.class);
+		UserVO user = new UserVO();
+		user.setEmail(email);
+		user = dao.login(email);
+		if(!passwordEncoder.matches(oldPwd, user.getPwd())) {
+			System.out.println("에러 1" + user.getPwd());
+			return false;
+		}
+		newPwd = passwordEncoder.encode(newPwd);
+		user.setPwd(newPwd);
+		if(dao.changePwd(user) == 0) {
+			System.out.println("에러 2" + user.getPwd());
+			return false;
+		}
+		return true;
+	}
 }

@@ -35,6 +35,35 @@ $(function() {
 	});
 });
 </script>
+<!-- Password Change Modal -->
+<div class="modal fade" id="changePwdModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">비밀번호 변경</h4>
+			</div>
+			<form method="post" id="changePwdForm">
+			<div class="modal-body">
+				<input type="hidden" name="email" value="${user.email }">
+				기존 비밀번호<input type="password" name="oldPwd" class="form-control" style="margin-bottom: 10px">
+				새 비밀번호<input type="password" name="newPwd" id="newPwd" class="form-control" style="margin-bottom: 10px">
+				새 비밀번호 확인<input type="password" name="newPwdCheck" id="newPwdCheck" class="form-control" style="margin-bottom: 10px">
+				<div style="width: 100%; text-align: right;">
+				<span id="changePwdMsg" style="padding-right: 60px"></span>
+				<button type="button" id="changePwdBtn" class="btn btn-primary" style="margin-bottom: 0px"><span class="glyphicon glyphicon-ok"></span> 변경</button>
+				</div>
+			</div>
+			<div class="modal-footer" style="text-align: center;">
+			</div>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			</form>
+		</div>
+	</div>
+</div>
 <div class="container">
 <form action="modifyUserInfo" method="post" id="modifyInfoForm">
 	아이디 <input type="text" class="form-control" id="email" name="email" style="margin-bottom: 10px" value="${user.email }" readonly><br>
@@ -51,6 +80,7 @@ $(function() {
 	성별 <input type="text" class="form-control" name="gender" style="margin-bottom: 10px" value="${user.gender }" readonly><br>
 	포인트 <input type="text" class="form-control" name="point" style="margin-bottom: 10px" value="${user.point }" readonly><br>
 	<div style="text-align: right;">
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changePwdModal"><span class="glyphicon glyphicon-edit"></span> 비밀번호 변경</button>
 	<button type="button" class="btn btn-primary" id="modifyInfoBtn"><span class="glyphicon glyphicon-ok"></span> 확인</button>
 	<button type="button" class="btn btn-default" onclick="goMain()"><span class="glyphicon glyphicon-remove"></span> 취소</button>
 	</div>

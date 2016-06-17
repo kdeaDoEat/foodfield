@@ -52,7 +52,7 @@ function hitt() {
 		<div class="col-lg-4 col-lg-offset-11">
 			<div class="input-group-btn search-panel">
 	                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-	                    	<span id="search_concept">Option</span> <span class="caret"></span>
+	                    	<span>Option</span> <span class="caret"></span>
 	                    </button>
 	                    <ul class="dropdown-menu" role="menu">
 	                      <li><span style="cursor: pointer;" onclick="numm()">최신글 순</span></li>
