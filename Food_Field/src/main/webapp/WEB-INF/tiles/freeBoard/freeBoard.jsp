@@ -23,7 +23,7 @@
 	<%if (pages == 1) {%>
 		$('#prev').hide();
 		
-	<%} else if (pages == lastPages)%>
+	<%} else if (pages == lastPages);%>
 		/* $('#next').hide(); 	*/
 
 		}); 
